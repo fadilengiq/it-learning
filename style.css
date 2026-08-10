@@ -91,3 +91,65 @@ footer {
     text-align: center;
     padding: 20px;
 }
+
+.lesson {
+    background-color: white;
+    padding: 25px;
+    margin: 25px auto;
+    max-width: 900px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.lesson h2 {
+    color: #2563eb;
+    margin-bottom: 15px;
+}
+
+.lesson h3 {
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.lesson p {
+    margin-bottom: 15px;
+}
+
+.lesson ul {
+    padding-left: 25px;
+}
+
+.lesson li {
+    margin-bottom: 8px;
+}
+
+.concept {
+    background-color: #f4f7fb;
+    padding: 18px;
+    margin: 15px 0;
+    border-left: 4px solid #2563eb;
+    border-radius: 6px;
+}
+
+.quiz {
+    border-left: 5px solid #16a34a;
+}
+
+.back-button {
+    display: block;
+    width: fit-content;
+    margin: 30px auto;
+    padding: 12px 20px;
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.back-button:hover {
+    background-color: #1d4ed8;
+}
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
