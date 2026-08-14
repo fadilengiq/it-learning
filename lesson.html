@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Lesson - IT Learning Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <a href="index.html">
+                IT Learning Hub
+            </a>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#learning-paths">
+                Learning Paths
+            </a>
+
+            <a href="account.html">
+                My Account
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Lesson -->
+
+    <main class="section">
+
+        <div class="section-heading">
+
+            <span
+                id="lessonNumber"
+                class="section-label">
+                LESSON
+            </span>
+
+            <h1 id="lessonTitle">
+                Loading...
+            </h1>
+
+            <p id="lessonDescription">
+                Loading lesson...
+            </p>
+
+        </div>
+
+
+        <!-- Lesson content -->
+
+        <section class="account-card">
+
+            <div id="lessonContent">
+
+                Loading lesson content...
+
+            </div>
+
+        </section>
+
+
+        <!-- Completion -->
+
+        <section class="account-card">
+
+            <h2>
+                Lesson Progress
+            </h2>
+
+            <p id="progressMessage">
+                Complete this lesson when you have finished
+                studying the material.
+            </p>
+
+            <button
+                id="completeButton"
+                class="primary-button">
+
+                Mark as Complete
+
+            </button>
+
+        </section>
+
+
+        <!-- Navigation -->
+
+        <section class="account-actions">
+
+            <a
+                href="networking.html"
+                class="secondary-button">
+
+                ← Back to Networking
+
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 IT Learning Hub
+        </p>
+
+        <p>
+            Learn • Practice • Build
+        </p>
+
+    </footer>
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <script src="supabase.js"></script>
+
+
+    <script>
+
+        /*
+         * Get lesson ID from URL
+         *
+         * Example:
+         *
+         * lesson.html?id=1
+         */
+
+        const params =
+            new URLSearchParams(window.location.search);
+
+        const lessonId =
+            params.get("id");
+
+
+        const lessonNumber =
+            document.getElementById("lessonNumber");
+
+        const lessonTitle =
+            document.getElementById("lessonTitle");
+
+        const lessonDescription =
+            document.getElementById("lessonDescription");
+
+        const lessonContent =
+            document.getElementById("lessonContent");
+
+        const completeButton =
+            document.getElementById("completeButton");
+
+        const progressMessage =
+            document.getElementById("progressMessage");
+
+
+        /*
+         * Check lesson ID
+         */
+
+        if (!lessonId) {
+
+            lessonTitle.textContent =
+                "Lesson not found";
+
+            lessonDescription.textContent =
+                "No lesson ID was provided.";
+
+            completeButton.style.display =
+                "none";
+
+        }
+
+
+        /*
+         * Load lesson
+         */
+
+        async function loadLesson() {
+
+            const {
+                data: lesson,
+                error
+            } = await supabaseClient
+
+                .from("lessons")
+
+                .select(`
+                    id,
+                    lesson_number,
+                    title,
+                    description,
+                    content
+                `)
+
+                .eq("id", lessonId)
+
+                .single();
+
+
+            /*
+             * Error
+             */
+
+            if (error) {
+
+                console.error(error);
+
+                lessonTitle.textContent =
+                    "Unable to load lesson";
+
+                lessonDescription.textContent =
+                    error.message;
+
+                completeButton.style.display =
+                    "none";
+
+                return;
+            }
+
+
+            /*
+             * Display lesson
+             */
+
+            lessonNumber.textContent =
+                `LESSON ${lesson.lesson_number}`;
+
+
+            lessonTitle.textContent =
+                lesson.title;
+
+
+            lessonDescription.textContent =
+                lesson.description || "";
+
+
+            /*
+             * Display content
+             *
+             * We convert line breaks into paragraphs.
+             */
+
+            lessonContent.innerHTML =
+                formatLessonContent(
+                    lesson.content || ""
+                );
+
+
+            /*
+             * Check progress
+             */
+
+            await checkProgress();
+
+        }
+
+
+        /*
+         * Format lesson content
+         */
+
+        function formatLessonContent(content) {
+
+            const paragraphs =
+                content
+                    .split(/\n\s*\n/)
+                    .filter(text => text.trim());
+
+
+            return paragraphs
+                .map(text => {
+
+                    return `
+                        <p>
+                            ${escapeHtml(text)
+                                .replace(/\n/g, "<br>")}
+                        </p>
+                    `;
+
+                })
+                .join("");
+
+        }
+
+
+        /*
+         * Protect the page from
+         * interpreting lesson content as HTML.
+         */
+
+        function escapeHtml(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                text;
+
+            return div.innerHTML;
+
+        }
+
+
+        /*
+         * Check authenticated user
+         * and lesson progress.
+         */
+
+        async function checkProgress() {
+
+            const {
+                data: { user }
+            } =
+                await supabaseClient.auth.getUser();
+
+
+            /*
+             * User is not logged in.
+             */
+
+            if (!user) {
+
+                progressMessage.textContent =
+                    "Login to save your learning progress.";
+
+                completeButton.textContent =
+                    "Login to Continue";
+
+                completeButton.onclick = () => {
+
+                    window.location.href =
+                        "login.html";
+
+                };
+
+                return;
+
+            }
+
+
+            /*
+             * Get progress record.
+             */
+
+            const {
+                data: progress,
+                error
+            } = await supabaseClient
+
+                .from("lesson_progress")
+
+                .select(`
+                    id,
+                    completed
+                `)
+
+                .eq("user_id", user.id)
+
+                .eq("lesson_id", lessonId)
+
+                .maybeSingle();
+
+
+            if (error) {
+
+                console.error(error);
+
+                return;
+
+            }
+
+
+            /*
+             * Already completed
+             */
+
+            if (progress && progress.completed) {
+
+                completeButton.textContent =
+                    "✓ Lesson Completed";
+
+                completeButton.disabled =
+                    true;
+
+                progressMessage.textContent =
+                    "You have already completed this lesson.";
+
+            }
+
+        }
+
+
+        /*
+         * Mark lesson as completed.
+         */
+
+        completeButton.addEventListener(
+            "click",
+            async () => {
+
+                completeButton.disabled =
+                    true;
+
+                progressMessage.textContent =
+                    "Saving your progress...";
+
+
+                /*
+                 * Get current user.
+                 */
+
+                const {
+                    data: { user }
+                } =
+                    await supabaseClient.auth.getUser();
+
+
+                if (!user) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                /*
+                 * Check whether progress
+                 * already exists.
+                 */
+
+                const {
+                    data: existing,
+                    error: checkError
+                } =
+                    await supabaseClient
+
+                        .from("lesson_progress")
+
+                        .select("id")
+
+                        .eq("user_id", user.id)
+
+                        .eq("lesson_id", lessonId)
+
+                        .maybeSingle();
+
+
+                if (checkError) {
+
+                    console.error(checkError);
+
+                    progressMessage.textContent =
+                        checkError.message;
+
+                    completeButton.disabled =
+                        false;
+
+                    return;
+
+                }
+
+
+                /*
+                 * Existing record
+                 */
+
+                if (existing) {
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+
+                            .from("lesson_progress")
+
+                            .update({
+                                completed: true,
+                                completed_at:
+                                    new Date().toISOString()
+                            })
+
+                            .eq(
+                                "id",
+                                existing.id
+                            );
+
+
+                    if (error) {
+
+                        console.error(error);
+
+                        progressMessage.textContent =
+                            error.message;
+
+                        completeButton.disabled =
+                            false;
+
+                        return;
+
+                    }
+
+                }
+
+
+                /*
+                 * New progress record
+                 */
+
+                else {
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+
+                            .from("lesson_progress")
+
+                            .insert({
+
+                                user_id: user.id,
+
+                                lesson_id:
+                                    Number(lessonId),
+
+                                completed: true,
+
+                                completed_at:
+                                    new Date().toISOString()
+
+                            });
+
+
+                    if (error) {
+
+                        console.error(error);
+
+                        progressMessage.textContent =
+                            error.message;
+
+                        completeButton.disabled =
+                            false;
+
+                        return;
+
+                    }
+
+                }
+
+
+                /*
+                 * Success
+                 */
+
+                completeButton.textContent =
+                    "✓ Lesson Completed";
+
+
+                progressMessage.textContent =
+                    "Great work! Your progress has been saved.";
+
+            }
+        );
+
+
+        /*
+         * Start
+         */
+
+        if (lessonId) {
+
+            loadLesson();
+
+        }
+
+    </script>
+
+</body>
+
+</html>

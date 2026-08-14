@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>My Account - IT Learning Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <a href="index.html">
+                IT Learning Hub
+            </a>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#learning-paths">
+                Learning Paths
+            </a>
+
+            <a href="account.html">
+                My Account
+            </a>
+
+            <button
+                id="logoutButton"
+                class="logout-button">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Account -->
+
+    <main class="account-page">
+
+        <!-- Account Header -->
+
+        <section class="account-header">
+
+            <span class="section-label">
+                STUDENT ACCOUNT
+            </span>
+
+            <h1>
+                Welcome,
+                <span id="userName">Student</span>
+                👋
+            </h1>
+
+            <p>
+                Manage your learning journey, track your progress,
+                and access your certificates.
+            </p>
+
+        </section>
+
+
+        <!-- Profile -->
+
+        <section class="account-card">
+
+            <h2>
+                Profile
+            </h2>
+
+            <div class="profile-info">
+
+                <div>
+
+                    <strong>
+                        Full Name
+                    </strong>
+
+                    <p id="profileName">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Email
+                    </strong>
+
+                    <p id="profileEmail">
+                        Loading...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Learning Progress -->
+
+        <section class="account-card">
+
+            <h2>
+                My Learning
+            </h2>
+
+            <p>
+                Your learning progress will appear here as you
+                complete lessons and levels.
+            </p>
+
+
+            <div class="course-progress">
+
+                <div class="course-info">
+
+                    <h3>
+                        🌐 Networking
+                    </h3>
+
+                    <span>
+                        Level 1
+                    </span>
+
+                </div>
+
+
+                <!-- Progress Bar -->
+
+                <div class="progress-container">
+
+                    <div
+                        id="networkingProgress"
+                        class="progress-bar">
+                    </div>
+
+                </div>
+
+
+                <p id="networkingProgressText">
+                    Loading progress...
+                </p>
+
+
+                <a
+                    href="networking.html"
+                    class="primary-button">
+
+                    Continue Networking →
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- Certificates -->
+
+        <section class="account-card">
+
+            <h2>
+                🏆 My Certificates
+            </h2>
+
+            <div id="certificates">
+
+                <p>
+                    No certificates yet.
+                    Complete a learning level to earn your
+                    first certificate.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Account Actions -->
+
+        <section class="account-actions">
+
+            <a
+                href="index.html"
+                class="secondary-button">
+
+                ← Back to IT Learning Hub
+
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 IT Learning Hub
+        </p>
+
+        <p>
+            Learn • Practice • Build
+        </p>
+
+    </footer>
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <script src="supabase.js"></script>
+
+    <script src="auth.js"></script>
+
+
+    <!-- Account Logic -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async () => {
+
+                /*
+                 * =====================================
+                 * 1. Get authenticated user
+                 * =====================================
+                 */
+
+                const {
+                    data: { user },
+                    error: userError
+                } =
+                    await supabaseClient.auth.getUser();
+
+
+                /*
+                 * No authenticated user
+                 */
+
+                if (userError || !user) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                /*
+                 * =====================================
+                 * 2. Display user information
+                 * =====================================
+                 */
+
+                const metadata =
+                    user.user_metadata || {};
+
+
+                const fullName =
+                    metadata.full_name ||
+                    metadata.name ||
+                    "Student";
+
+
+                document.getElementById(
+                    "userName"
+                ).textContent =
+                    fullName;
+
+
+                document.getElementById(
+                    "profileName"
+                ).textContent =
+                    fullName;
+
+
+                document.getElementById(
+                    "profileEmail"
+                ).textContent =
+                    user.email ||
+                    "No email";
+
+
+                /*
+                 * =====================================
+                 * 3. Get Networking lessons
+                 * =====================================
+                 */
+
+                const {
+                    data: lessons,
+                    error: lessonsError
+                } =
+                    await supabaseClient
+
+                        .from("lessons")
+
+                        .select("id")
+
+                        .eq("level_id", 1);
+
+
+                if (lessonsError) {
+
+                    console.error(
+                        "Lessons error:",
+                        lessonsError
+                    );
+
+                    document.getElementById(
+                        "networkingProgressText"
+                    ).textContent =
+                        "Unable to load progress.";
+
+                    return;
+
+                }
+
+
+                /*
+                 * =====================================
+                 * 4. Get completed lessons
+                 * =====================================
+                 */
+
+                const {
+                    data: progress,
+                    error: progressError
+                } =
+                    await supabaseClient
+
+                        .from("lesson_progress")
+
+                        .select(
+                            "lesson_id, completed"
+                        )
+
+                        .eq(
+                            "user_id",
+                            user.id
+                        )
+
+                        .eq(
+                            "completed",
+                            true
+                        );
+
+
+                if (progressError) {
+
+                    console.error(
+                        "Progress error:",
+                        progressError
+                    );
+
+                    document.getElementById(
+                        "networkingProgressText"
+                    ).textContent =
+                        "Unable to load progress.";
+
+                    return;
+
+                }
+
+
+                /*
+                 * =====================================
+                 * 5. Calculate progress
+                 * =====================================
+                 */
+
+                const totalLessons =
+                    lessons
+                        ? lessons.length
+                        : 0;
+
+
+                /*
+                 * Only count completed lessons
+                 * that actually belong to Level 1.
+                 */
+
+                const lessonIds =
+                    new Set(
+                        lessons.map(
+                            lesson => lesson.id
+                        )
+                    );
+
+
+                const completedLessons =
+                    progress.filter(
+                        item =>
+                            lessonIds.has(
+                                item.lesson_id
+                            )
+                    ).length;
+
+
+                let percentage = 0;
+
+
+                if (totalLessons > 0) {
+
+                    percentage =
+                        Math.round(
+                            (
+                                completedLessons /
+                                totalLessons
+                            ) * 100
+                        );
+
+                }
+
+
+                /*
+                 * =====================================
+                 * 6. Update progress bar
+                 * =====================================
+                 */
+
+                const progressBar =
+                    document.getElementById(
+                        "networkingProgress"
+                    );
+
+
+                const progressText =
+                    document.getElementById(
+                        "networkingProgressText"
+                    );
+
+
+                if (progressBar) {
+
+                    progressBar.style.width =
+                        `${percentage}%`;
+
+                }
+
+
+                if (progressText) {
+
+                    progressText.textContent =
+                        `${percentage}% completed`;
+                }
+
+
+                /*
+                 * =====================================
+                 * 7. Logout
+                 * =====================================
+                 */
+
+                const logoutButton =
+                    document.getElementById(
+                        "logoutButton"
+                    );
+
+
+                logoutButton.addEventListener(
+                    "click",
+                    async () => {
+
+                        logoutButton.disabled =
+                            true;
+
+                        logoutButton.textContent =
+                            "Logging out...";
+
+
+                        const {
+                            error
+                        } =
+                            await supabaseClient
+                                .auth
+                                .signOut();
+
+
+                        if (error) {
+
+                            console.error(
+                                error
+                            );
+
+                            alert(
+                                "Unable to logout. Please try again."
+                            );
+
+                            logoutButton.disabled =
+                                false;
+
+                            logoutButton.textContent =
+                                "Logout";
+
+                            return;
+
+                        }
+
+
+                        window.location.href =
+                            "login.html";
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

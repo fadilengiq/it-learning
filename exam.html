@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Networking Level 1 Exam - IT Learning Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <a href="index.html">
+                IT Learning Hub
+            </a>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#learning-paths">
+                Learning Paths
+            </a>
+
+            <a href="account.html">
+                My Account
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Exam -->
+
+    <main class="account-page">
+
+        <section class="account-header">
+
+            <span class="section-label">
+                FINAL EXAM
+            </span>
+
+            <h1 id="levelTitle">
+                Networking Fundamentals
+            </h1>
+
+            <p>
+                Level 1 Final Exam
+            </p>
+
+        </section>
+
+
+        <!-- Exam Information -->
+
+        <section class="account-card">
+
+            <h2>
+                Exam Instructions
+            </h2>
+
+            <p>
+                Answer all questions and submit your exam
+                when you are finished.
+            </p>
+
+            <p>
+                Passing score:
+                <strong id="passingScoreText">
+                    Loading...
+                </strong>
+            </p>
+
+            <p id="examStatus">
+                Loading questions...
+            </p>
+
+        </section>
+
+
+        <!-- Questions -->
+
+        <form id="examForm">
+
+            <div id="questionsContainer"></div>
+
+
+            <section class="account-card">
+
+                <button
+                    type="submit"
+                    id="submitExamButton"
+                    class="primary-button">
+
+                    Submit Exam
+
+                </button>
+
+            </section>
+
+        </form>
+
+
+        <!-- Result -->
+
+        <section
+            id="examResult"
+            class="account-card"
+            style="display: none;">
+
+            <h2>
+                Exam Result
+            </h2>
+
+            <p id="scoreText"></p>
+
+            <p id="resultMessage"></p>
+
+            <div id="resultActions"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
+    <script src="supabase.js"></script>
+
+
+    <!-- Exam Logic -->
+
+    <script>
+
+        const LEVEL_ID = 1;
+
+
+        /*
+         * =====================================
+         * Page elements
+         * =====================================
+         */
+
+        const examForm =
+            document.getElementById("examForm");
+
+        const questionsContainer =
+            document.getElementById("questionsContainer");
+
+        const examStatus =
+            document.getElementById("examStatus");
+
+        const submitExamButton =
+            document.getElementById("submitExamButton");
+
+        const examResult =
+            document.getElementById("examResult");
+
+        const scoreText =
+            document.getElementById("scoreText");
+
+        const resultMessage =
+            document.getElementById("resultMessage");
+
+        const resultActions =
+            document.getElementById("resultActions");
+
+        const passingScoreText =
+            document.getElementById("passingScoreText");
+
+        const levelTitleElement =
+            document.getElementById("levelTitle");
+
+
+        /*
+         * =====================================
+         * Application state
+         * =====================================
+         */
+
+        let questions = [];
+
+        let currentUser = null;
+
+        let passingScore = 70;
+
+        let levelTitle =
+            "Networking Fundamentals";
+
+
+        /*
+         * =====================================
+         * Start
+         * =====================================
+         */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadExam
+        );
+
+
+        /*
+         * =====================================
+         * Load exam
+         * =====================================
+         */
+
+        async function loadExam() {
+
+            /*
+             * Get authenticated user
+             */
+
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient
+                    .auth
+                    .getUser();
+
+
+            if (userError || !user) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            currentUser = user;
+
+
+            /*
+             * Get level information
+             */
+
+            const {
+                data: level,
+                error: levelError
+            } =
+                await supabaseClient
+                    .from("levels")
+                    .select(
+                        "title, passing_score"
+                    )
+                    .eq(
+                        "id",
+                        LEVEL_ID
+                    )
+                    .single();
+
+
+            if (levelError || !level) {
+
+                console.error(
+                    "Level error:",
+                    levelError
+                );
+
+                examStatus.textContent =
+                    "Unable to load level information.";
+
+                submitExamButton.disabled =
+                    true;
+
+                return;
+
+            }
+
+
+            /*
+             * Store level information
+             */
+
+            levelTitle =
+                level.title ||
+                "Networking Fundamentals";
+
+
+            passingScore =
+                level.passing_score ?? 70;
+
+
+            /*
+             * Display level information
+             */
+
+            levelTitleElement.textContent =
+                levelTitle;
+
+
+            passingScoreText.textContent =
+                `${passingScore}%`;
+
+
+            /*
+             * Get questions
+             */
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                    .from("questions")
+                    .select(`
+                        id,
+                        question_number,
+                        question_text,
+                        option_a,
+                        option_b,
+                        option_c,
+                        option_d,
+                        correct_answer
+                    `)
+                    .eq(
+                        "level_id",
+                        LEVEL_ID
+                    )
+                    .order(
+                        "question_number"
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Questions error:",
+                    error
+                );
+
+                examStatus.textContent =
+                    "Unable to load the exam.";
+
+                submitExamButton.disabled =
+                    true;
+
+                return;
+
+            }
+
+
+            questions =
+                data || [];
+
+
+            /*
+             * Check questions
+             */
+
+            if (questions.length === 0) {
+
+                examStatus.textContent =
+                    "No questions are available.";
+
+                submitExamButton.disabled =
+                    true;
+
+                return;
+
+            }
+
+
+            /*
+             * Display exam information
+             */
+
+            examStatus.textContent =
+                `${questions.length} questions`;
+
+
+            /*
+             * Render questions
+             */
+
+            renderQuestions();
+
+        }
+
+
+        /*
+         * =====================================
+         * Render questions
+         * =====================================
+         */
+
+        function renderQuestions() {
+
+            questionsContainer.innerHTML = "";
+
+
+            questions.forEach(
+                (question, index) => {
+
+                    const card =
+                        document.createElement(
+                            "section"
+                        );
+
+
+                    card.className =
+                        "account-card";
+
+
+                    card.innerHTML = `
+
+                        <h2>
+                            Question ${index + 1}
+                        </h2>
+
+                        <p>
+                            <strong>
+                                ${escapeHtml(
+                                    question.question_text
+                                )}
+                            </strong>
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="question_${question.id}"
+                                value="A">
+
+                            ${escapeHtml(
+                                question.option_a
+                            )}
+
+                        </label>
+
+
+                        <br><br>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="question_${question.id}"
+                                value="B">
+
+                            ${escapeHtml(
+                                question.option_b
+                            )}
+
+                        </label>
+
+
+                        <br><br>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="question_${question.id}"
+                                value="C">
+
+                            ${escapeHtml(
+                                question.option_c
+                            )}
+
+                        </label>
+
+
+                        <br><br>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="question_${question.id}"
+                                value="D">
+
+                            ${escapeHtml(
+                                question.option_d
+                            )}
+
+                        </label>
+
+                    `;
+
+
+                    questionsContainer.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+         * =====================================
+         * Submit exam
+         * =====================================
+         */
+
+        examForm.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+
+                if (!questions.length) {
+
+                    return;
+
+                }
+
+
+                /*
+                 * Prevent double submission
+                 */
+
+                submitExamButton.disabled =
+                    true;
+
+                submitExamButton.textContent =
+                    "Submitting...";
+
+
+                /*
+                 * Calculate score
+                 */
+
+                let correctCount = 0;
+
+
+                questions.forEach(
+                    (question) => {
+
+                        const selected =
+                            document.querySelector(
+                                `input[name="question_${question.id}"]:checked`
+                            );
+
+
+                        if (
+                            selected &&
+                            selected.value ===
+                            question.correct_answer
+                        ) {
+
+                            correctCount++;
+
+                        }
+
+                    }
+                );
+
+
+                /*
+                 * Score
+                 */
+
+                const totalQuestions =
+                    questions.length;
+
+
+                const score =
+                    Math.round(
+                        (
+                            correctCount /
+                            totalQuestions
+                        ) * 100
+                    );
+
+
+                /*
+                 * Determine pass/fail
+                 */
+
+                const passed =
+                    score >= passingScore;
+
+
+                /*
+                 * Save exam attempt
+                 */
+
+                const {
+                    error
+                } =
+                    await supabaseClient
+                        .from("exam_attempts")
+                        .insert({
+
+                            user_id:
+                                currentUser.id,
+
+                            level_id:
+                                LEVEL_ID,
+
+                            score:
+                                score,
+
+                            passed:
+                                passed
+
+                        });
+
+
+                if (error) {
+
+                    console.error(
+                        "Exam attempt error:",
+                        error
+                    );
+
+                    examStatus.textContent =
+                        "Your result could not be saved.";
+
+                    submitExamButton.disabled =
+                        false;
+
+                    submitExamButton.textContent =
+                        "Submit Exam";
+
+                    return;
+
+                }
+
+
+                /*
+                 * Display result
+                 */
+
+                examResult.style.display =
+                    "block";
+
+
+                scoreText.textContent =
+                    `Your score: ${score}% (${correctCount}/${totalQuestions})`;
+
+
+                /*
+                 * Passed
+                 */
+
+                if (passed) {
+
+                    resultMessage.textContent =
+                        `🎉 Congratulations! You passed ${levelTitle}.`;
+
+
+                    resultActions.innerHTML = `
+
+                        <a
+                            href="account.html"
+                            class="primary-button">
+
+                            Go to My Account →
+
+                        </a>
+
+                    `;
+
+
+                    submitExamButton.style.display =
+                        "none";
+
+                }
+
+
+                /*
+                 * Failed
+                 */
+
+                else {
+
+                    resultMessage.textContent =
+                        `You did not reach the passing score of ${passingScore}%. Please review the lessons and try again.`;
+
+
+                    resultActions.innerHTML = `
+
+                        <a
+                            href="networking.html"
+                            class="secondary-button">
+
+                            Review Networking Lessons
+
+                        </a>
+
+                    `;
+
+
+                    submitExamButton.disabled =
+                        false;
+
+                    submitExamButton.textContent =
+                        "Try Again";
+
+                }
+
+
+                /*
+                 * Scroll to result
+                 */
+
+                examResult.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+
+        /*
+         * =====================================
+         * HTML escaping
+         * =====================================
+         */
+
+        function escapeHtml(value) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+
