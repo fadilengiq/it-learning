@@ -138,135 +138,327 @@
 
     <!-- Networking logic -->
 
-    <script>
+<script>
 
-        const lessonsContainer =
-            document.getElementById("lessonsContainer");
+    const LEVEL_ID = 1;
 
-        const networkingMessage =
-            document.getElementById("networkingMessage");
+    const lessonsContainer =
+        document.getElementById("lessonsContainer");
 
-
-        async function loadLessons() {
-
-            /*
-             * Get lessons belonging to
-             * Networking Level 1.
-             */
-
-            const {
-                data: lessons,
-                error
-            } = await supabaseClient
-
-                .from("lessons")
-
-                .select(`
-                    id,
-                    lesson_number,
-                    title,
-                    description
-                `)
-
-                .eq("level_id", 1)
-
-                .order("lesson_number");
+    const networkingMessage =
+        document.getElementById("networkingMessage");
 
 
-            /*
-             * Handle error
-             */
+    async function loadLessons() {
 
-            if (error) {
+        /*
+         * Get authenticated user
+         */
 
-                console.error(error);
-
-                lessonsContainer.innerHTML = "";
-
-                networkingMessage.textContent =
-                    "Unable to load lessons.";
-
-                return;
-            }
+        const {
+            data: { user },
+            error: userError
+        } = await supabaseClient.auth.getUser();
 
 
-            /*
-             * No lessons
-             */
+        if (userError || !user) {
 
-            if (!lessons || lessons.length === 0) {
+            window.location.href = "login.html";
 
-                lessonsContainer.innerHTML =
-                    "<p>No lessons available yet.</p>";
-
-                return;
-            }
-
-
-            /*
-             * Create lesson cards
-             */
-
-            lessonsContainer.innerHTML = "";
-
-
-            lessons.forEach((lesson) => {
-
-                const card =
-                    document.createElement("a");
-
-
-                card.className =
-                    "learning-card";
-
-
-                card.href =
-                    `lesson.html?id=${lesson.id}`;
-
-
-                card.innerHTML = `
-
-                    <div class="card-icon">
-                        📘
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="level beginner">
-                            LESSON ${lesson.lesson_number}
-                        </span>
-
-                        <h3>
-                            ${lesson.title}
-                        </h3>
-
-                        <p>
-                            ${lesson.description || ""}
-                        </p>
-
-                        <span class="card-link">
-                            Start lesson →
-                        </span>
-
-                    </div>
-
-                `;
-
-
-                lessonsContainer.appendChild(card);
-
-            });
+            return;
 
         }
 
 
         /*
-         * Load lessons when page opens.
+         * Get lessons belonging to
+         * Networking Level 1
          */
 
-        loadLessons();
+        const {
+            data: lessons,
+            error: lessonsError
+        } = await supabaseClient
 
-    </script>
+            .from("lessons")
+
+            .select(`
+                id,
+                lesson_number,
+                title,
+                description
+            `)
+
+            .eq("level_id", LEVEL_ID)
+
+            .order("lesson_number");
+
+
+        if (lessonsError) {
+
+            console.error(lessonsError);
+
+            lessonsContainer.innerHTML = "";
+
+            networkingMessage.textContent =
+                "Unable to load lessons.";
+
+            return;
+
+        }
+
+
+        if (!lessons || lessons.length === 0) {
+
+            lessonsContainer.innerHTML =
+                "<p>No lessons available yet.</p>";
+
+            return;
+
+        }
+
+
+        /*
+         * Get completed lessons
+         * for the current user
+         */
+
+        const {
+            data: progress,
+            error: progressError
+        } = await supabaseClient
+
+            .from("lesson_progress")
+
+            .select("lesson_id, completed")
+
+            .eq("user_id", user.id)
+
+            .eq("completed", true);
+
+
+        if (progressError) {
+
+            console.error(progressError);
+
+            networkingMessage.textContent =
+                "Unable to load your learning progress.";
+
+            return;
+
+        }
+
+
+        /*
+         * Create a Set containing
+         * completed lesson IDs
+         */
+
+        const completedLessonIds =
+            new Set(
+                (progress || [])
+                    .map(item => item.lesson_id)
+            );
+
+
+        /*
+         * Calculate progress
+         */
+
+        const totalLessons =
+            lessons.length;
+
+        const completedLessons =
+            lessons.filter(
+                lesson =>
+                    completedLessonIds.has(lesson.id)
+            ).length;
+
+
+        const percentage =
+            totalLessons > 0
+                ? Math.round(
+                    (completedLessons / totalLessons) * 100
+                )
+                : 0;
+
+
+        /*
+         * Display progress
+         */
+
+        networkingMessage.textContent =
+            `${completedLessons} of ${totalLessons} lessons completed (${percentage}%).`;
+
+
+        /*
+         * Create lesson cards
+         */
+
+        lessonsContainer.innerHTML = "";
+
+
+        lessons.forEach((lesson) => {
+
+            const card =
+                document.createElement("a");
+
+
+            card.className =
+                "learning-card";
+
+
+            card.href =
+                `lesson.html?id=${lesson.id}`;
+
+
+            const completed =
+                completedLessonIds.has(lesson.id);
+
+
+            card.innerHTML = `
+
+                <div class="card-icon">
+                    ${completed ? "✅" : "📘"}
+                </div>
+
+                <div class="card-content">
+
+                    <span class="level beginner">
+                        LESSON ${lesson.lesson_number}
+                    </span>
+
+                    <h3>
+                        ${escapeHtml(lesson.title)}
+                    </h3>
+
+                    <p>
+                        ${escapeHtml(
+                            lesson.description || ""
+                        )}
+                    </p>
+
+                    <span class="card-link">
+                        ${
+                            completed
+                                ? "Review lesson →"
+                                : "Start lesson →"
+                        }
+                    </span>
+
+                </div>
+
+            `;
+
+
+            lessonsContainer.appendChild(card);
+
+        });
+
+
+        /*
+         * Add Final Exam section
+         */
+
+        const examSection =
+            document.createElement("section");
+
+
+        examSection.className =
+            "account-card";
+
+
+        if (completedLessons === totalLessons) {
+
+            examSection.innerHTML = `
+
+                <h2>
+                    🎓 Level 1 Final Exam
+                </h2>
+
+                <p>
+                    Congratulations! You have completed
+                    all Level 1 lessons.
+                </p>
+
+                <a
+                    href="exam.html"
+                    class="primary-button">
+
+                    Start Final Exam →
+
+                </a>
+
+            `;
+
+        } else {
+
+            const remaining =
+                totalLessons - completedLessons;
+
+
+            examSection.innerHTML = `
+
+                <h2>
+                    🔒 Level 1 Final Exam
+                </h2>
+
+                <p>
+                    Complete all ${totalLessons} lessons
+                    before taking the final exam.
+                </p>
+
+                <p>
+                    Remaining:
+                    <strong>
+                        ${remaining}
+                    </strong>
+                    lesson${remaining === 1 ? "" : "s"}.
+                </p>
+
+            `;
+
+        }
+
+
+        /*
+         * Put exam section after
+         * the lesson cards
+         */
+
+        lessonsContainer.parentElement
+            .insertAdjacentElement(
+                "afterend",
+                examSection
+            );
+
+    }
+
+
+    /*
+     * Escape HTML
+     */
+
+    function escapeHtml(value) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            value ?? "";
+
+        return div.innerHTML;
+
+    }
+
+
+    /*
+     * Load page
+     */
+
+    loadLessons();
+
+</script>
 
 </body>
 

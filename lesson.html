@@ -13,11 +13,596 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <style>
+
+        /* =========================================
+           Lesson Page
+           ========================================= */
+
+        .lesson-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px 80px;
+        }
+
+
+        /* Breadcrumb */
+
+        .lesson-breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 28px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .lesson-breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .lesson-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: #94a3b8;
+        }
+
+
+        /* Hero */
+
+        .lesson-hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            padding: 42px;
+            margin-bottom: 28px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a 0%,
+                    #172554 55%,
+                    #1d4ed8 100%
+                );
+            color: white;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
+        }
+
+        .lesson-hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            right: -100px;
+            top: -130px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .lesson-hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            right: 100px;
+            bottom: -120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .lesson-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+
+        .lesson-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            margin-bottom: 18px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #dbeafe;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+
+        .lesson-hero h1 {
+            margin: 0 0 14px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            line-height: 1.1;
+            color: white;
+        }
+
+
+        .lesson-hero-description {
+            margin: 0;
+            max-width: 760px;
+            color: #dbeafe;
+            font-size: 1.08rem;
+            line-height: 1.8;
+        }
+
+
+        /* Lesson metadata */
+
+        .lesson-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .lesson-meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 13px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+
+        /* Progress */
+
+        .lesson-progress-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+        }
+
+        .lesson-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .lesson-progress-header strong {
+            color: #0f172a;
+        }
+
+        #progressStatus {
+            color: #2563eb;
+            font-weight: 800;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e2e8f0;
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                #2563eb,
+                #06b6d4
+            );
+            transition: width 0.5s ease;
+        }
+
+
+        /* Main lesson layout */
+
+        .lesson-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 280px;
+            gap: 28px;
+            align-items: start;
+        }
+
+
+        /* Content */
+
+        .lesson-content-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 22px;
+            padding: clamp(24px, 4vw, 42px);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+        }
+
+
+        .content-label {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: #2563eb;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+
+        .lesson-content {
+            color: #334155;
+            font-size: 1.03rem;
+            line-height: 1.85;
+        }
+
+
+        .lesson-content h2 {
+            margin-top: 34px;
+            margin-bottom: 14px;
+            color: #0f172a;
+            font-size: 1.55rem;
+        }
+
+
+        .lesson-content h3 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            color: #1e293b;
+            font-size: 1.25rem;
+        }
+
+
+        .lesson-content p {
+            margin: 0 0 18px;
+        }
+
+
+        .lesson-content ul,
+        .lesson-content ol {
+            margin: 0 0 22px;
+            padding-left: 24px;
+        }
+
+
+        .lesson-content li {
+            margin-bottom: 9px;
+        }
+
+
+        .lesson-content strong {
+            color: #0f172a;
+        }
+
+
+        .lesson-content code {
+            padding: 3px 7px;
+            border-radius: 6px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-family: Consolas, monospace;
+        }
+
+
+        .lesson-content pre {
+            overflow-x: auto;
+            margin: 22px 0;
+            padding: 20px;
+            border-radius: 14px;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+        }
+
+
+        .lesson-content blockquote {
+            margin: 24px 0;
+            padding: 18px 22px;
+            border-left: 4px solid #2563eb;
+            border-radius: 0 12px 12px 0;
+            background: #eff6ff;
+            color: #334155;
+        }
+
+
+        /* Sidebar */
+
+        .lesson-sidebar {
+            position: sticky;
+            top: 25px;
+        }
+
+
+        .sidebar-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+
+        .sidebar-card h3 {
+            margin: 0 0 16px;
+            color: #0f172a;
+            font-size: 1.05rem;
+        }
+
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: 0.2s ease;
+        }
+
+
+        .sidebar-link:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+
+        .sidebar-link.active {
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: 700;
+        }
+
+
+        /* Completion */
+
+        .completion-card {
+            margin-top: 28px;
+            padding: 28px;
+            border-radius: 20px;
+            border: 1px solid #dbeafe;
+            background: linear-gradient(
+                135deg,
+                #eff6ff,
+                #f8fafc
+            );
+        }
+
+
+        .completion-card h2 {
+            margin: 0 0 10px;
+            color: #0f172a;
+        }
+
+
+        .completion-card p {
+            margin: 0 0 20px;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+
+        .complete-button {
+            border: none;
+            cursor: pointer;
+            padding: 13px 20px;
+            border-radius: 12px;
+            background: #2563eb;
+            color: white;
+            font-weight: 800;
+            font-size: 0.95rem;
+            transition: 0.2s ease;
+        }
+
+
+        .complete-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+
+        .complete-button.completed {
+            background: #059669;
+            cursor: default;
+        }
+
+
+        .complete-button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+            transform: none;
+        }
+
+
+        #completionMessage {
+            margin-top: 14px;
+            font-weight: 700;
+        }
+
+
+        .success-message {
+            color: #059669;
+        }
+
+
+        .error-message {
+            color: #dc2626;
+        }
+
+
+        /* Navigation buttons */
+
+        .lesson-navigation {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+
+        .lesson-nav-button {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 18px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #0f172a;
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+
+
+        .lesson-nav-button:hover {
+            border-color: #93c5fd;
+            background: #f8fbff;
+            transform: translateY(-2px);
+        }
+
+
+        .lesson-nav-button.next {
+            text-align: right;
+        }
+
+
+        .nav-label {
+            color: #64748b;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+
+        .nav-title {
+            font-weight: 800;
+            color: #1d4ed8;
+        }
+
+
+        /* Loading */
+
+        .lesson-loading {
+            padding: 70px 20px;
+            text-align: center;
+            color: #64748b;
+        }
+
+
+        .loading-spinner {
+            width: 42px;
+            height: 42px;
+            margin: 0 auto 18px;
+            border: 4px solid #e2e8f0;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* Error */
+
+        .lesson-error {
+            padding: 35px;
+            text-align: center;
+            border: 1px solid #fecaca;
+            border-radius: 18px;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+
+        .lesson-error h2 {
+            margin-top: 0;
+        }
+
+
+        /* Responsive */
+
+        @media (max-width: 850px) {
+
+            .lesson-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-sidebar {
+                position: static;
+                order: 2;
+            }
+
+            .lesson-hero {
+                padding: 30px 24px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .lesson-page {
+                padding: 30px 14px 60px;
+            }
+
+            .lesson-hero {
+                border-radius: 18px;
+                padding: 26px 20px;
+            }
+
+            .lesson-hero h1 {
+                font-size: 2rem;
+            }
+
+            .lesson-content-card {
+                border-radius: 18px;
+                padding: 22px 18px;
+            }
+
+            .lesson-progress-card {
+                padding: 18px;
+            }
+
+            .lesson-progress-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .lesson-navigation {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-nav-button.next {
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- Navigation -->
+
+    <!-- =========================================
+         Navigation
+         ========================================= -->
 
     <nav class="navbar">
 
@@ -28,6 +613,7 @@
             </a>
 
         </div>
+
 
         <div class="nav-links">
 
@@ -48,84 +634,335 @@
     </nav>
 
 
-    <!-- Lesson -->
 
-    <main class="section">
+    <!-- =========================================
+         Lesson Page
+         ========================================= -->
 
-        <div class="section-heading">
+    <main class="lesson-page">
 
-            <span
-                id="lessonNumber"
-                class="section-label">
-                LESSON
+
+        <!-- Breadcrumb -->
+
+        <nav
+            class="lesson-breadcrumb"
+            aria-label="Breadcrumb">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <span class="breadcrumb-separator">
+                /
             </span>
 
-            <h1 id="lessonTitle">
-                Loading...
-            </h1>
+            <a href="networking.html">
+                Networking
+            </a>
 
-            <p id="lessonDescription">
+            <span class="breadcrumb-separator">
+                /
+            </span>
+
+            <span id="breadcrumbLesson">
+                Lesson
+            </span>
+
+        </nav>
+
+
+
+        <!-- Loading -->
+
+        <div
+            id="lessonLoading"
+            class="lesson-loading">
+
+            <div class="loading-spinner"></div>
+
+            <p>
                 Loading lesson...
             </p>
 
         </div>
 
 
-        <!-- Lesson content -->
 
-        <section class="account-card">
+        <!-- Error -->
 
-            <div id="lessonContent">
-
-                Loading lesson content...
-
-            </div>
-
-        </section>
-
-
-        <!-- Completion -->
-
-        <section class="account-card">
+        <div
+            id="lessonError"
+            class="lesson-error"
+            style="display: none;">
 
             <h2>
-                Lesson Progress
+                Unable to load lesson
             </h2>
 
-            <p id="progressMessage">
-                Complete this lesson when you have finished
-                studying the material.
+            <p id="lessonErrorMessage">
+                Something went wrong while loading this lesson.
             </p>
-
-            <button
-                id="completeButton"
-                class="primary-button">
-
-                Mark as Complete
-
-            </button>
-
-        </section>
-
-
-        <!-- Navigation -->
-
-        <section class="account-actions">
 
             <a
                 href="networking.html"
-                class="secondary-button">
+                class="primary-button">
 
                 ← Back to Networking
 
             </a>
 
-        </section>
+        </div>
+
+
+
+        <!-- Actual Lesson -->
+
+        <div
+            id="lessonPageContent"
+            style="display: none;">
+
+
+            <!-- Hero -->
+
+            <section class="lesson-hero">
+
+                <div class="lesson-hero-content">
+
+                    <span
+                        id="lessonBadge"
+                        class="lesson-badge">
+
+                        LESSON
+
+                    </span>
+
+
+                    <h1 id="lessonTitle">
+                        Lesson Title
+                    </h1>
+
+
+                    <p
+                        id="lessonDescription"
+                        class="lesson-hero-description">
+
+                    </p>
+
+
+                    <div class="lesson-meta">
+
+                        <span class="lesson-meta-item">
+                            🌐 Networking
+                        </span>
+
+                        <span
+                            id="lessonNumberMeta"
+                            class="lesson-meta-item">
+
+                            Lesson
+
+                        </span>
+
+                        <span class="lesson-meta-item">
+                            📚 Level 1
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Progress -->
+
+            <section class="lesson-progress-card">
+
+                <div class="lesson-progress-header">
+
+                    <strong>
+                        Lesson Progress
+                    </strong>
+
+                    <span id="progressStatus">
+                        Not completed
+                    </span>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        id="lessonProgressBar"
+                        class="progress-fill">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Main Layout -->
+
+            <div class="lesson-layout">
+
+
+                <!-- Content -->
+
+                <div>
+
+
+                    <article class="lesson-content-card">
+
+                        <span class="content-label">
+                            LESSON CONTENT
+                        </span>
+
+
+                        <div
+                            id="lessonContent"
+                            class="lesson-content">
+
+                        </div>
+
+
+
+                        <!-- Completion -->
+
+                        <section class="completion-card">
+
+                            <h2>
+                                🎯 Complete this lesson
+                            </h2>
+
+                            <p>
+                                Finish reading the lesson content,
+                                then mark this lesson as completed
+                                to update your learning progress.
+                            </p>
+
+
+                            <button
+                                id="completeButton"
+                                class="complete-button">
+
+                                Mark Lesson as Complete
+
+                            </button>
+
+
+                            <p
+                                id="completionMessage">
+                            </p>
+
+                        </section>
+
+
+                    </article>
+
+
+
+                    <!-- Previous / Next -->
+
+                    <div
+                        id="lessonNavigation"
+                        class="lesson-navigation">
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Sidebar -->
+
+                <aside class="lesson-sidebar">
+
+
+                    <div class="sidebar-card">
+
+                        <h3>
+                            Learning Path
+                        </h3>
+
+
+                        <a
+                            href="networking.html"
+                            class="sidebar-link">
+
+                            🌐 Networking
+
+                        </a>
+
+
+                        <a
+                            href="networking.html"
+                            class="sidebar-link active">
+
+                            📘 Level 1 Lessons
+
+                        </a>
+
+
+                        <a
+                            href="exam.html"
+                            class="sidebar-link">
+
+                            📝 Final Exam
+
+                        </a>
+
+                    </div>
+
+
+
+                    <div class="sidebar-card">
+
+                        <h3>
+                            Quick Actions
+                        </h3>
+
+
+                        <a
+                            href="account.html"
+                            class="sidebar-link">
+
+                            👤 My Account
+
+                        </a>
+
+
+                        <a
+                            href="networking.html"
+                            class="sidebar-link">
+
+                            ← All Lessons
+
+                        </a>
+
+                    </div>
+
+
+                </aside>
+
+
+            </div>
+
+
+        </div>
+
 
     </main>
 
 
-    <!-- Footer -->
+
+    <!-- =========================================
+         Footer
+         ========================================= -->
 
     <footer>
 
@@ -140,473 +977,842 @@
     </footer>
 
 
-    <!-- Supabase -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-    </script>
+    <!-- =========================================
+         Supabase
+         ========================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="supabase.js"></script>
 
 
+
+    <!-- =========================================
+         Lesson Logic
+         ========================================= -->
+
     <script>
 
         /*
+         * =========================================
          * Get lesson ID from URL
-         *
-         * Example:
-         *
-         * lesson.html?id=1
+         * =========================================
          */
 
-        const params =
-            new URLSearchParams(window.location.search);
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
 
         const lessonId =
-            params.get("id");
-
-
-        const lessonNumber =
-            document.getElementById("lessonNumber");
-
-        const lessonTitle =
-            document.getElementById("lessonTitle");
-
-        const lessonDescription =
-            document.getElementById("lessonDescription");
-
-        const lessonContent =
-            document.getElementById("lessonContent");
-
-        const completeButton =
-            document.getElementById("completeButton");
-
-        const progressMessage =
-            document.getElementById("progressMessage");
+            Number(
+                urlParams.get("id")
+            );
 
 
         /*
-         * Check lesson ID
+         * =========================================
+         * Page elements
+         * =========================================
          */
 
-        if (!lessonId) {
+        const loading =
+            document.getElementById(
+                "lessonLoading"
+            );
 
-            lessonTitle.textContent =
-                "Lesson not found";
 
-            lessonDescription.textContent =
-                "No lesson ID was provided.";
+        const errorBox =
+            document.getElementById(
+                "lessonError"
+            );
 
-            completeButton.style.display =
-                "none";
 
-        }
+        const errorMessage =
+            document.getElementById(
+                "lessonErrorMessage"
+            );
+
+
+        const lessonPageContent =
+            document.getElementById(
+                "lessonPageContent"
+            );
+
+
+        const lessonTitle =
+            document.getElementById(
+                "lessonTitle"
+            );
+
+
+        const lessonDescription =
+            document.getElementById(
+                "lessonDescription"
+            );
+
+
+        const lessonContent =
+            document.getElementById(
+                "lessonContent"
+            );
+
+
+        const lessonBadge =
+            document.getElementById(
+                "lessonBadge"
+            );
+
+
+        const lessonNumberMeta =
+            document.getElementById(
+                "lessonNumberMeta"
+            );
+
+
+        const breadcrumbLesson =
+            document.getElementById(
+                "breadcrumbLesson"
+            );
+
+
+        const completeButton =
+            document.getElementById(
+                "completeButton"
+            );
+
+
+        const completionMessage =
+            document.getElementById(
+                "completionMessage"
+            );
+
+
+        const progressBar =
+            document.getElementById(
+                "lessonProgressBar"
+            );
+
+
+        const progressStatus =
+            document.getElementById(
+                "progressStatus"
+            );
+
+
+        const lessonNavigation =
+            document.getElementById(
+                "lessonNavigation"
+            );
+
+
+        let currentUser = null;
+
+        let currentLesson = null;
+
+        let allLessons = [];
+
 
 
         /*
+         * =========================================
+         * Start
+         * =========================================
+         */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            loadLesson
+        );
+
+
+
+        /*
+         * =========================================
          * Load lesson
+         * =========================================
          */
 
         async function loadLesson() {
 
-            const {
-                data: lesson,
-                error
-            } = await supabaseClient
 
-                .from("lessons")
+            if (
+                !lessonId ||
+                Number.isNaN(lessonId)
+            ) {
 
-                .select(`
-                    id,
-                    lesson_number,
-                    title,
-                    description,
-                    content
-                `)
+                showError(
+                    "Invalid lesson ID."
+                );
 
-                .eq("id", lessonId)
+                return;
 
-                .single();
+            }
 
 
             /*
-             * Error
+             * Get authenticated user
              */
 
-            if (error) {
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
 
-                console.error(error);
 
-                lessonTitle.textContent =
-                    "Unable to load lesson";
+            if (
+                userError ||
+                !user
+            ) {
 
-                lessonDescription.textContent =
-                    error.message;
-
-                completeButton.style.display =
-                    "none";
+                window.location.href =
+                    "login.html";
 
                 return;
+
             }
+
+
+            currentUser = user;
+
+
+
+            /*
+             * Get lesson
+             */
+
+            const {
+                data: lesson,
+                error: lessonError
+            } =
+                await supabaseClient
+
+                    .from("lessons")
+
+                    .select(`
+                        id,
+                        level_id,
+                        lesson_number,
+                        title,
+                        description,
+                        content
+                    `)
+
+                    .eq(
+                        "id",
+                        lessonId
+                    )
+
+                    .single();
+
+
+            if (
+                lessonError ||
+                !lesson
+            ) {
+
+                console.error(
+                    "Lesson error:",
+                    lessonError
+                );
+
+                showError(
+                    "The requested lesson could not be found."
+                );
+
+                return;
+
+            }
+
+
+            currentLesson =
+                lesson;
+
+
+
+            /*
+             * Get all lessons in this level
+             * for previous / next navigation.
+             */
+
+            const {
+                data: lessons,
+                error: lessonsError
+            } =
+                await supabaseClient
+
+                    .from("lessons")
+
+                    .select(`
+                        id,
+                        lesson_number,
+                        title
+                    `)
+
+                    .eq(
+                        "level_id",
+                        lesson.level_id
+                    )
+
+                    .order(
+                        "lesson_number"
+                    );
+
+
+            if (lessonsError) {
+
+                console.error(
+                    "Lessons navigation error:",
+                    lessonsError
+                );
+
+            }
+
+
+            allLessons =
+                lessons || [];
+
 
 
             /*
              * Display lesson
              */
 
-            lessonNumber.textContent =
-                `LESSON ${lesson.lesson_number}`;
+            renderLesson();
+
+
+
+            /*
+             * Check completion
+             */
+
+            await loadProgress();
+
+
+        }
+
+
+
+        /*
+         * =========================================
+         * Render lesson
+         * =========================================
+         */
+
+        function renderLesson() {
 
 
             lessonTitle.textContent =
-                lesson.title;
+                currentLesson.title ||
+                "Lesson";
 
 
             lessonDescription.textContent =
-                lesson.description || "";
+                currentLesson.description ||
+                "";
+
+
+            lessonBadge.textContent =
+                `LESSON ${currentLesson.lesson_number}`;
+
+
+            lessonNumberMeta.textContent =
+                `Lesson ${currentLesson.lesson_number}`;
+
+
+            breadcrumbLesson.textContent =
+                currentLesson.title ||
+                `Lesson ${currentLesson.lesson_number}`;
 
 
             /*
-             * Display content
+             * Content
              *
-             * We convert line breaks into paragraphs.
+             * The database content is expected
+             * to contain HTML.
              */
 
             lessonContent.innerHTML =
-                formatLessonContent(
-                    lesson.content || ""
+                currentLesson.content ||
+                `
+                    <p>
+                        No lesson content is available yet.
+                    </p>
+                `;
+
+
+            renderNavigation();
+
+
+            loading.style.display =
+                "none";
+
+
+            lessonPageContent.style.display =
+                "block";
+
+        }
+
+
+
+        /*
+         * =========================================
+         * Load progress
+         * =========================================
+         */
+
+        async function loadProgress() {
+
+
+            const {
+                data: progress,
+                error
+            } =
+                await supabaseClient
+
+                    .from("lesson_progress")
+
+                    .select(`
+                        completed,
+                        completed_at
+                    `)
+
+                    .eq(
+                        "user_id",
+                        currentUser.id
+                    )
+
+                    .eq(
+                        "lesson_id",
+                        currentLesson.id
+                    )
+
+                    .maybeSingle();
+
+
+            if (error) {
+
+                console.error(
+                    "Progress error:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            if (
+                progress &&
+                progress.completed
+            ) {
+
+                setCompletedState();
+
+            } else {
+
+                setIncompleteState();
+
+            }
+
+        }
+
+
+
+        /*
+         * =========================================
+         * Mark lesson complete
+         * =========================================
+         */
+
+        completeButton.addEventListener(
+            "click",
+            markLessonComplete
+        );
+
+
+
+        async function markLessonComplete() {
+
+
+            if (
+                !currentUser ||
+                !currentLesson
+            ) {
+
+                return;
+
+            }
+
+
+            completeButton.disabled =
+                true;
+
+
+            completeButton.textContent =
+                "Saving...";
+
+
+            completionMessage.textContent =
+                "";
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+
+                    .from("lesson_progress")
+
+                    .upsert(
+
+                        {
+                            user_id:
+                                currentUser.id,
+
+                            lesson_id:
+                                currentLesson.id,
+
+                            completed:
+                                true,
+
+                            completed_at:
+                                new Date().toISOString()
+
+                        },
+
+                        {
+                            onConflict:
+                                "user_id,lesson_id"
+                        }
+
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Completion error:",
+                    error
                 );
 
 
+                completionMessage.textContent =
+                    "Unable to save your progress. Please try again.";
+
+                completionMessage.className =
+                    "error-message";
+
+
+                completeButton.disabled =
+                    false;
+
+
+                completeButton.textContent =
+                    "Mark Lesson as Complete";
+
+
+                return;
+
+            }
+
+
+            setCompletedState();
+
+
+            completionMessage.textContent =
+                "✓ Lesson completed successfully. Your progress has been updated.";
+
+            completionMessage.className =
+                "success-message";
+
+
             /*
-             * Check progress
+             * Automatically scroll slightly
+             * toward the next lesson navigation.
              */
 
-            await checkProgress();
+            setTimeout(
+                () => {
+
+                    lessonNavigation.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                },
+                400
+            );
 
         }
 
 
+
         /*
-         * Format lesson content
+         * =========================================
+         * Completed state
+         * =========================================
          */
 
-        function formatLessonContent(content) {
-
-            const paragraphs =
-                content
-                    .split(/\n\s*\n/)
-                    .filter(text => text.trim());
+        function setCompletedState() {
 
 
-            return paragraphs
-                .map(text => {
+            progressBar.style.width =
+                "100%";
 
-                    return `
-                        <p>
-                            ${escapeHtml(text)
-                                .replace(/\n/g, "<br>")}
-                        </p>
-                    `;
 
-                })
-                .join("");
+            progressStatus.textContent =
+                "Completed ✓";
+
+
+            completeButton.textContent =
+                "✓ Lesson Completed";
+
+
+            completeButton.classList.add(
+                "completed"
+            );
+
+
+            completeButton.disabled =
+                true;
 
         }
 
 
+
         /*
-         * Protect the page from
-         * interpreting lesson content as HTML.
+         * =========================================
+         * Incomplete state
+         * =========================================
          */
 
-        function escapeHtml(text) {
+        function setIncompleteState() {
+
+
+            progressBar.style.width =
+                "0%";
+
+
+            progressStatus.textContent =
+                "Not completed";
+
+
+            completeButton.textContent =
+                "Mark Lesson as Complete";
+
+
+            completeButton.classList.remove(
+                "completed"
+            );
+
+
+            completeButton.disabled =
+                false;
+
+        }
+
+
+
+        /*
+         * =========================================
+         * Previous / Next navigation
+         * =========================================
+         */
+
+        function renderNavigation() {
+
+
+            if (!allLessons.length) {
+
+                lessonNavigation.innerHTML =
+                    "";
+
+                return;
+
+            }
+
+
+            const currentIndex =
+                allLessons.findIndex(
+                    lesson =>
+                        Number(lesson.id) ===
+                        Number(currentLesson.id)
+                );
+
+
+            const previousLesson =
+                currentIndex > 0
+                    ? allLessons[currentIndex - 1]
+                    : null;
+
+
+            const nextLesson =
+                currentIndex >= 0 &&
+                currentIndex <
+                    allLessons.length - 1
+                    ? allLessons[currentIndex + 1]
+                    : null;
+
+
+            let html = "";
+
+
+
+            if (previousLesson) {
+
+                html += `
+
+                    <a
+                        href="lesson.html?id=${previousLesson.id}"
+                        class="lesson-nav-button">
+
+                        <span class="nav-label">
+                            ← PREVIOUS LESSON
+                        </span>
+
+                        <span class="nav-title">
+                            Lesson ${previousLesson.lesson_number}:
+                            ${escapeHtml(previousLesson.title)}
+                        </span>
+
+                    </a>
+
+                `;
+
+            } else {
+
+                html += `
+
+                    <a
+                        href="networking.html"
+                        class="lesson-nav-button">
+
+                        <span class="nav-label">
+                            ← BACK TO COURSE
+                        </span>
+
+                        <span class="nav-title">
+                            Networking Lessons
+                        </span>
+
+                    </a>
+
+                `;
+
+            }
+
+
+
+            if (nextLesson) {
+
+                html += `
+
+                    <a
+                        href="lesson.html?id=${nextLesson.id}"
+                        class="lesson-nav-button next">
+
+                        <span class="nav-label">
+                            NEXT LESSON →
+                        </span>
+
+                        <span class="nav-title">
+                            Lesson ${nextLesson.lesson_number}:
+                            ${escapeHtml(nextLesson.title)}
+                        </span>
+
+                    </a>
+
+                `;
+
+            } else {
+
+                html += `
+
+                    <a
+                        href="exam.html"
+                        class="lesson-nav-button next">
+
+                        <span class="nav-label">
+                            FINAL STEP →
+                        </span>
+
+                        <span class="nav-title">
+                            Take the Level 1 Exam
+                        </span>
+
+                    </a>
+
+                `;
+
+            }
+
+
+            lessonNavigation.innerHTML =
+                html;
+
+        }
+
+
+
+        /*
+         * =========================================
+         * Error
+         * =========================================
+         */
+
+        function showError(message) {
+
+
+            loading.style.display =
+                "none";
+
+
+            lessonPageContent.style.display =
+                "none";
+
+
+            errorBox.style.display =
+                "block";
+
+
+            errorMessage.textContent =
+                message;
+
+        }
+
+
+
+        /*
+         * =========================================
+         * HTML escaping
+         * =========================================
+         */
+
+        function escapeHtml(value) {
+
 
             const div =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             div.textContent =
-                text;
+                value ?? "";
+
 
             return div.innerHTML;
 
         }
 
-
-        /*
-         * Check authenticated user
-         * and lesson progress.
-         */
-
-        async function checkProgress() {
-
-            const {
-                data: { user }
-            } =
-                await supabaseClient.auth.getUser();
-
-
-            /*
-             * User is not logged in.
-             */
-
-            if (!user) {
-
-                progressMessage.textContent =
-                    "Login to save your learning progress.";
-
-                completeButton.textContent =
-                    "Login to Continue";
-
-                completeButton.onclick = () => {
-
-                    window.location.href =
-                        "login.html";
-
-                };
-
-                return;
-
-            }
-
-
-            /*
-             * Get progress record.
-             */
-
-            const {
-                data: progress,
-                error
-            } = await supabaseClient
-
-                .from("lesson_progress")
-
-                .select(`
-                    id,
-                    completed
-                `)
-
-                .eq("user_id", user.id)
-
-                .eq("lesson_id", lessonId)
-
-                .maybeSingle();
-
-
-            if (error) {
-
-                console.error(error);
-
-                return;
-
-            }
-
-
-            /*
-             * Already completed
-             */
-
-            if (progress && progress.completed) {
-
-                completeButton.textContent =
-                    "✓ Lesson Completed";
-
-                completeButton.disabled =
-                    true;
-
-                progressMessage.textContent =
-                    "You have already completed this lesson.";
-
-            }
-
-        }
-
-
-        /*
-         * Mark lesson as completed.
-         */
-
-        completeButton.addEventListener(
-            "click",
-            async () => {
-
-                completeButton.disabled =
-                    true;
-
-                progressMessage.textContent =
-                    "Saving your progress...";
-
-
-                /*
-                 * Get current user.
-                 */
-
-                const {
-                    data: { user }
-                } =
-                    await supabaseClient.auth.getUser();
-
-
-                if (!user) {
-
-                    window.location.href =
-                        "login.html";
-
-                    return;
-
-                }
-
-
-                /*
-                 * Check whether progress
-                 * already exists.
-                 */
-
-                const {
-                    data: existing,
-                    error: checkError
-                } =
-                    await supabaseClient
-
-                        .from("lesson_progress")
-
-                        .select("id")
-
-                        .eq("user_id", user.id)
-
-                        .eq("lesson_id", lessonId)
-
-                        .maybeSingle();
-
-
-                if (checkError) {
-
-                    console.error(checkError);
-
-                    progressMessage.textContent =
-                        checkError.message;
-
-                    completeButton.disabled =
-                        false;
-
-                    return;
-
-                }
-
-
-                /*
-                 * Existing record
-                 */
-
-                if (existing) {
-
-                    const {
-                        error
-                    } =
-                        await supabaseClient
-
-                            .from("lesson_progress")
-
-                            .update({
-                                completed: true,
-                                completed_at:
-                                    new Date().toISOString()
-                            })
-
-                            .eq(
-                                "id",
-                                existing.id
-                            );
-
-
-                    if (error) {
-
-                        console.error(error);
-
-                        progressMessage.textContent =
-                            error.message;
-
-                        completeButton.disabled =
-                            false;
-
-                        return;
-
-                    }
-
-                }
-
-
-                /*
-                 * New progress record
-                 */
-
-                else {
-
-                    const {
-                        error
-                    } =
-                        await supabaseClient
-
-                            .from("lesson_progress")
-
-                            .insert({
-
-                                user_id: user.id,
-
-                                lesson_id:
-                                    Number(lessonId),
-
-                                completed: true,
-
-                                completed_at:
-                                    new Date().toISOString()
-
-                            });
-
-
-                    if (error) {
-
-                        console.error(error);
-
-                        progressMessage.textContent =
-                            error.message;
-
-                        completeButton.disabled =
-                            false;
-
-                        return;
-
-                    }
-
-                }
-
-
-                /*
-                 * Success
-                 */
-
-                completeButton.textContent =
-                    "✓ Lesson Completed";
-
-
-                progressMessage.textContent =
-                    "Great work! Your progress has been saved.";
-
-            }
-        );
-
-
-        /*
-         * Start
-         */
-
-        if (lessonId) {
-
-            loadLesson();
-
-        }
-
     </script>
+
 
 </body>
 
 </html>
+

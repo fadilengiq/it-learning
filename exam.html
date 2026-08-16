@@ -9,15 +9,897 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>Networking Level 1 Exam - IT Learning Hub</title>
+    <title>
+        Networking Level 1 Exam - IT Learning Hub
+    </title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+    <style>
+
+        /* =========================================
+           Exam Page
+        ========================================= */
+
+        :root {
+            --exam-primary: #2563eb;
+            --exam-primary-dark: #1d4ed8;
+            --exam-success: #16a34a;
+            --exam-danger: #dc2626;
+            --exam-warning: #d97706;
+            --exam-text: #0f172a;
+            --exam-muted: #64748b;
+            --exam-border: #e2e8f0;
+            --exam-background: #f8fafc;
+            --exam-card: #ffffff;
+            --exam-radius: 18px;
+        }
+
+
+        body {
+            background:
+                linear-gradient(
+                    180deg,
+                    #f8fafc 0%,
+                    #eef4ff 100%
+                );
+        }
+
+
+        /* =========================================
+           Exam Hero
+        ========================================= */
+
+        .exam-hero {
+            max-width: 1000px;
+            margin: 50px auto 25px;
+            padding: 0 20px;
+        }
+
+
+        .exam-hero-card {
+            position: relative;
+            overflow: hidden;
+
+            padding: 42px;
+
+            border-radius: 26px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a 0%,
+                    #1e3a8a 55%,
+                    #2563eb 100%
+                );
+
+            color: white;
+
+            box-shadow:
+                0 20px 50px
+                rgba(15, 23, 42, 0.18);
+        }
+
+
+        .exam-hero-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            right: -100px;
+            top: -120px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+        }
+
+
+        .exam-label {
+            display: inline-block;
+
+            margin-bottom: 14px;
+
+            padding: 7px 13px;
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.25);
+
+            border-radius: 999px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: 0.12em;
+
+            color: #dbeafe;
+        }
+
+
+        .exam-hero-card h1 {
+            position: relative;
+            z-index: 1;
+
+            margin: 0 0 10px;
+
+            font-size: clamp(30px, 5vw, 46px);
+
+            line-height: 1.1;
+        }
+
+
+        .exam-hero-card p {
+            position: relative;
+            z-index: 1;
+
+            margin: 0;
+
+            color: #dbeafe;
+
+            font-size: 17px;
+        }
+
+
+        /* =========================================
+           Exam Information
+        ========================================= */
+
+        .exam-container {
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            padding:
+                0 20px 60px;
+        }
+
+
+        .exam-info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .exam-stat {
+            padding: 22px;
+
+            border:
+                1px solid var(--exam-border);
+
+            border-radius:
+                var(--exam-radius);
+
+            background:
+                var(--exam-card);
+
+            box-shadow:
+                0 8px 25px
+                rgba(15, 23, 42, 0.05);
+        }
+
+
+        .exam-stat-label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color:
+                var(--exam-muted);
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        .exam-stat-value {
+            display: block;
+
+            color:
+                var(--exam-text);
+
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+
+        /* =========================================
+           Progress
+        ========================================= */
+
+        .exam-progress-card {
+            margin-bottom: 28px;
+
+            padding: 24px;
+
+            border:
+                1px solid var(--exam-border);
+
+            border-radius:
+                var(--exam-radius);
+
+            background:
+                var(--exam-card);
+
+            box-shadow:
+                0 8px 25px
+                rgba(15, 23, 42, 0.05);
+        }
+
+
+        .exam-progress-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .exam-progress-header strong {
+            color: var(--exam-text);
+        }
+
+
+        #questionProgressText {
+            color:
+                var(--exam-primary);
+
+            font-weight: 700;
+        }
+
+
+        .exam-progress-track {
+            width: 100%;
+            height: 10px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background: #e2e8f0;
+        }
+
+
+        #examProgressBar {
+            width: 0%;
+            height: 100%;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #2563eb,
+                    #60a5fa
+                );
+
+            transition:
+                width 0.3s ease;
+        }
+
+
+        /* =========================================
+           Instructions
+        ========================================= */
+
+        .exam-instructions {
+            margin-bottom: 28px;
+
+            padding: 25px;
+
+            border:
+                1px solid #bfdbfe;
+
+            border-radius:
+                var(--exam-radius);
+
+            background:
+                #eff6ff;
+        }
+
+
+        .exam-instructions h2 {
+            margin:
+                0 0 10px;
+
+            color:
+                #1e3a8a;
+
+            font-size: 20px;
+        }
+
+
+        .exam-instructions p {
+            margin: 0;
+
+            color:
+                #334155;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================
+           Question Card
+        ========================================= */
+
+        .question-card {
+            margin-bottom: 22px;
+
+            padding: 30px;
+
+            border:
+                1px solid var(--exam-border);
+
+            border-radius:
+                var(--exam-radius);
+
+            background:
+                var(--exam-card);
+
+            box-shadow:
+                0 8px 28px
+                rgba(15, 23, 42, 0.06);
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .question-card:hover {
+            border-color:
+                #bfdbfe;
+
+            box-shadow:
+                0 12px 32px
+                rgba(37, 99, 235, 0.08);
+        }
+
+
+        .question-number {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-width: 42px;
+            height: 30px;
+
+            margin-bottom: 15px;
+
+            padding: 0 12px;
+
+            border-radius: 999px;
+
+            background:
+                #dbeafe;
+
+            color:
+                #1d4ed8;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            letter-spacing: 0.05em;
+        }
+
+
+        .question-text {
+            margin:
+                0 0 22px;
+
+            color:
+                var(--exam-text);
+
+            font-size: 19px;
+
+            line-height: 1.55;
+        }
+
+
+        /* =========================================
+           Answer Options
+        ========================================= */
+
+        .answer-options {
+            display: grid;
+
+            gap: 12px;
+        }
+
+
+        .answer-option {
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 16px 18px;
+
+            border:
+                2px solid #e2e8f0;
+
+            border-radius: 14px;
+
+            background:
+                #ffffff;
+
+            cursor: pointer;
+
+            transition:
+                all 0.2s ease;
+        }
+
+
+        .answer-option:hover {
+            border-color:
+                #93c5fd;
+
+            background:
+                #f8fbff;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .answer-option input {
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        .answer-letter {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 10px;
+
+            background:
+                #f1f5f9;
+
+            color:
+                #475569;
+
+            font-weight: 800;
+
+            transition:
+                all 0.2s ease;
+        }
+
+
+        .answer-text {
+            color:
+                #334155;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+        }
+
+
+        .answer-option.selected {
+            border-color:
+                var(--exam-primary);
+
+            background:
+                #eff6ff;
+
+            box-shadow:
+                0 5px 18px
+                rgba(37, 99, 235, 0.10);
+        }
+
+
+        .answer-option.selected
+        .answer-letter {
+            background:
+                var(--exam-primary);
+
+            color:
+                white;
+        }
+
+
+        .answer-option.selected
+        .answer-text {
+            color:
+                #1e3a8a;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           Submit Area
+        ========================================= */
+
+        .exam-submit-card {
+            margin-top: 30px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            border:
+                1px solid var(--exam-border);
+
+            border-radius:
+                var(--exam-radius);
+
+            background:
+                var(--exam-card);
+
+            box-shadow:
+                0 8px 28px
+                rgba(15, 23, 42, 0.06);
+        }
+
+
+        #submitExamButton {
+            width: 100%;
+
+            max-width: 360px;
+
+            min-height: 54px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 25px
+                rgba(37, 99, 235, 0.25);
+
+            transition:
+                all 0.2s ease;
+        }
+
+
+        #submitExamButton:hover:not(:disabled) {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(37, 99, 235, 0.30);
+        }
+
+
+        #submitExamButton:disabled {
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            box-shadow: none;
+        }
+
+
+        /* =========================================
+           Result
+        ========================================= */
+
+        #examResult {
+            margin-top: 30px;
+
+            text-align: center;
+        }
+
+
+        .result-icon {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 78px;
+            height: 78px;
+
+            margin:
+                0 auto 20px;
+
+            border-radius: 50%;
+
+            font-size: 36px;
+        }
+
+
+        .result-success
+        .result-icon {
+            background:
+                #dcfce7;
+
+            color:
+                #15803d;
+        }
+
+
+        .result-failed
+        .result-icon {
+            background:
+                #fee2e2;
+
+            color:
+                #b91c1c;
+        }
+
+
+        .result-score {
+            margin: 10px 0;
+
+            font-size: clamp(
+                48px,
+                10vw,
+                72px
+            );
+
+            font-weight: 900;
+
+            line-height: 1;
+
+            color:
+                var(--exam-text);
+        }
+
+
+        .result-success
+        .result-score {
+            color:
+                var(--exam-success);
+        }
+
+
+        .result-failed
+        .result-score {
+            color:
+                var(--exam-danger);
+        }
+
+
+        .result-message {
+            max-width: 600px;
+
+            margin:
+                15px auto 25px;
+
+            color:
+                var(--exam-muted);
+
+            font-size: 16px;
+
+            line-height: 1.7;
+        }
+
+
+        .result-actions {
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+
+        .result-actions a {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 48px;
+
+            padding:
+                0 22px;
+
+            border-radius:
+                12px;
+
+            text-decoration: none;
+
+            font-weight: 700;
+        }
+
+
+        .result-primary {
+            background:
+                var(--exam-primary);
+
+            color:
+                white;
+        }
+
+
+        .result-secondary {
+            border:
+                1px solid var(--exam-border);
+
+            background:
+                white;
+
+            color:
+                var(--exam-text);
+        }
+
+
+        /* =========================================
+           Locked Exam
+        ========================================= */
+
+        .exam-locked {
+            max-width: 650px;
+
+            margin:
+                60px auto;
+
+            padding: 40px;
+
+            text-align: center;
+
+            border:
+                1px solid var(--exam-border);
+
+            border-radius:
+                var(--exam-radius);
+
+            background:
+                white;
+
+            box-shadow:
+                0 15px 40px
+                rgba(15, 23, 42, 0.08);
+        }
+
+
+        .exam-locked-icon {
+            font-size: 52px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .exam-locked h2 {
+            margin-bottom: 10px;
+
+            color:
+                var(--exam-text);
+        }
+
+
+        .exam-locked p {
+            color:
+                var(--exam-muted);
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================
+           Responsive
+        ========================================= */
+
+        @media (max-width: 768px) {
+
+            .exam-hero {
+                margin-top: 25px;
+            }
+
+
+            .exam-hero-card {
+                padding: 30px 24px;
+
+                border-radius: 20px;
+            }
+
+
+            .exam-info-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .question-card {
+                padding: 22px 18px;
+            }
+
+
+            .question-text {
+                font-size: 17px;
+            }
+
+
+            .exam-progress-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 5px;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .exam-container {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+
+            .exam-hero {
+                padding:
+                    0 14px;
+            }
+
+
+            .answer-option {
+                padding: 13px;
+            }
+
+
+            .answer-letter {
+                width: 34px;
+                height: 34px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-    <!-- Navigation -->
+
+    <!-- =========================================
+         Navigation
+    ========================================== -->
 
     <nav class="navbar">
 
@@ -28,6 +910,7 @@
             </a>
 
         </div>
+
 
         <div class="nav-links">
 
@@ -48,52 +931,151 @@
     </nav>
 
 
-    <!-- Exam -->
 
-    <main class="account-page">
+    <!-- =========================================
+         Hero
+    ========================================== -->
 
-        <section class="account-header">
+    <section class="exam-hero">
 
-            <span class="section-label">
+        <div class="exam-hero-card">
+
+            <span class="exam-label">
                 FINAL EXAM
             </span>
 
-            <h1 id="levelTitle">
+            <h1 id="examTitle">
                 Networking Fundamentals
             </h1>
 
             <p>
-                Level 1 Final Exam
+                Level 1 · Test your knowledge and complete
+                your networking foundation.
             </p>
 
-        </section>
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         Main Exam
+    ========================================== -->
+
+    <main class="exam-container">
 
 
         <!-- Exam Information -->
 
-        <section class="account-card">
+        <section
+            id="examInformation"
+            class="exam-info-grid">
+
+            <div class="exam-stat">
+
+                <span class="exam-stat-label">
+                    Questions
+                </span>
+
+                <span
+                    id="questionCount"
+                    class="exam-stat-value">
+
+                    —
+
+                </span>
+
+            </div>
+
+
+            <div class="exam-stat">
+
+                <span class="exam-stat-label">
+                    Passing Score
+                </span>
+
+                <span
+                    id="passingScoreText"
+                    class="exam-stat-value">
+
+                    —
+
+                </span>
+
+            </div>
+
+
+            <div class="exam-stat">
+
+                <span class="exam-stat-label">
+                    Status
+                </span>
+
+                <span
+                    id="examStatus"
+                    class="exam-stat-value">
+
+                    Loading...
+
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Progress -->
+
+        <section
+            id="progressSection"
+            class="exam-progress-card">
+
+            <div class="exam-progress-header">
+
+                <strong>
+                    Your Progress
+                </strong>
+
+                <span id="questionProgressText">
+                    0 / 0 answered
+                </span>
+
+            </div>
+
+
+            <div class="exam-progress-track">
+
+                <div
+                    id="examProgressBar">
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Instructions -->
+
+        <section
+            id="instructions"
+            class="exam-instructions">
 
             <h2>
-                Exam Instructions
+                📋 Exam Instructions
             </h2>
 
             <p>
-                Answer all questions and submit your exam
-                when you are finished.
-            </p>
-
-            <p>
-                Passing score:
-                <strong id="passingScoreText">
-                    Loading...
-                </strong>
-            </p>
-
-            <p id="examStatus">
-                Loading questions...
+                Answer all questions carefully.
+                Select one answer for each question,
+                then submit your exam when you are ready.
+                Your score will be calculated automatically.
             </p>
 
         </section>
+
 
 
         <!-- Questions -->
@@ -103,12 +1085,22 @@
             <div id="questionsContainer"></div>
 
 
-            <section class="account-card">
+            <section
+                id="submitSection"
+                class="exam-submit-card">
+
+                <h2>
+                    Ready to submit?
+                </h2>
+
+                <p>
+                    Make sure you have answered all questions
+                    before submitting your exam.
+                </p>
 
                 <button
                     type="submit"
-                    id="submitExamButton"
-                    class="primary-button">
+                    id="submitExamButton">
 
                     Submit Exam
 
@@ -119,37 +1111,33 @@
         </form>
 
 
+
         <!-- Result -->
 
         <section
             id="examResult"
-            class="account-card"
             style="display: none;">
 
-            <h2>
-                Exam Result
-            </h2>
-
-            <p id="scoreText"></p>
-
-            <p id="resultMessage"></p>
-
-            <div id="resultActions"></div>
-
         </section>
+
 
     </main>
 
 
-    <!-- Supabase -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-    </script>
+    <!-- =========================================
+         Supabase
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="supabase.js"></script>
 
 
-    <!-- Exam Logic -->
+
+    <!-- =========================================
+         Exam Logic
+    ========================================== -->
 
     <script>
 
@@ -157,46 +1145,89 @@
 
 
         /*
-         * =====================================
          * Page elements
-         * =====================================
          */
 
         const examForm =
-            document.getElementById("examForm");
+            document.getElementById(
+                "examForm"
+            );
+
 
         const questionsContainer =
-            document.getElementById("questionsContainer");
+            document.getElementById(
+                "questionsContainer"
+            );
 
-        const examStatus =
-            document.getElementById("examStatus");
 
         const submitExamButton =
-            document.getElementById("submitExamButton");
+            document.getElementById(
+                "submitExamButton"
+            );
+
 
         const examResult =
-            document.getElementById("examResult");
+            document.getElementById(
+                "examResult"
+            );
 
-        const scoreText =
-            document.getElementById("scoreText");
 
-        const resultMessage =
-            document.getElementById("resultMessage");
+        const examStatus =
+            document.getElementById(
+                "examStatus"
+            );
 
-        const resultActions =
-            document.getElementById("resultActions");
+
+        const questionCount =
+            document.getElementById(
+                "questionCount"
+            );
+
 
         const passingScoreText =
-            document.getElementById("passingScoreText");
+            document.getElementById(
+                "passingScoreText"
+            );
 
-        const levelTitleElement =
-            document.getElementById("levelTitle");
+
+        const questionProgressText =
+            document.getElementById(
+                "questionProgressText"
+            );
+
+
+        const examProgressBar =
+            document.getElementById(
+                "examProgressBar"
+            );
+
+
+        const progressSection =
+            document.getElementById(
+                "progressSection"
+            );
+
+
+        const instructions =
+            document.getElementById(
+                "instructions"
+            );
+
+
+        const submitSection =
+            document.getElementById(
+                "submitSection"
+            );
+
+
+        const examInformation =
+            document.getElementById(
+                "examInformation"
+            );
 
 
         /*
-         * =====================================
-         * Application state
-         * =====================================
+         * Exam state
          */
 
         let questions = [];
@@ -210,9 +1241,7 @@
 
 
         /*
-         * =====================================
-         * Start
-         * =====================================
+         * Load exam
          */
 
         document.addEventListener(
@@ -221,16 +1250,11 @@
         );
 
 
-        /*
-         * =====================================
-         * Load exam
-         * =====================================
-         */
-
         async function loadExam() {
 
+
             /*
-             * Get authenticated user
+             * Check authentication
              */
 
             const {
@@ -264,38 +1288,32 @@
                 error: levelError
             } =
                 await supabaseClient
+
                     .from("levels")
+
                     .select(
                         "title, passing_score"
                     )
+
                     .eq(
                         "id",
                         LEVEL_ID
                     )
+
                     .single();
 
 
             if (levelError || !level) {
 
-                console.error(
-                    "Level error:",
-                    levelError
-                );
+                console.error(levelError);
 
                 examStatus.textContent =
-                    "Unable to load level information.";
-
-                submitExamButton.disabled =
-                    true;
+                    "Unavailable";
 
                 return;
 
             }
 
-
-            /*
-             * Store level information
-             */
 
             levelTitle =
                 level.title ||
@@ -306,12 +1324,10 @@
                 level.passing_score ?? 70;
 
 
-            /*
-             * Display level information
-             */
-
-            levelTitleElement.textContent =
-                levelTitle;
+            document
+                .getElementById("examTitle")
+                .textContent =
+                    levelTitle;
 
 
             passingScoreText.textContent =
@@ -327,7 +1343,9 @@
                 error
             } =
                 await supabaseClient
+
                     .from("questions")
+
                     .select(`
                         id,
                         question_number,
@@ -338,10 +1356,12 @@
                         option_d,
                         correct_answer
                     `)
+
                     .eq(
                         "level_id",
                         LEVEL_ID
                     )
+
                     .order(
                         "question_number"
                     );
@@ -349,16 +1369,10 @@
 
             if (error) {
 
-                console.error(
-                    "Questions error:",
-                    error
-                );
+                console.error(error);
 
                 examStatus.textContent =
-                    "Unable to load the exam.";
-
-                submitExamButton.disabled =
-                    true;
+                    "Unavailable";
 
                 return;
 
@@ -369,14 +1383,10 @@
                 data || [];
 
 
-            /*
-             * Check questions
-             */
-
             if (questions.length === 0) {
 
                 examStatus.textContent =
-                    "No questions are available.";
+                    "No questions";
 
                 submitExamButton.disabled =
                     true;
@@ -387,11 +1397,18 @@
 
 
             /*
-             * Display exam information
+             * Update exam information
              */
 
+            questionCount.textContent =
+                questions.length;
+
+
             examStatus.textContent =
-                `${questions.length} questions`;
+                "Ready";
+
+
+            updateProgress();
 
 
             /*
@@ -403,10 +1420,11 @@
         }
 
 
+
         /*
-         * =====================================
-         * Render questions
-         * =====================================
+         * =========================================
+         * Render Questions
+         * =========================================
          */
 
         function renderQuestions() {
@@ -417,6 +1435,7 @@
             questions.forEach(
                 (question, index) => {
 
+
                     const card =
                         document.createElement(
                             "section"
@@ -424,89 +1443,201 @@
 
 
                     card.className =
-                        "account-card";
+                        "question-card";
 
 
-                    card.innerHTML = `
-
-                        <h2>
-                            Question ${index + 1}
-                        </h2>
-
-                        <p>
-                            <strong>
-                                ${escapeHtml(
-                                    question.question_text
-                                )}
-                            </strong>
-                        </p>
+                    const questionNumber =
+                        document.createElement(
+                            "span"
+                        );
 
 
-                        <label>
-
-                            <input
-                                type="radio"
-                                name="question_${question.id}"
-                                value="A">
-
-                            ${escapeHtml(
-                                question.option_a
-                            )}
-
-                        </label>
+                    questionNumber.className =
+                        "question-number";
 
 
-                        <br><br>
+                    questionNumber.textContent =
+                        `QUESTION ${index + 1}`;
 
 
-                        <label>
-
-                            <input
-                                type="radio"
-                                name="question_${question.id}"
-                                value="B">
-
-                            ${escapeHtml(
-                                question.option_b
-                            )}
-
-                        </label>
+                    const questionText =
+                        document.createElement(
+                            "h2"
+                        );
 
 
-                        <br><br>
+                    questionText.className =
+                        "question-text";
 
 
-                        <label>
-
-                            <input
-                                type="radio"
-                                name="question_${question.id}"
-                                value="C">
-
-                            ${escapeHtml(
-                                question.option_c
-                            )}
-
-                        </label>
+                    questionText.textContent =
+                        question.question_text;
 
 
-                        <br><br>
+                    const options =
+                        document.createElement(
+                            "div"
+                        );
 
 
-                        <label>
+                    options.className =
+                        "answer-options";
 
-                            <input
-                                type="radio"
-                                name="question_${question.id}"
-                                value="D">
 
-                            ${escapeHtml(
-                                question.option_d
-                            )}
+                    const optionData = [
 
-                        </label>
+                        {
+                            letter: "A",
+                            text: question.option_a
+                        },
 
-                    `;
+                        {
+                            letter: "B",
+                            text: question.option_b
+                        },
+
+                        {
+                            letter: "C",
+                            text: question.option_c
+                        },
+
+                        {
+                            letter: "D",
+                            text: question.option_d
+                        }
+
+                    ];
+
+
+                    optionData.forEach(
+                        (option) => {
+
+
+                            const label =
+                                document.createElement(
+                                    "label"
+                                );
+
+
+                            label.className =
+                                "answer-option";
+
+
+                            const input =
+                                document.createElement(
+                                    "input"
+                                );
+
+
+                            input.type =
+                                "radio";
+
+
+                            input.name =
+                                `question_${question.id}`;
+
+
+                            input.value =
+                                option.letter;
+
+
+                            const letter =
+                                document.createElement(
+                                    "span"
+                                );
+
+
+                            letter.className =
+                                "answer-letter";
+
+
+                            letter.textContent =
+                                option.letter;
+
+
+                            const text =
+                                document.createElement(
+                                    "span"
+                                );
+
+
+                            text.className =
+                                "answer-text";
+
+
+                            text.textContent =
+                                option.text || "";
+
+
+                            label.appendChild(
+                                input
+                            );
+
+
+                            label.appendChild(
+                                letter
+                            );
+
+
+                            label.appendChild(
+                                text
+                            );
+
+
+                            input.addEventListener(
+                                "change",
+                                () => {
+
+
+                                    options
+                                        .querySelectorAll(
+                                            ".answer-option"
+                                        )
+                                        .forEach(
+                                            item => {
+
+                                                item.classList
+                                                    .remove(
+                                                        "selected"
+                                                    );
+
+                                            }
+                                        );
+
+
+                                    label.classList
+                                        .add(
+                                            "selected"
+                                        );
+
+
+                                    updateProgress();
+
+                                }
+                            );
+
+
+                            options.appendChild(
+                                label
+                            );
+
+                        }
+                    );
+
+
+                    card.appendChild(
+                        questionNumber
+                    );
+
+
+                    card.appendChild(
+                        questionText
+                    );
+
+
+                    card.appendChild(
+                        options
+                    );
 
 
                     questionsContainer.appendChild(
@@ -516,13 +1647,72 @@
                 }
             );
 
+
+            updateProgress();
+
         }
 
 
+
         /*
-         * =====================================
-         * Submit exam
-         * =====================================
+         * =========================================
+         * Progress
+         * =========================================
+         */
+
+        function updateProgress() {
+
+            if (!questions.length) {
+
+                return;
+
+            }
+
+
+            let answered = 0;
+
+
+            questions.forEach(
+                question => {
+
+                    const selected =
+                        document.querySelector(
+                            `input[name="question_${question.id}"]:checked`
+                        );
+
+
+                    if (selected) {
+
+                        answered++;
+
+                    }
+
+                }
+            );
+
+
+            const percentage =
+                Math.round(
+                    (answered / questions.length) *
+                    100
+                );
+
+
+            questionProgressText.textContent =
+                `${answered} / ${questions.length} answered`;
+
+
+            examProgressBar.style.width =
+                `${percentage}%`;
+
+        }
+
+
+
+        /*
+         * =========================================
+         * Submit Exam
+         * =========================================
          */
 
         examForm.addEventListener(
@@ -540,11 +1730,45 @@
 
 
                 /*
+                 * Check unanswered questions
+                 */
+
+                const unanswered =
+                    questions.filter(
+                        question => {
+
+                            return !document.querySelector(
+                                `input[name="question_${question.id}"]:checked`
+                            );
+
+                        }
+                    );
+
+
+                if (unanswered.length > 0) {
+
+                    const proceed =
+                        confirm(
+                            `You have ${unanswered.length} unanswered question(s). Do you want to submit anyway?`
+                        );
+
+
+                    if (!proceed) {
+
+                        return;
+
+                    }
+
+                }
+
+
+                /*
                  * Prevent double submission
                  */
 
                 submitExamButton.disabled =
                     true;
+
 
                 submitExamButton.textContent =
                     "Submitting...";
@@ -558,7 +1782,7 @@
 
 
                 questions.forEach(
-                    (question) => {
+                    question => {
 
                         const selected =
                             document.querySelector(
@@ -579,10 +1803,6 @@
                     }
                 );
 
-
-                /*
-                 * Score
-                 */
 
                 const totalQuestions =
                     questions.length;
@@ -606,14 +1826,16 @@
 
 
                 /*
-                 * Save exam attempt
+                 * Save attempt
                  */
 
                 const {
                     error
                 } =
                     await supabaseClient
+
                         .from("exam_attempts")
+
                         .insert({
 
                             user_id:
@@ -638,18 +1860,42 @@
                         error
                     );
 
+
                     examStatus.textContent =
-                        "Your result could not be saved.";
+                        "Save failed";
+
 
                     submitExamButton.disabled =
                         false;
 
+
                     submitExamButton.textContent =
                         "Submit Exam";
+
 
                     return;
 
                 }
+
+
+                /*
+                 * Hide exam controls
+                 */
+
+                examForm.style.display =
+                    "none";
+
+
+                examInformation.style.display =
+                    "none";
+
+
+                progressSection.style.display =
+                    "none";
+
+
+                instructions.style.display =
+                    "none";
 
 
                 /*
@@ -660,67 +1906,128 @@
                     "block";
 
 
-                scoreText.textContent =
-                    `Your score: ${score}% (${correctCount}/${totalQuestions})`;
-
-
-                /*
-                 * Passed
-                 */
-
                 if (passed) {
 
-                    resultMessage.textContent =
-                        `🎉 Congratulations! You passed ${levelTitle}.`;
+                    examResult.className =
+                        "account-card result-success";
 
 
-                    resultActions.innerHTML = `
+                    examResult.innerHTML = `
 
-                        <a
-                            href="account.html"
-                            class="primary-button">
+                        <div class="result-icon">
+                            🏆
+                        </div>
 
-                            Go to My Account →
+                        <h2>
+                            Congratulations!
+                        </h2>
 
-                        </a>
+                        <div class="result-score">
+                            ${score}%
+                        </div>
+
+                        <p>
+                            You answered
+                            <strong>
+                                ${correctCount}
+                            </strong>
+                            out of
+                            <strong>
+                                ${totalQuestions}
+                            </strong>
+                            questions correctly.
+                        </p>
+
+                        <p class="result-message">
+                            Excellent work! You have passed
+                            the ${levelTitle} Level 1 exam.
+                        </p>
+
+                        <div class="result-actions">
+
+                            <a
+                                href="account.html"
+                                class="result-primary">
+
+                                Go to My Account →
+
+                            </a>
+
+                            <a
+                                href="networking.html"
+                                class="result-secondary">
+
+                                Back to Networking
+
+                            </a>
+
+                        </div>
 
                     `;
 
+                } else {
 
-                    submitExamButton.style.display =
-                        "none";
-
-                }
-
-
-                /*
-                 * Failed
-                 */
-
-                else {
-
-                    resultMessage.textContent =
-                        `You did not reach the passing score of ${passingScore}%. Please review the lessons and try again.`;
+                    examResult.className =
+                        "account-card result-failed";
 
 
-                    resultActions.innerHTML = `
+                    examResult.innerHTML = `
 
-                        <a
-                            href="networking.html"
-                            class="secondary-button">
+                        <div class="result-icon">
+                            📚
+                        </div>
 
-                            Review Networking Lessons
+                        <h2>
+                            Keep Learning
+                        </h2>
 
-                        </a>
+                        <div class="result-score">
+                            ${score}%
+                        </div>
+
+                        <p>
+                            You answered
+                            <strong>
+                                ${correctCount}
+                            </strong>
+                            out of
+                            <strong>
+                                ${totalQuestions}
+                            </strong>
+                            questions correctly.
+                        </p>
+
+                        <p class="result-message">
+                            The passing score is
+                            <strong>
+                                ${passingScore}%
+                            </strong>.
+                            Review the Networking lessons
+                            and try the exam again when
+                            you are ready.
+                        </p>
+
+                        <div class="result-actions">
+
+                            <a
+                                href="networking.html"
+                                class="result-primary">
+
+                                Review Lessons →
+
+                            </a>
+
+                            <a
+                                href="account.html"
+                                class="result-secondary">
+
+                                My Account
+
+                            </a>
+
+                        </div>
 
                     `;
-
-
-                    submitExamButton.disabled =
-                        false;
-
-                    submitExamButton.textContent =
-                        "Try Again";
 
                 }
 
@@ -736,32 +2043,8 @@
             }
         );
 
-
-        /*
-         * =====================================
-         * HTML escaping
-         * =====================================
-         */
-
-        function escapeHtml(value) {
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.textContent =
-                value ?? "";
-
-
-            return div.innerHTML;
-
-        }
-
     </script>
 
 </body>
 
 </html>
-
