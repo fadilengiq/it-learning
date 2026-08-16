@@ -9,15 +9,832 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>Networking - IT Learning Hub</title>
+    <title>Networking Fundamentals - IT Learning Hub</title>
 
     <link rel="stylesheet" href="style.css">
 
+    <style>
+
+        /* =====================================================
+           Networking Page
+           ===================================================== */
+
+        .networking-page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+
+        /* =====================================================
+           Hero
+           ===================================================== */
+
+        .networking-hero {
+            position: relative;
+            overflow: hidden;
+
+            padding: 48px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111827 0%,
+                    #1e293b 55%,
+                    #0f172a 100%
+                );
+
+            color: white;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 20px 50px rgba(15, 23, 42, 0.18);
+        }
+
+
+        .networking-hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 260px;
+            height: 260px;
+
+            right: -80px;
+            top: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(59, 130, 246, 0.18);
+
+            filter: blur(4px);
+        }
+
+
+        .networking-hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            right: 180px;
+            bottom: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(14, 165, 233, 0.12);
+        }
+
+
+        .networking-hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 760px;
+        }
+
+
+        .networking-label {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 7px 13px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.10);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.14);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.4px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .networking-hero h1 {
+            margin: 0 0 14px;
+
+            font-size: clamp(32px, 5vw, 52px);
+
+            line-height: 1.08;
+
+            letter-spacing: -1px;
+        }
+
+
+        .networking-hero-description {
+            margin: 0;
+
+            color:
+                rgba(255, 255, 255, 0.76);
+
+            font-size: 17px;
+
+            line-height: 1.7;
+
+            max-width: 680px;
+        }
+
+
+        /* =====================================================
+           Progress Overview
+           ===================================================== */
+
+        .networking-overview {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.4fr)
+                minmax(260px, 0.6fr);
+
+            gap: 22px;
+
+            margin-bottom: 38px;
+        }
+
+
+        .progress-card,
+        .stats-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 22px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 10px 30px rgba(15, 23, 42, 0.06);
+        }
+
+
+        .progress-card-header {
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .progress-card h2,
+        .stats-card h2 {
+            margin: 0 0 7px;
+
+            font-size: 20px;
+
+            color: #111827;
+        }
+
+
+        .progress-card p,
+        .stats-card p {
+            margin: 0;
+
+            color: #6b7280;
+
+            line-height: 1.6;
+        }
+
+
+        .progress-percentage {
+            font-size: 30px;
+
+            font-weight: 800;
+
+            color: #2563eb;
+
+            white-space: nowrap;
+        }
+
+
+        .progress-track {
+            width: 100%;
+
+            height: 12px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background: #e5e7eb;
+        }
+
+
+        .progress-fill {
+            width: 0%;
+
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #2563eb,
+                    #06b6d4
+                );
+
+            transition:
+                width 0.5s ease;
+        }
+
+
+        .progress-details {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 12px;
+
+            font-size: 14px;
+
+            color: #6b7280;
+        }
+
+
+        .stats-card {
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        .stats-icon {
+            width: 58px;
+            height: 58px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background: #eff6ff;
+
+            font-size: 28px;
+        }
+
+
+        .stats-number {
+            display: block;
+
+            font-size: 30px;
+
+            line-height: 1;
+
+            font-weight: 800;
+
+            color: #111827;
+
+            margin-bottom: 6px;
+        }
+
+
+        .stats-label {
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           Section Header
+           ===================================================== */
+
+        .lessons-header {
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .lessons-header h2 {
+            margin: 0 0 7px;
+
+            font-size: 28px;
+
+            color: #111827;
+        }
+
+
+        .lessons-header p {
+            margin: 0;
+
+            color: #6b7280;
+
+            line-height: 1.6;
+        }
+
+
+        .lesson-count {
+            padding: 8px 13px;
+
+            border-radius: 999px;
+
+            background: #f3f4f6;
+
+            color: #4b5563;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           Lessons Grid
+           ===================================================== */
+
+        .networking-lessons-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 18px;
+
+            margin-bottom: 34px;
+        }
+
+
+        .networking-lesson-card {
+            position: relative;
+
+            display: flex;
+
+            gap: 18px;
+
+            padding: 23px;
+
+            border-radius: 20px;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            text-decoration: none;
+
+            color: inherit;
+
+            box-shadow:
+                0 8px 25px rgba(15, 23, 42, 0.045);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+
+        .networking-lesson-card:hover {
+            transform: translateY(-3px);
+
+            border-color: #bfdbfe;
+
+            box-shadow:
+                0 15px 35px rgba(15, 23, 42, 0.09);
+        }
+
+
+        .lesson-number {
+            width: 48px;
+            height: 48px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            font-size: 15px;
+
+            font-weight: 800;
+        }
+
+
+        .networking-lesson-card.completed
+        .lesson-number {
+            background: #ecfdf5;
+
+            color: #059669;
+        }
+
+
+        .lesson-card-content {
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        .lesson-status {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            margin-bottom: 7px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.8px;
+
+            color: #2563eb;
+        }
+
+
+        .completed .lesson-status {
+            color: #059669;
+        }
+
+
+        .networking-lesson-card h3 {
+            margin: 0 0 7px;
+
+            color: #111827;
+
+            font-size: 18px;
+
+            line-height: 1.35;
+        }
+
+
+        .networking-lesson-card p {
+            margin: 0;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        .lesson-arrow {
+            align-self: center;
+
+            color: #9ca3af;
+
+            font-size: 20px;
+
+            transition:
+                transform 0.2s ease,
+                color 0.2s ease;
+        }
+
+
+        .networking-lesson-card:hover
+        .lesson-arrow {
+            color: #2563eb;
+
+            transform: translateX(4px);
+        }
+
+
+        /* =====================================================
+           Exam CTA
+           ===================================================== */
+
+        .exam-card {
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 24px;
+
+            padding: 32px;
+
+            border: 1px solid #dbeafe;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #f0fdfa
+                );
+
+            margin-top: 12px;
+        }
+
+
+        .exam-card.locked {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fafc,
+                    #f1f5f9
+                );
+
+            border-color: #e2e8f0;
+        }
+
+
+        .exam-content {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+
+        .exam-icon {
+            width: 58px;
+            height: 58px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 16px;
+
+            background: white;
+
+            box-shadow:
+                0 6px 20px rgba(15, 23, 42, 0.07);
+
+            font-size: 28px;
+        }
+
+
+        .exam-text {
+            flex: 1;
+        }
+
+
+        .exam-text h2 {
+            margin: 0 0 7px;
+
+            color: #111827;
+
+            font-size: 23px;
+        }
+
+
+        .exam-text p {
+            margin: 0;
+
+            color: #64748b;
+
+            line-height: 1.6;
+        }
+
+
+        .exam-button {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 12px 20px;
+
+            border-radius: 12px;
+
+            background: #2563eb;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .exam-button:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+        }
+
+
+        .exam-button.disabled {
+            background: #cbd5e1;
+
+            color: #64748b;
+
+            cursor: not-allowed;
+
+            pointer-events: none;
+        }
+
+
+        .exam-remaining {
+            margin-top: 10px !important;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           Messages
+           ===================================================== */
+
+        .networking-message {
+            margin: 18px 0;
+
+            padding: 14px 17px;
+
+            border-radius: 12px;
+
+            background: #fef2f2;
+
+            color: #b91c1c;
+
+            font-size: 14px;
+
+            display: none;
+        }
+
+
+        .loading-state {
+            grid-column: 1 / -1;
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            color: #6b7280;
+
+            background: white;
+
+            border: 1px dashed #d1d5db;
+
+            border-radius: 20px;
+        }
+
+
+        /* =====================================================
+           Responsive
+           ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .networking-page {
+                padding:
+                    35px 18px 55px;
+            }
+
+
+            .networking-hero {
+                padding: 34px 25px;
+
+                border-radius: 22px;
+            }
+
+
+            .networking-overview {
+                grid-template-columns: 1fr;
+            }
+
+
+            .networking-lessons-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .exam-content {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .exam-button {
+                width: 100%;
+            }
+
+        }
+
+
+        @media (max-width: 520px) {
+
+            .networking-hero h1 {
+                font-size: 34px;
+            }
+
+
+            .networking-hero-description {
+                font-size: 15px;
+            }
+
+
+            .progress-card,
+            .stats-card {
+                padding: 22px;
+            }
+
+
+            .progress-card-header {
+                flex-direction: column;
+
+                gap: 8px;
+            }
+
+
+            .progress-percentage {
+                font-size: 27px;
+            }
+
+
+            .lessons-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .networking-lesson-card {
+                padding: 19px;
+
+                gap: 14px;
+            }
+
+
+            .lesson-number {
+                width: 42px;
+                height: 42px;
+            }
+
+
+            .networking-lesson-card h3 {
+                font-size: 16px;
+            }
+
+
+            .exam-card {
+                padding: 24px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- Navigation -->
+
+    <!-- =====================================================
+         Navigation
+         ===================================================== -->
 
     <nav class="navbar">
 
@@ -28,6 +845,7 @@
             </a>
 
         </div>
+
 
         <div class="nav-links">
 
@@ -48,54 +866,34 @@
     </nav>
 
 
-    <!-- Main -->
+    <!-- =====================================================
+         Main
+         ===================================================== -->
 
-    <main class="section">
-
-        <div class="section-heading">
-
-            <span class="section-label">
-                NETWORKING
-            </span>
-
-            <h1>
-                Networking Fundamentals
-            </h1>
-
-            <p>
-                Learn the fundamental concepts of computer networking
-                step by step.
-            </p>
-
-        </div>
+    <main class="networking-page">
 
 
-        <!-- Level information -->
+        <!-- Hero -->
 
-        <section class="account-card">
+        <section class="networking-hero">
 
-            <h2>
-                Level 1
-            </h2>
+            <div class="networking-hero-content">
 
-            <p>
-                Complete the lessons below to build your networking
-                foundation.
-            </p>
+                <span class="networking-label">
+                    🌐 NETWORKING • LEVEL 1
+                </span>
 
-        </section>
+                <h1>
+                    Networking Fundamentals
+                </h1>
 
+                <p class="networking-hero-description">
 
-        <!-- Lessons -->
+                    Build a strong foundation in computer networking.
+                    Learn about networks, devices, IP addresses,
+                    protocols, and troubleshooting through a
+                    structured learning path.
 
-        <section>
-
-            <div
-                id="lessonsContainer"
-                class="learning-grid">
-
-                <p>
-                    Loading lessons...
                 </p>
 
             </div>
@@ -103,17 +901,208 @@
         </section>
 
 
-        <!-- Message -->
+        <!-- =================================================
+             Progress Overview
+             ================================================= -->
 
-        <p
-            id="networkingMessage"
-            style="margin-top: 20px;">
-        </p>
+        <section class="networking-overview">
+
+
+            <div class="progress-card">
+
+                <div class="progress-card-header">
+
+                    <div>
+
+                        <h2>
+                            Your Learning Progress
+                        </h2>
+
+                        <p>
+                            Keep going — every completed lesson
+                            brings you closer to the final exam.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="progressPercentage"
+                        class="progress-percentage">
+
+                        0%
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        id="progressFill"
+                        class="progress-fill">
+                    </div>
+
+                </div>
+
+
+                <div class="progress-details">
+
+                    <span id="progressCompleted">
+                        0 lessons completed
+                    </span>
+
+                    <span id="progressTotal">
+                        0 lessons
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stats-card">
+
+                <div class="stats-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <span
+                        id="lessonsCompletedNumber"
+                        class="stats-number">
+
+                        0
+
+                    </span>
+
+                    <span class="stats-label">
+                        Lessons completed
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             Lessons
+             ================================================= -->
+
+        <section>
+
+
+            <div class="lessons-header">
+
+                <div>
+
+                    <h2>
+                        Level 1 Lessons
+                    </h2>
+
+                    <p>
+                        Complete each lesson in order to build
+                        your networking knowledge.
+                    </p>
+
+                </div>
+
+
+                <span
+                    id="lessonCount"
+                    class="lesson-count">
+
+                    Loading...
+
+                </span>
+
+            </div>
+
+
+            <div
+                id="lessonsContainer"
+                class="networking-lessons-grid">
+
+                <div class="loading-state">
+
+                    Loading your lessons...
+
+                </div>
+
+            </div>
+
+
+            <p
+                id="networkingMessage"
+                class="networking-message">
+            </p>
+
+
+        </section>
+
+
+        <!-- =================================================
+             Final Exam
+             ================================================= -->
+
+        <section
+            id="examSection"
+            class="exam-card locked">
+
+            <div class="exam-content">
+
+
+                <div class="exam-icon">
+                    🔒
+                </div>
+
+
+                <div class="exam-text">
+
+                    <h2>
+                        Level 1 Final Exam
+                    </h2>
+
+                    <p id="examDescription">
+
+                        Complete all lessons to unlock
+                        the final exam.
+
+                    </p>
+
+                    <p
+                        id="examRemaining"
+                        class="exam-remaining">
+
+                    </p>
+
+                </div>
+
+
+                <a
+                    id="examButton"
+                    href="exam.html"
+                    class="exam-button disabled">
+
+                    Final Exam →
+
+                </a>
+
+            </div>
+
+        </section>
+
 
     </main>
 
 
-    <!-- Footer -->
+    <!-- =====================================================
+         Footer
+         ===================================================== -->
 
     <footer>
 
@@ -128,337 +1117,599 @@
     </footer>
 
 
-    <!-- Supabase -->
+    <!-- =====================================================
+         Supabase
+         ===================================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
     </script>
 
-    <script src="supabase.js"></script>
+    <script src="supabase.js">
+    </script>
 
 
-    <!-- Networking logic -->
+    <!-- =====================================================
+         Networking Logic
+         ===================================================== -->
 
-<script>
+    <script>
 
-    const LEVEL_ID = 1;
-
-    const lessonsContainer =
-        document.getElementById("lessonsContainer");
-
-    const networkingMessage =
-        document.getElementById("networkingMessage");
+        const LEVEL_ID = 1;
 
 
-    async function loadLessons() {
+        const lessonsContainer =
+            document.getElementById(
+                "lessonsContainer"
+            );
+
+
+        const networkingMessage =
+            document.getElementById(
+                "networkingMessage"
+            );
+
+
+        const progressFill =
+            document.getElementById(
+                "progressFill"
+            );
+
+
+        const progressPercentage =
+            document.getElementById(
+                "progressPercentage"
+            );
+
+
+        const progressCompleted =
+            document.getElementById(
+                "progressCompleted"
+            );
+
+
+        const progressTotal =
+            document.getElementById(
+                "progressTotal"
+            );
+
+
+        const lessonsCompletedNumber =
+            document.getElementById(
+                "lessonsCompletedNumber"
+            );
+
+
+        const lessonCount =
+            document.getElementById(
+                "lessonCount"
+            );
+
+
+        const examSection =
+            document.getElementById(
+                "examSection"
+            );
+
+
+        const examDescription =
+            document.getElementById(
+                "examDescription"
+            );
+
+
+        const examRemaining =
+            document.getElementById(
+                "examRemaining"
+            );
+
+
+        const examButton =
+            document.getElementById(
+                "examButton"
+            );
+
 
         /*
-         * Get authenticated user
+         * =====================================================
+         * Load lessons and progress
+         * =====================================================
          */
 
-        const {
-            data: { user },
-            error: userError
-        } = await supabaseClient.auth.getUser();
+        async function loadLessons() {
 
 
-        if (userError || !user) {
+            /*
+             * Get authenticated user
+             */
 
-            window.location.href = "login.html";
-
-            return;
-
-        }
-
-
-        /*
-         * Get lessons belonging to
-         * Networking Level 1
-         */
-
-        const {
-            data: lessons,
-            error: lessonsError
-        } = await supabaseClient
-
-            .from("lessons")
-
-            .select(`
-                id,
-                lesson_number,
-                title,
-                description
-            `)
-
-            .eq("level_id", LEVEL_ID)
-
-            .order("lesson_number");
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
 
 
-        if (lessonsError) {
+            if (userError || !user) {
 
-            console.error(lessonsError);
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            /*
+             * Get Level 1 lessons
+             */
+
+            const {
+                data: lessons,
+                error: lessonsError
+            } =
+                await supabaseClient
+
+                    .from("lessons")
+
+                    .select(`
+                        id,
+                        lesson_number,
+                        title,
+                        description
+                    `)
+
+                    .eq(
+                        "level_id",
+                        LEVEL_ID
+                    )
+
+                    .order(
+                        "lesson_number"
+                    );
+
+
+            if (lessonsError) {
+
+                console.error(
+                    "Lessons error:",
+                    lessonsError
+                );
+
+                showError(
+                    "Unable to load lessons. Please try again."
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * No lessons
+             */
+
+            if (
+                !lessons ||
+                lessons.length === 0
+            ) {
+
+                lessonsContainer.innerHTML = `
+
+                    <div class="loading-state">
+
+                        No lessons are available yet.
+
+                    </div>
+
+                `;
+
+                lessonCount.textContent =
+                    "0 lessons";
+
+                return;
+
+            }
+
+
+            /*
+             * Get completed lessons
+             */
+
+            const {
+                data: progress,
+                error: progressError
+            } =
+                await supabaseClient
+
+                    .from("lesson_progress")
+
+                    .select(`
+                        lesson_id,
+                        completed
+                    `)
+
+                    .eq(
+                        "user_id",
+                        user.id
+                    )
+
+                    .eq(
+                        "completed",
+                        true
+                    );
+
+
+            if (progressError) {
+
+                console.error(
+                    "Progress error:",
+                    progressError
+                );
+
+                showError(
+                    "Unable to load your learning progress."
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Create completed lesson Set
+             */
+
+            const completedLessonIds =
+                new Set(
+                    (progress || [])
+                        .map(
+                            item =>
+                                item.lesson_id
+                        )
+                );
+
+
+            /*
+             * Calculate progress
+             */
+
+            const totalLessons =
+                lessons.length;
+
+
+            const completedLessons =
+                lessons.filter(
+                    lesson =>
+                        completedLessonIds.has(
+                            lesson.id
+                        )
+                ).length;
+
+
+            const percentage =
+                totalLessons > 0
+                    ? Math.round(
+                        (
+                            completedLessons /
+                            totalLessons
+                        ) * 100
+                    )
+                    : 0;
+
+
+            /*
+             * Update progress UI
+             */
+
+            progressFill.style.width =
+                `${percentage}%`;
+
+
+            progressPercentage.textContent =
+                `${percentage}%`;
+
+
+            progressCompleted.textContent =
+                `${completedLessons} lesson${
+                    completedLessons === 1
+                        ? ""
+                        : "s"
+                } completed`;
+
+
+            progressTotal.textContent =
+                `${totalLessons} lessons`;
+
+
+            lessonsCompletedNumber.textContent =
+                completedLessons;
+
+
+            lessonCount.textContent =
+                `${totalLessons} lessons`;
+
+
+            /*
+             * Render lesson cards
+             */
 
             lessonsContainer.innerHTML = "";
 
-            networkingMessage.textContent =
-                "Unable to load lessons.";
 
-            return;
-
-        }
+            lessons.forEach(
+                (lesson) => {
 
 
-        if (!lessons || lessons.length === 0) {
-
-            lessonsContainer.innerHTML =
-                "<p>No lessons available yet.</p>";
-
-            return;
-
-        }
+                    const completed =
+                        completedLessonIds.has(
+                            lesson.id
+                        );
 
 
-        /*
-         * Get completed lessons
-         * for the current user
-         */
-
-        const {
-            data: progress,
-            error: progressError
-        } = await supabaseClient
-
-            .from("lesson_progress")
-
-            .select("lesson_id, completed")
-
-            .eq("user_id", user.id)
-
-            .eq("completed", true);
+                    const card =
+                        document.createElement(
+                            "a"
+                        );
 
 
-        if (progressError) {
-
-            console.error(progressError);
-
-            networkingMessage.textContent =
-                "Unable to load your learning progress.";
-
-            return;
-
-        }
+                    card.className =
+                        "networking-lesson-card";
 
 
-        /*
-         * Create a Set containing
-         * completed lesson IDs
-         */
+                    if (completed) {
 
-        const completedLessonIds =
-            new Set(
-                (progress || [])
-                    .map(item => item.lesson_id)
+                        card.classList.add(
+                            "completed"
+                        );
+
+                    }
+
+
+                    card.href =
+                        `lesson.html?id=${lesson.id}`;
+
+
+                    card.innerHTML = `
+
+                        <div class="lesson-number">
+
+                            ${
+                                completed
+                                    ? "✓"
+                                    : String(
+                                        lesson.lesson_number
+                                    )
+                            }
+
+                        </div>
+
+
+                        <div class="lesson-card-content">
+
+                            <span class="lesson-status">
+
+                                ${
+                                    completed
+                                        ? "✓ COMPLETED"
+                                        : `LESSON ${lesson.lesson_number}`
+                                }
+
+                            </span>
+
+
+                            <h3>
+                                ${escapeHtml(
+                                    lesson.title
+                                )}
+                            </h3>
+
+
+                            <p>
+                                ${escapeHtml(
+                                    lesson.description || ""
+                                )}
+                            </p>
+
+                        </div>
+
+
+                        <div class="lesson-arrow">
+
+                            →
+
+                        </div>
+
+                    `;
+
+
+                    lessonsContainer.appendChild(
+                        card
+                    );
+
+                }
             );
 
 
-        /*
-         * Calculate progress
-         */
+            /*
+             * Update final exam
+             */
 
-        const totalLessons =
-            lessons.length;
+            updateExamState(
+                completedLessons,
+                totalLessons
+            );
 
-        const completedLessons =
-            lessons.filter(
-                lesson =>
-                    completedLessonIds.has(lesson.id)
-            ).length;
-
-
-        const percentage =
-            totalLessons > 0
-                ? Math.round(
-                    (completedLessons / totalLessons) * 100
-                )
-                : 0;
+        }
 
 
         /*
-         * Display progress
+         * =====================================================
+         * Final exam state
+         * =====================================================
          */
 
-        networkingMessage.textContent =
-            `${completedLessons} of ${totalLessons} lessons completed (${percentage}%).`;
+        function updateExamState(
+            completedLessons,
+            totalLessons
+        ) {
 
 
-        /*
-         * Create lesson cards
-         */
-
-        lessonsContainer.innerHTML = "";
-
-
-        lessons.forEach((lesson) => {
-
-            const card =
-                document.createElement("a");
+            if (
+                completedLessons ===
+                totalLessons
+            ) {
 
 
-            card.className =
-                "learning-card";
+                examSection.classList.remove(
+                    "locked"
+                );
 
 
-            card.href =
-                `lesson.html?id=${lesson.id}`;
+                examIconReplace(
+                    "🎓"
+                );
 
 
-            const completed =
-                completedLessonIds.has(lesson.id);
+                examDescription.textContent =
+                    "Excellent work! You have completed all Level 1 lessons and the final exam is now unlocked.";
 
 
-            card.innerHTML = `
-
-                <div class="card-icon">
-                    ${completed ? "✅" : "📘"}
-                </div>
-
-                <div class="card-content">
-
-                    <span class="level beginner">
-                        LESSON ${lesson.lesson_number}
-                    </span>
-
-                    <h3>
-                        ${escapeHtml(lesson.title)}
-                    </h3>
-
-                    <p>
-                        ${escapeHtml(
-                            lesson.description || ""
-                        )}
-                    </p>
-
-                    <span class="card-link">
-                        ${
-                            completed
-                                ? "Review lesson →"
-                                : "Start lesson →"
-                        }
-                    </span>
-
-                </div>
-
-            `;
+                examRemaining.textContent =
+                    "You are ready to test your Networking Fundamentals knowledge.";
 
 
-            lessonsContainer.appendChild(card);
-
-        });
-
-
-        /*
-         * Add Final Exam section
-         */
-
-        const examSection =
-            document.createElement("section");
+                examButton.classList.remove(
+                    "disabled"
+                );
 
 
-        examSection.className =
-            "account-card";
+                examButton.textContent =
+                    "Start Final Exam →";
 
 
-        if (completedLessons === totalLessons) {
+                return;
 
-            examSection.innerHTML = `
+            }
 
-                <h2>
-                    🎓 Level 1 Final Exam
-                </h2>
-
-                <p>
-                    Congratulations! You have completed
-                    all Level 1 lessons.
-                </p>
-
-                <a
-                    href="exam.html"
-                    class="primary-button">
-
-                    Start Final Exam →
-
-                </a>
-
-            `;
-
-        } else {
 
             const remaining =
-                totalLessons - completedLessons;
+                totalLessons -
+                completedLessons;
 
 
-            examSection.innerHTML = `
+            examSection.classList.add(
+                "locked"
+            );
 
-                <h2>
-                    🔒 Level 1 Final Exam
-                </h2>
 
-                <p>
-                    Complete all ${totalLessons} lessons
-                    before taking the final exam.
-                </p>
+            examIconReplace(
+                "🔒"
+            );
 
-                <p>
-                    Remaining:
-                    <strong>
-                        ${remaining}
-                    </strong>
-                    lesson${remaining === 1 ? "" : "s"}.
-                </p>
 
-            `;
+            examDescription.textContent =
+                "Complete all Level 1 lessons to unlock the final exam.";
+
+
+            examRemaining.textContent =
+                `${remaining} lesson${
+                    remaining === 1
+                        ? ""
+                        : "s"
+                } remaining.`;
+
+
+            examButton.classList.add(
+                "disabled"
+            );
+
+
+            examButton.textContent =
+                "Final Exam Locked";
 
         }
 
 
         /*
-         * Put exam section after
-         * the lesson cards
+         * =====================================================
+         * Replace exam icon
+         * =====================================================
          */
 
-        lessonsContainer.parentElement
-            .insertAdjacentElement(
-                "afterend",
-                examSection
-            );
+        function examIconReplace(
+            icon
+        ) {
 
-    }
-
-
-    /*
-     * Escape HTML
-     */
-
-    function escapeHtml(value) {
-
-        const div =
-            document.createElement("div");
-
-        div.textContent =
-            value ?? "";
-
-        return div.innerHTML;
-
-    }
+            const iconElement =
+                examSection.querySelector(
+                    ".exam-icon"
+                );
 
 
-    /*
-     * Load page
-     */
+            if (iconElement) {
 
-    loadLessons();
+                iconElement.textContent =
+                    icon;
 
-</script>
+            }
+
+        }
+
+
+        /*
+         * =====================================================
+         * Error message
+         * =====================================================
+         */
+
+        function showError(
+            message
+        ) {
+
+            networkingMessage.style.display =
+                "block";
+
+
+            networkingMessage.textContent =
+                message;
+
+        }
+
+
+        /*
+         * =====================================================
+         * Escape HTML
+         * =====================================================
+         */
+
+        function escapeHtml(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+
+        }
+
+
+        /*
+         * =====================================================
+         * Load page
+         * =====================================================
+         */
+
+        loadLessons();
+
+    </script>
 
 </body>
 

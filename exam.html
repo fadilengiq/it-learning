@@ -37,7 +37,6 @@
             --exam-radius: 18px;
         }
 
-
         body {
             background:
                 linear-gradient(
@@ -46,7 +45,6 @@
                     #eef4ff 100%
                 );
         }
-
 
         /* =========================================
            Exam Hero
@@ -58,13 +56,10 @@
             padding: 0 20px;
         }
 
-
         .exam-hero-card {
             position: relative;
             overflow: hidden;
-
             padding: 42px;
-
             border-radius: 26px;
 
             background:
@@ -82,7 +77,6 @@
                 rgba(15, 23, 42, 0.18);
         }
 
-
         .exam-hero-card::after {
             content: "";
 
@@ -99,7 +93,6 @@
             background:
                 rgba(255, 255, 255, 0.08);
         }
-
 
         .exam-label {
             display: inline-block;
@@ -121,7 +114,6 @@
             color: #dbeafe;
         }
 
-
         .exam-hero-card h1 {
             position: relative;
             z-index: 1;
@@ -133,7 +125,6 @@
             line-height: 1.1;
         }
 
-
         .exam-hero-card p {
             position: relative;
             z-index: 1;
@@ -144,7 +135,6 @@
 
             font-size: 17px;
         }
-
 
         /* =========================================
            Exam Information
@@ -159,7 +149,6 @@
                 0 20px 60px;
         }
 
-
         .exam-info-grid {
             display: grid;
 
@@ -170,7 +159,6 @@
 
             margin-bottom: 28px;
         }
-
 
         .exam-stat {
             padding: 22px;
@@ -189,7 +177,6 @@
                 rgba(15, 23, 42, 0.05);
         }
 
-
         .exam-stat-label {
             display: block;
 
@@ -202,7 +189,6 @@
             font-weight: 600;
         }
 
-
         .exam-stat-value {
             display: block;
 
@@ -212,7 +198,6 @@
             font-size: 24px;
             font-weight: 800;
         }
-
 
         /* =========================================
            Progress
@@ -237,7 +222,6 @@
                 rgba(15, 23, 42, 0.05);
         }
 
-
         .exam-progress-header {
             display: flex;
 
@@ -249,11 +233,9 @@
             margin-bottom: 12px;
         }
 
-
         .exam-progress-header strong {
             color: var(--exam-text);
         }
-
 
         #questionProgressText {
             color:
@@ -261,7 +243,6 @@
 
             font-weight: 700;
         }
-
 
         .exam-progress-track {
             width: 100%;
@@ -273,7 +254,6 @@
 
             background: #e2e8f0;
         }
-
 
         #examProgressBar {
             width: 0%;
@@ -291,7 +271,6 @@
             transition:
                 width 0.3s ease;
         }
-
 
         /* =========================================
            Instructions
@@ -312,7 +291,6 @@
                 #eff6ff;
         }
 
-
         .exam-instructions h2 {
             margin:
                 0 0 10px;
@@ -323,7 +301,6 @@
             font-size: 20px;
         }
 
-
         .exam-instructions p {
             margin: 0;
 
@@ -332,7 +309,6 @@
 
             line-height: 1.7;
         }
-
 
         /* =========================================
            Question Card
@@ -361,7 +337,6 @@
                 box-shadow 0.2s ease;
         }
 
-
         .question-card:hover {
             border-color:
                 #bfdbfe;
@@ -370,7 +345,6 @@
                 0 12px 32px
                 rgba(37, 99, 235, 0.08);
         }
-
 
         .question-number {
             display: inline-flex;
@@ -399,7 +373,6 @@
             letter-spacing: 0.05em;
         }
 
-
         .question-text {
             margin:
                 0 0 22px;
@@ -412,7 +385,6 @@
             line-height: 1.55;
         }
 
-
         /* =========================================
            Answer Options
         ========================================= */
@@ -422,7 +394,6 @@
 
             gap: 12px;
         }
-
 
         .answer-option {
             position: relative;
@@ -449,7 +420,6 @@
                 all 0.2s ease;
         }
 
-
         .answer-option:hover {
             border-color:
                 #93c5fd;
@@ -461,7 +431,6 @@
                 translateY(-1px);
         }
 
-
         .answer-option input {
             position: absolute;
 
@@ -469,7 +438,6 @@
 
             pointer-events: none;
         }
-
 
         .answer-letter {
             display: flex;
@@ -496,7 +464,6 @@
                 all 0.2s ease;
         }
 
-
         .answer-text {
             color:
                 #334155;
@@ -505,7 +472,6 @@
 
             line-height: 1.5;
         }
-
 
         .answer-option.selected {
             border-color:
@@ -519,7 +485,6 @@
                 rgba(37, 99, 235, 0.10);
         }
 
-
         .answer-option.selected
         .answer-letter {
             background:
@@ -529,7 +494,6 @@
                 white;
         }
 
-
         .answer-option.selected
         .answer-text {
             color:
@@ -537,7 +501,6 @@
 
             font-weight: 600;
         }
-
 
         /* =========================================
            Submit Area
@@ -563,7 +526,6 @@
                 0 8px 28px
                 rgba(15, 23, 42, 0.06);
         }
-
 
         #submitExamButton {
             width: 100%;
@@ -598,7 +560,6 @@
                 all 0.2s ease;
         }
 
-
         #submitExamButton:hover:not(:disabled) {
             transform:
                 translateY(-2px);
@@ -608,7 +569,6 @@
                 rgba(37, 99, 235, 0.30);
         }
 
-
         #submitExamButton:disabled {
             opacity: 0.6;
 
@@ -616,7 +576,6 @@
 
             box-shadow: none;
         }
-
 
         /* =========================================
            Result
@@ -627,7 +586,6 @@
 
             text-align: center;
         }
-
 
         .result-icon {
             display: flex;
@@ -646,7 +604,6 @@
             font-size: 36px;
         }
 
-
         .result-success
         .result-icon {
             background:
@@ -656,7 +613,6 @@
                 #15803d;
         }
 
-
         .result-failed
         .result-icon {
             background:
@@ -665,7 +621,6 @@
             color:
                 #b91c1c;
         }
-
 
         .result-score {
             margin: 10px 0;
@@ -684,20 +639,17 @@
                 var(--exam-text);
         }
 
-
         .result-success
         .result-score {
             color:
                 var(--exam-success);
         }
 
-
         .result-failed
         .result-score {
             color:
                 var(--exam-danger);
         }
-
 
         .result-message {
             max-width: 600px;
@@ -713,7 +665,6 @@
             line-height: 1.7;
         }
 
-
         .result-actions {
             display: flex;
 
@@ -723,7 +674,6 @@
 
             gap: 12px;
         }
-
 
         .result-actions a {
             display: inline-flex;
@@ -744,7 +694,6 @@
             font-weight: 700;
         }
 
-
         .result-primary {
             background:
                 var(--exam-primary);
@@ -752,7 +701,6 @@
             color:
                 white;
         }
-
 
         .result-secondary {
             border:
@@ -765,6 +713,61 @@
                 var(--exam-text);
         }
 
+        /* =========================================
+           Certificate
+        ========================================= */
+
+        .certificate-box {
+            max-width: 700px;
+
+            margin: 30px auto;
+
+            padding: 28px;
+
+            border:
+                1px solid #bbf7d0;
+
+            border-radius:
+                18px;
+
+            background:
+                #f0fdf4;
+        }
+
+        .certificate-box h3 {
+            margin:
+                0 0 10px;
+
+            color:
+                #166534;
+        }
+
+        .certificate-box p {
+            margin:
+                7px 0;
+
+            color:
+                #365314;
+        }
+
+        .certificate-number {
+            display: inline-block;
+
+            margin-top: 10px;
+
+            padding: 8px 14px;
+
+            border-radius: 8px;
+
+            background: white;
+
+            color:
+                #166534;
+
+            font-weight: 800;
+
+            letter-spacing: 0.04em;
+        }
 
         /* =========================================
            Locked Exam
@@ -794,13 +797,11 @@
                 rgba(15, 23, 42, 0.08);
         }
 
-
         .exam-locked-icon {
             font-size: 52px;
 
             margin-bottom: 15px;
         }
-
 
         .exam-locked h2 {
             margin-bottom: 10px;
@@ -809,14 +810,12 @@
                 var(--exam-text);
         }
 
-
         .exam-locked p {
             color:
                 var(--exam-muted);
 
             line-height: 1.7;
         }
-
 
         /* =========================================
            Responsive
@@ -828,29 +827,24 @@
                 margin-top: 25px;
             }
 
-
             .exam-hero-card {
                 padding: 30px 24px;
 
                 border-radius: 20px;
             }
 
-
             .exam-info-grid {
                 grid-template-columns:
                     1fr;
             }
 
-
             .question-card {
                 padding: 22px 18px;
             }
 
-
             .question-text {
                 font-size: 17px;
             }
-
 
             .exam-progress-header {
                 align-items: flex-start;
@@ -862,7 +856,6 @@
 
         }
 
-
         @media (max-width: 480px) {
 
             .exam-container {
@@ -870,17 +863,14 @@
                 padding-right: 14px;
             }
 
-
             .exam-hero {
                 padding:
                     0 14px;
             }
 
-
             .answer-option {
                 padding: 13px;
             }
-
 
             .answer-letter {
                 width: 34px;
@@ -931,7 +921,6 @@
     </nav>
 
 
-
     <!-- =========================================
          Hero
     ========================================== -->
@@ -956,7 +945,6 @@
         </div>
 
     </section>
-
 
 
     <!-- =========================================
@@ -1025,7 +1013,6 @@
         </section>
 
 
-
         <!-- Progress -->
 
         <section
@@ -1056,7 +1043,6 @@
         </section>
 
 
-
         <!-- Instructions -->
 
         <section
@@ -1075,7 +1061,6 @@
             </p>
 
         </section>
-
 
 
         <!-- Questions -->
@@ -1111,7 +1096,6 @@
         </form>
 
 
-
         <!-- Result -->
 
         <section
@@ -1124,7 +1108,6 @@
     </main>
 
 
-
     <!-- =========================================
          Supabase
     ========================================== -->
@@ -1132,7 +1115,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="supabase.js"></script>
-
 
 
     <!-- =========================================
@@ -1144,9 +1126,9 @@
         const LEVEL_ID = 1;
 
 
-        /*
-         * Page elements
-         */
+        /* =========================================
+           Page Elements
+        ========================================= */
 
         const examForm =
             document.getElementById(
@@ -1214,21 +1196,15 @@
             );
 
 
-        const submitSection =
-            document.getElementById(
-                "submitSection"
-            );
-
-
         const examInformation =
             document.getElementById(
                 "examInformation"
             );
 
 
-        /*
-         * Exam state
-         */
+        /* =========================================
+           Exam State
+        ========================================= */
 
         let questions = [];
 
@@ -1240,9 +1216,9 @@
             "Networking Fundamentals";
 
 
-        /*
-         * Load exam
-         */
+        /* =========================================
+           Load Exam
+        ========================================= */
 
         document.addEventListener(
             "DOMContentLoaded",
@@ -1251,7 +1227,6 @@
 
 
         async function loadExam() {
-
 
             /*
              * Check authentication
@@ -1305,7 +1280,10 @@
 
             if (levelError || !level) {
 
-                console.error(levelError);
+                console.error(
+                    "Level error:",
+                    levelError
+                );
 
                 examStatus.textContent =
                     "Unavailable";
@@ -1369,7 +1347,10 @@
 
             if (error) {
 
-                console.error(error);
+                console.error(
+                    "Questions error:",
+                    error
+                );
 
                 examStatus.textContent =
                     "Unavailable";
@@ -1396,10 +1377,6 @@
             }
 
 
-            /*
-             * Update exam information
-             */
-
             questionCount.textContent =
                 questions.length;
 
@@ -1411,21 +1388,14 @@
             updateProgress();
 
 
-            /*
-             * Render questions
-             */
-
             renderQuestions();
 
         }
 
 
-
-        /*
-         * =========================================
-         * Render Questions
-         * =========================================
-         */
+        /* =========================================
+           Render Questions
+        ========================================= */
 
         function renderQuestions() {
 
@@ -1434,7 +1404,6 @@
 
             questions.forEach(
                 (question, index) => {
-
 
                     const card =
                         document.createElement(
@@ -1512,7 +1481,6 @@
                     optionData.forEach(
                         (option) => {
 
-
                             const label =
                                 document.createElement(
                                     "label"
@@ -1588,7 +1556,6 @@
                                 "change",
                                 () => {
 
-
                                     options
                                         .querySelectorAll(
                                             ".answer-option"
@@ -1653,12 +1620,9 @@
         }
 
 
-
-        /*
-         * =========================================
-         * Progress
-         * =========================================
-         */
+        /* =========================================
+           Progress
+        ========================================= */
 
         function updateProgress() {
 
@@ -1708,12 +1672,9 @@
         }
 
 
-
-        /*
-         * =========================================
-         * Submit Exam
-         * =========================================
-         */
+        /* =========================================
+           Submit Exam
+        ========================================= */
 
         examForm.addEventListener(
             "submit",
@@ -1825,12 +1786,12 @@
                     score >= passingScore;
 
 
-                /*
-                 * Save attempt
-                 */
+                /* =========================================
+                   Save Exam Attempt
+                ========================================= */
 
                 const {
-                    error
+                    error: attemptError
                 } =
                     await supabaseClient
 
@@ -1853,11 +1814,15 @@
                         });
 
 
-                if (error) {
+                /*
+                 * Stop if exam attempt failed
+                 */
+
+                if (attemptError) {
 
                     console.error(
                         "Exam attempt error:",
-                        error
+                        attemptError
                     );
 
 
@@ -1878,9 +1843,75 @@
                 }
 
 
-                /*
-                 * Hide exam controls
-                 */
+                /* =========================================
+                   Issue Certificate
+                ========================================= */
+
+                let certificate = null;
+
+
+                if (passed) {
+
+                    const {
+                        data: certificateData,
+                        error: certificateError
+                    } =
+                        await supabaseClient
+
+                            .rpc(
+                                "issue_certificate_for_level",
+                                {
+                                    p_user_id:
+                                        currentUser.id,
+
+                                    p_level_id:
+                                        LEVEL_ID,
+
+                                    p_score:
+                                        score
+                                }
+                            );
+
+
+                    if (certificateError) {
+
+                        console.error(
+                            "Certificate issuing error:",
+                            certificateError
+                        );
+
+
+                        /*
+                         * The exam was successfully
+                         * recorded, but certificate
+                         * creation failed.
+                         */
+
+                        examStatus.textContent =
+                            "Certificate error";
+
+
+                        certificate = null;
+
+                    } else {
+
+                        certificate =
+                            certificateData;
+
+
+                        console.log(
+                            "Certificate issued:",
+                            certificate
+                        );
+
+                    }
+
+                }
+
+
+                /* =========================================
+                   Hide Exam Controls
+                ========================================= */
 
                 examForm.style.display =
                     "none";
@@ -1898,9 +1929,9 @@
                     "none";
 
 
-                /*
-                 * Display result
-                 */
+                /* =========================================
+                   Display Result
+                ========================================= */
 
                 examResult.style.display =
                     "block";
@@ -1910,6 +1941,62 @@
 
                     examResult.className =
                         "account-card result-success";
+
+
+                    /*
+                     * Certificate information
+                     */
+
+                    let certificateHtml = "";
+
+
+                    if (certificate) {
+
+                        /*
+                         * The RPC may return either
+                         * an object or an array containing
+                         * one certificate.
+                         */
+
+                        const cert =
+                            Array.isArray(certificate)
+                                ? certificate[0]
+                                : certificate;
+
+
+                        if (cert) {
+
+                            certificateHtml = `
+
+                                <div class="certificate-box">
+
+                                    <h3>
+                                        🎓 Certificate Issued
+                                    </h3>
+
+                                    <p>
+                                        Your certificate has been
+                                        successfully created.
+                                    </p>
+
+                                    ${
+                                        cert.certificate_number
+                                            ? `
+                                                <span class="certificate-number">
+                                                    Certificate:
+                                                    ${cert.certificate_number}
+                                                </span>
+                                              `
+                                            : ""
+                                    }
+
+                                </div>
+
+                            `;
+
+                        }
+
+                    }
 
 
                     examResult.innerHTML = `
@@ -1942,6 +2029,8 @@
                             Excellent work! You have passed
                             the ${levelTitle} Level 1 exam.
                         </p>
+
+                        ${certificateHtml}
 
                         <div class="result-actions">
 

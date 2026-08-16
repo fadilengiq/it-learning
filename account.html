@@ -9,15 +9,1049 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>My Account - IT Learning Hub</title>
+    <title>My Dashboard - IT Learning Hub</title>
 
     <link rel="stylesheet" href="style.css">
 
+    <style>
+
+        /* =========================================================
+           DASHBOARD
+           ========================================================= */
+
+        .dashboard-page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 42px 24px 80px;
+        }
+
+
+        /* =========================================================
+           Dashboard Hero
+           ========================================================= */
+
+        .dashboard-hero {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 30px;
+            align-items: center;
+
+            padding: 42px;
+            margin-bottom: 28px;
+
+            border-radius: 28px;
+
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(56, 189, 248, 0.25),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #172554
+                );
+
+            color: white;
+
+            box-shadow:
+                0 25px 60px rgba(15, 23, 42, 0.18);
+        }
+
+
+        .dashboard-hero::after {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+
+            right: -100px;
+            bottom: -130px;
+
+            background: rgba(59, 130, 246, 0.18);
+
+            pointer-events: none;
+        }
+
+
+        .dashboard-label {
+            display: inline-block;
+
+            margin-bottom: 12px;
+
+            color: #93c5fd;
+
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+        }
+
+
+        .dashboard-hero h1 {
+            margin: 0 0 12px;
+
+            font-size: clamp(
+                2rem,
+                5vw,
+                3.25rem
+            );
+
+            line-height: 1.05;
+
+            letter-spacing: -0.045em;
+        }
+
+
+        .dashboard-hero h1 span {
+            color: #67e8f9;
+        }
+
+
+        .dashboard-hero p {
+            max-width: 650px;
+
+            margin: 0;
+
+            color: #cbd5e1;
+
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+
+        .dashboard-avatar {
+            position: relative;
+            z-index: 1;
+
+            width: 105px;
+            height: 105px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #06b6d4
+                );
+
+            font-size: 2.6rem;
+            font-weight: 800;
+
+            box-shadow:
+                0 18px 35px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* =========================================================
+           Quick Stats
+           ========================================================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .stat-card {
+            position: relative;
+
+            padding: 22px;
+
+            border-radius: 20px;
+
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow:
+                0 10px 28px rgba(
+                    15,
+                    23,
+                    42,
+                    0.055
+                );
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 16px 35px rgba(
+                    15,
+                    23,
+                    42,
+                    0.09
+                );
+        }
+
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #eff6ff;
+
+            font-size: 1.15rem;
+
+            margin-bottom: 16px;
+        }
+
+
+        .stat-value {
+            margin: 0 0 5px;
+
+            font-size: 1.75rem;
+            font-weight: 850;
+
+            letter-spacing: -0.04em;
+
+            color: #0f172a;
+        }
+
+
+        .stat-label {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 0.82rem;
+            font-weight: 650;
+        }
+
+
+        .stat-card.streak .stat-icon {
+            background: #fff7ed;
+        }
+
+
+        .stat-card.best .stat-icon {
+            background: #fefce8;
+        }
+
+
+        .stat-card.progress .stat-icon {
+            background: #ecfeff;
+        }
+
+
+        /* =========================================================
+           Main Grid
+           ========================================================= */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.7fr)
+                minmax(280px, 0.8fr);
+
+            gap: 24px;
+
+            align-items: start;
+        }
+
+
+        .dashboard-card {
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 22px;
+
+            padding: 26px;
+
+            box-shadow:
+                0 10px 28px rgba(
+                    15,
+                    23,
+                    42,
+                    0.05
+                );
+
+            margin-bottom: 24px;
+        }
+
+
+        .card-heading {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .card-heading h2 {
+            margin: 0 0 5px;
+
+            color: #0f172a;
+
+            font-size: 1.2rem;
+
+            letter-spacing: -0.025em;
+        }
+
+
+        .card-heading p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 0.84rem;
+        }
+
+
+        /* =========================================================
+           Course Progress
+           ========================================================= */
+
+        .course-card {
+            border: 1px solid #e2e8f0;
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff,
+                    #f8fafc
+                );
+        }
+
+
+        .course-top {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .course-title {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+
+        .course-icon {
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: #eff6ff;
+
+            font-size: 1.35rem;
+        }
+
+
+        .course-title h3 {
+            margin: 0 0 4px;
+
+            font-size: 1rem;
+
+            color: #0f172a;
+        }
+
+
+        .course-title span {
+            color: #64748b;
+
+            font-size: 0.8rem;
+        }
+
+
+        .course-percentage {
+            font-size: 1.25rem;
+
+            font-weight: 850;
+
+            color: #2563eb;
+        }
+
+
+        .dashboard-progress-track {
+            width: 100%;
+            height: 10px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background: #e2e8f0;
+        }
+
+
+        .dashboard-progress-fill {
+            width: 0;
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #2563eb,
+                    #06b6d4
+                );
+
+            transition:
+                width 0.7s ease;
+        }
+
+
+        .course-bottom {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+
+            margin-top: 16px;
+        }
+
+
+        .course-bottom span {
+            color: #64748b;
+
+            font-size: 0.82rem;
+        }
+
+
+        .dashboard-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 42px;
+
+            padding: 0 17px;
+
+            border-radius: 11px;
+
+            text-decoration: none;
+
+            font-size: 0.82rem;
+            font-weight: 800;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .dashboard-button.primary {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #0ea5e9
+                );
+
+            box-shadow:
+                0 8px 18px rgba(
+                    37,
+                    99,
+                    235,
+                    0.18
+                );
+        }
+
+
+        .dashboard-button.primary:hover {
+            transform: translateY(-2px);
+        }
+
+
+        .dashboard-button.secondary {
+            color: #334155;
+
+            background: #f1f5f9;
+
+            border: 1px solid #e2e8f0;
+        }
+
+
+        /* =========================================================
+           Activity Calendar
+           ========================================================= */
+
+        .activity-wrapper {
+            overflow-x: auto;
+
+            padding-bottom: 8px;
+        }
+
+
+        .activity-calendar {
+            min-width: 760px;
+        }
+
+
+        .activity-months {
+            display: grid;
+
+            grid-template-columns:
+                repeat(12, 1fr);
+
+            margin-left: 34px;
+
+            margin-bottom: 8px;
+
+            color: #64748b;
+
+            font-size: 0.7rem;
+        }
+
+
+        .activity-body {
+            display: flex;
+
+            gap: 8px;
+        }
+
+
+        .activity-weekdays {
+            width: 26px;
+
+            display: grid;
+
+            grid-template-rows:
+                repeat(7, 12px);
+
+            gap: 4px;
+
+            color: #94a3b8;
+
+            font-size: 0.65rem;
+        }
+
+
+        .activity-weekdays span {
+            line-height: 12px;
+        }
+
+
+        .activity-grid {
+            display: grid;
+
+            grid-auto-flow: column;
+
+            grid-template-rows:
+                repeat(7, 12px);
+
+            grid-auto-columns: 12px;
+
+            gap: 4px;
+        }
+
+
+        .activity-day {
+            width: 12px;
+            height: 12px;
+
+            border-radius: 3px;
+
+            background: #e2e8f0;
+
+            cursor: default;
+
+            transition:
+                transform 0.12s ease;
+        }
+
+
+        .activity-day:hover {
+            transform: scale(1.35);
+        }
+
+
+        .activity-day.level-1 {
+            background: #dbeafe;
+        }
+
+
+        .activity-day.level-2 {
+            background: #93c5fd;
+        }
+
+
+        .activity-day.level-3 {
+            background: #3b82f6;
+        }
+
+
+        .activity-day.level-4 {
+            background: #1d4ed8;
+        }
+
+
+        .activity-legend {
+            display: flex;
+
+            justify-content: flex-end;
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 16px;
+
+            color: #64748b;
+
+            font-size: 0.72rem;
+        }
+
+
+        .legend-square {
+            width: 12px;
+            height: 12px;
+
+            border-radius: 3px;
+
+            background: #e2e8f0;
+        }
+
+
+        .legend-square.level-1 {
+            background: #dbeafe;
+        }
+
+
+        .legend-square.level-2 {
+            background: #93c5fd;
+        }
+
+
+        .legend-square.level-3 {
+            background: #3b82f6;
+        }
+
+
+        .legend-square.level-4 {
+            background: #1d4ed8;
+        }
+
+
+        .activity-summary {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 18px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid #e2e8f0;
+
+            color: #64748b;
+
+            font-size: 0.82rem;
+        }
+
+
+        .activity-summary strong {
+            color: #0f172a;
+        }
+
+
+        /* =========================================================
+           Streak Highlight
+           ========================================================= */
+
+        .streak-banner {
+            padding: 22px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff7ed,
+                    #fffbeb
+                );
+
+            border: 1px solid #fed7aa;
+        }
+
+
+        .streak-banner-top {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .streak-fire {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #ffedd5;
+
+            font-size: 1.6rem;
+        }
+
+
+        .streak-banner h3 {
+            margin: 0 0 4px;
+
+            color: #9a3412;
+
+            font-size: 1rem;
+        }
+
+
+        .streak-banner p {
+            margin: 0;
+
+            color: #9a3412;
+
+            font-size: 0.82rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           Profile
+           ========================================================= */
+
+        .profile-card {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .profile-avatar {
+            width: 58px;
+            height: 58px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            color: white;
+
+            font-size: 1.25rem;
+            font-weight: 850;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #06b6d4
+                );
+        }
+
+
+        .profile-card h3 {
+            margin: 0 0 4px;
+
+            color: #0f172a;
+
+            font-size: 0.98rem;
+        }
+
+
+        .profile-card p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 0.78rem;
+        }
+
+
+        /* =========================================================
+           Recent Activity
+           ========================================================= */
+
+        .recent-activity {
+            display: grid;
+
+            gap: 12px;
+        }
+
+
+        .recent-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 13px;
+
+            border-radius: 13px;
+
+            background: #f8fafc;
+        }
+
+
+        .recent-icon {
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 10px;
+
+            background: #eff6ff;
+        }
+
+
+        .recent-content {
+            min-width: 0;
+        }
+
+
+        .recent-content strong {
+            display: block;
+
+            overflow: hidden;
+
+            color: #334155;
+
+            font-size: 0.8rem;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .recent-content span {
+            display: block;
+
+            margin-top: 3px;
+
+            color: #94a3b8;
+
+            font-size: 0.7rem;
+        }
+
+
+        /* =========================================================
+           Certificates
+           ========================================================= */
+
+        .certificate-empty {
+            padding: 28px 20px;
+
+            text-align: center;
+
+            border-radius: 16px;
+
+            background: #f8fafc;
+
+            border: 1px dashed #cbd5e1;
+        }
+
+
+        .certificate-empty-icon {
+            font-size: 2rem;
+
+            margin-bottom: 8px;
+        }
+
+
+        .certificate-empty strong {
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #334155;
+        }
+
+
+        .certificate-empty p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 0.8rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           Loading
+           ========================================================= */
+
+        .dashboard-loading {
+            color: #64748b;
+
+            font-size: 0.85rem;
+        }
+
+
+        /* =========================================================
+           Responsive
+           ========================================================= */
+
+        @media (max-width: 950px) {
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .dashboard-page {
+                padding:
+                    28px 15px 60px;
+            }
+
+
+            .dashboard-hero {
+                grid-template-columns: 1fr;
+
+                padding: 28px 23px;
+
+                border-radius: 22px;
+            }
+
+
+            .dashboard-avatar {
+                width: 70px;
+                height: 70px;
+
+                border-radius: 20px;
+
+                font-size: 1.8rem;
+            }
+
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+
+                gap: 10px;
+            }
+
+
+            .stat-card {
+                padding: 17px;
+            }
+
+
+            .stat-value {
+                font-size: 1.45rem;
+            }
+
+
+            .dashboard-card {
+                padding: 20px;
+
+                border-radius: 19px;
+            }
+
+
+            .course-top,
+            .course-bottom {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .course-bottom .dashboard-button {
+                width: 100%;
+            }
+
+
+            .activity-calendar {
+                min-width: 650px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- Navigation -->
+
+    <!-- =========================================================
+         Navigation
+         ========================================================= -->
 
     <nav class="navbar">
 
@@ -29,19 +1063,27 @@
 
         </div>
 
+
         <div class="nav-links">
 
             <a href="index.html">
                 Home
             </a>
 
+
             <a href="index.html#learning-paths">
                 Learning Paths
             </a>
 
-            <a href="account.html">
-                My Account
+
+            <a
+                href="account.html"
+                class="nav-title">
+
+                My Dashboard
+
             </a>
+
 
             <button
                 id="logoutButton"
@@ -56,170 +1098,578 @@
     </nav>
 
 
-    <!-- Account -->
+    <!-- =========================================================
+         Dashboard
+         ========================================================= -->
 
-    <main class="account-page">
-
-        <!-- Account Header -->
-
-        <section class="account-header">
-
-            <span class="section-label">
-                STUDENT ACCOUNT
-            </span>
-
-            <h1>
-                Welcome,
-                <span id="userName">Student</span>
-                👋
-            </h1>
-
-            <p>
-                Manage your learning journey, track your progress,
-                and access your certificates.
-            </p>
-
-        </section>
+    <main class="dashboard-page">
 
 
-        <!-- Profile -->
+        <!-- Hero -->
 
-        <section class="account-card">
+        <section class="dashboard-hero">
 
-            <h2>
-                Profile
-            </h2>
+            <div>
 
-            <div class="profile-info">
-
-                <div>
-
-                    <strong>
-                        Full Name
-                    </strong>
-
-                    <p id="profileName">
-                        Loading...
-                    </p>
-
-                </div>
+                <span class="dashboard-label">
+                    YOUR LEARNING DASHBOARD
+                </span>
 
 
-                <div>
+                <h1>
+                    Welcome back,
+                    <span id="userName">
+                        Student
+                    </span>
+                    👋
+                </h1>
 
-                    <strong>
-                        Email
-                    </strong>
 
-                    <p id="profileEmail">
-                        Loading...
-                    </p>
+                <p id="motivationMessage">
+                    Keep learning, keep building, and keep moving
+                    toward your next achievement.
+                </p>
 
-                </div>
+            </div>
+
+
+            <div
+                id="dashboardAvatar"
+                class="dashboard-avatar">
+
+                S
 
             </div>
 
         </section>
 
 
-        <!-- Learning Progress -->
+        <!-- =====================================================
+             Quick Stats
+             ===================================================== -->
 
-        <section class="account-card">
-
-            <h2>
-                My Learning
-            </h2>
-
-            <p>
-                Your learning progress will appear here as you
-                complete lessons and levels.
-            </p>
+        <section class="stats-grid">
 
 
-            <div class="course-progress">
+            <article class="stat-card">
 
-                <div class="course-info">
-
-                    <h3>
-                        🌐 Networking
-                    </h3>
-
-                    <span>
-                        Level 1
-                    </span>
-
+                <div class="stat-icon">
+                    📚
                 </div>
 
+                <p
+                    id="completedLessonsStat"
+                    class="stat-value">
 
-                <!-- Progress Bar -->
+                    0
 
-                <div class="progress-container">
+                </p>
 
-                    <div
-                        id="networkingProgress"
-                        class="progress-bar">
+                <p class="stat-label">
+                    Lessons Completed
+                </p>
+
+            </article>
+
+
+            <article class="stat-card progress">
+
+                <div class="stat-icon">
+                    📈
+                </div>
+
+                <p
+                    id="overallProgressStat"
+                    class="stat-value">
+
+                    0%
+
+                </p>
+
+                <p class="stat-label">
+                    Overall Progress
+                </p>
+
+            </article>
+
+
+            <article class="stat-card streak">
+
+                <div class="stat-icon">
+                    🔥
+                </div>
+
+                <p
+                    id="currentStreakStat"
+                    class="stat-value">
+
+                    0
+
+                </p>
+
+                <p class="stat-label">
+                    Current Streak
+                </p>
+
+            </article>
+
+
+            <article class="stat-card best">
+
+                <div class="stat-icon">
+                    🏆
+                </div>
+
+                <p
+                    id="longestStreakStat"
+                    class="stat-value">
+
+                    0
+
+                </p>
+
+                <p class="stat-label">
+                    Longest Streak
+                </p>
+
+            </article>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             Main Dashboard Grid
+             ===================================================== -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- =================================================
+                 Main Column
+                 ================================================= -->
+
+            <div>
+
+
+                <!-- Learning Progress -->
+
+                <section class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <h2>
+                                Continue Learning
+                            </h2>
+
+                            <p>
+                                Pick up where you left off.
+                            </p>
+
+                        </div>
+
                     </div>
 
-                </div>
+
+                    <div class="course-card">
+
+                        <div class="course-top">
+
+                            <div class="course-title">
+
+                                <div class="course-icon">
+                                    🌐
+                                </div>
+
+                                <div>
+
+                                    <h3>
+                                        Networking Fundamentals
+                                    </h3>
+
+                                    <span>
+                                        Level 1
+                                    </span>
+
+                                </div>
+
+                            </div>
 
 
-                <p id="networkingProgressText">
-                    Loading progress...
-                </p>
+                            <div
+                                id="networkingPercentage"
+                                class="course-percentage">
+
+                                0%
+
+                            </div>
+
+                        </div>
 
 
-                <a
-                    href="networking.html"
-                    class="primary-button">
+                        <div
+                            class="dashboard-progress-track">
 
-                    Continue Networking →
+                            <div
+                                id="networkingProgress"
+                                class="dashboard-progress-fill">
+                            </div>
 
-                </a>
+                        </div>
+
+
+                        <div class="course-bottom">
+
+                            <span
+                                id="networkingProgressText">
+
+                                Loading progress...
+
+                            </span>
+
+
+                            <a
+                                href="networking.html"
+                                class="dashboard-button primary">
+
+                                Continue Networking →
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Learning Activity -->
+
+                <section class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <h2>
+                                Learning Activity
+                            </h2>
+
+                            <p>
+                                Your learning activity over the last year.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-wrapper">
+
+                        <div class="activity-calendar">
+
+                            <div
+                                id="activityMonths"
+                                class="activity-months">
+                            </div>
+
+
+                            <div class="activity-body">
+
+                                <div class="activity-weekdays">
+
+                                    <span></span>
+
+                                    <span>
+                                        Mon
+                                    </span>
+
+                                    <span></span>
+
+                                    <span>
+                                        Wed
+                                    </span>
+
+                                    <span></span>
+
+                                    <span>
+                                        Fri
+                                    </span>
+
+                                    <span></span>
+
+                                </div>
+
+
+                                <div
+                                    id="activityGrid"
+                                    class="activity-grid">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-legend">
+
+                        Less
+
+                        <span class="legend-square"></span>
+
+                        <span class="legend-square level-1"></span>
+
+                        <span class="legend-square level-2"></span>
+
+                        <span class="legend-square level-3"></span>
+
+                        <span class="legend-square level-4"></span>
+
+                        More
+
+                    </div>
+
+
+                    <div class="activity-summary">
+
+                        <span>
+                            Active days:
+                            <strong id="activeDays">
+                                0
+                            </strong>
+                        </span>
+
+
+                        <span>
+                            Last activity:
+                            <strong id="lastActivity">
+                                No activity yet
+                            </strong>
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Streak -->
+
+                <section class="dashboard-card">
+
+                    <div class="streak-banner">
+
+                        <div class="streak-banner-top">
+
+                            <div class="streak-fire">
+                                🔥
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Keep your streak alive!
+                                </h3>
+
+                                <p id="streakMessage">
+                                    Start learning today to build your
+                                    first streak.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Certificates -->
+
+                <section class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <h2>
+                                🏆 Certificates
+                            </h2>
+
+                            <p>
+                                Your earned learning achievements.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="certificates">
+
+                        <div class="certificate-empty">
+
+                            <div class="certificate-empty-icon">
+                                🎓
+                            </div>
+
+                            <strong>
+                                Your first certificate is waiting.
+                            </strong>
+
+                            <p>
+                                Complete a learning level and pass
+                                its final exam to earn a certificate.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
 
             </div>
 
-        </section>
+
+            <!-- =================================================
+                 Sidebar
+                 ================================================= -->
+
+            <aside>
 
 
-        <!-- Certificates -->
+                <!-- Profile -->
 
-        <section class="account-card">
+                <section class="dashboard-card">
 
-            <h2>
-                🏆 My Certificates
-            </h2>
+                    <div class="card-heading">
 
-            <div id="certificates">
+                        <div>
 
-                <p>
-                    No certificates yet.
-                    Complete a learning level to earn your
-                    first certificate.
-                </p>
+                            <h2>
+                                Your Profile
+                            </h2>
 
-            </div>
+                            <p>
+                                Student account
+                            </p>
 
-        </section>
+                        </div>
+
+                    </div>
 
 
-        <!-- Account Actions -->
+                    <div class="profile-card">
 
-        <section class="account-actions">
+                        <div
+                            id="profileAvatar"
+                            class="profile-avatar">
 
-            <a
-                href="index.html"
-                class="secondary-button">
+                            S
 
-                ← Back to IT Learning Hub
+                        </div>
 
-            </a>
 
-        </section>
+                        <div>
+
+                            <h3 id="profileName">
+                                Loading...
+                            </h3>
+
+                            <p id="profileEmail">
+                                Loading...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Recent Activity -->
+
+                <section class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <h2>
+                                Recent Activity
+                            </h2>
+
+                            <p>
+                                Your latest learning sessions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="recentActivity"
+                        class="recent-activity">
+
+                        <p class="dashboard-loading">
+                            Loading activity...
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Quick Action -->
+
+                <section class="dashboard-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <h2>
+                                Ready to Learn?
+                            </h2>
+
+                            <p>
+                                Your next step is waiting.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="networking.html"
+                        class="dashboard-button primary"
+                        style="width: 100%;">
+
+                        Open Networking Course →
+
+                    </a>
+
+                </section>
+
+
+            </aside>
+
+
+        </div>
 
     </main>
 
 
-    <!-- Footer -->
+    <!-- =========================================================
+         Footer
+         ========================================================= -->
 
     <footer>
 
@@ -228,13 +1678,15 @@
         </p>
 
         <p>
-            Learn • Practice • Build
+            Learn · Practice · Build
         </p>
 
     </footer>
 
 
-    <!-- Supabase -->
+    <!-- =========================================================
+         Supabase
+         ========================================================= -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
     </script>
@@ -244,301 +1696,1500 @@
     <script src="auth.js"></script>
 
 
-    <!-- Account Logic -->
+    <!-- =========================================================
+         Dashboard Logic
+         ========================================================= -->
 
     <script>
 
+        const LEVEL_ID = 1;
+
+
+        /*
+         * =====================================================
+         * DOM helpers
+         * =====================================================
+         */
+
+        const $ = (id) =>
+            document.getElementById(id);
+
+
+        /*
+         * =====================================================
+         * Main
+         * =====================================================
+         */
+
         document.addEventListener(
             "DOMContentLoaded",
-            async () => {
-
-                /*
-                 * =====================================
-                 * 1. Get authenticated user
-                 * =====================================
-                 */
-
-                const {
-                    data: { user },
-                    error: userError
-                } =
-                    await supabaseClient.auth.getUser();
+            loadDashboard
+        );
 
 
-                /*
-                 * No authenticated user
-                 */
+        async function loadDashboard() {
 
-                if (userError || !user) {
+            /*
+             * Get authenticated user
+             */
 
-                    window.location.href =
-                        "login.html";
-
-                    return;
-
-                }
-
-
-                /*
-                 * =====================================
-                 * 2. Display user information
-                 * =====================================
-                 */
-
-                const metadata =
-                    user.user_metadata || {};
+            const {
+                data: { user },
+                error: userError
+            } =
+                await supabaseClient.auth.getUser();
 
 
-                const fullName =
-                    metadata.full_name ||
-                    metadata.name ||
-                    "Student";
+            if (userError || !user) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
 
 
-                document.getElementById(
-                    "userName"
-                ).textContent =
-                    fullName;
+            /*
+             * Display profile
+             */
+
+            setupProfile(user);
 
 
-                document.getElementById(
-                    "profileName"
-                ).textContent =
-                    fullName;
+            /*
+             * Load all dashboard data
+             */
+
+            await Promise.all([
+
+                loadLearningProgress(user),
+
+                loadLearningActivity(user),
+
+                loadCertificates(user)
+
+            ]);
 
 
-                document.getElementById(
-                    "profileEmail"
-                ).textContent =
-                    user.email ||
-                    "No email";
+            /*
+             * Logout
+             */
+
+            setupLogout();
+
+        }
 
 
-                /*
-                 * =====================================
-                 * 3. Get Networking lessons
-                 * =====================================
-                 */
+        /*
+         * =====================================================
+         * Profile
+         * =====================================================
+         */
 
-                const {
-                    data: lessons,
-                    error: lessonsError
-                } =
-                    await supabaseClient
+        function setupProfile(user) {
 
-                        .from("lessons")
-
-                        .select("id")
-
-                        .eq("level_id", 1);
+            const metadata =
+                user.user_metadata || {};
 
 
-                if (lessonsError) {
-
-                    console.error(
-                        "Lessons error:",
-                        lessonsError
-                    );
-
-                    document.getElementById(
-                        "networkingProgressText"
-                    ).textContent =
-                        "Unable to load progress.";
-
-                    return;
-
-                }
+            const fullName =
+                metadata.full_name ||
+                metadata.name ||
+                "Student";
 
 
-                /*
-                 * =====================================
-                 * 4. Get completed lessons
-                 * =====================================
-                 */
-
-                const {
-                    data: progress,
-                    error: progressError
-                } =
-                    await supabaseClient
-
-                        .from("lesson_progress")
-
-                        .select(
-                            "lesson_id, completed"
-                        )
-
-                        .eq(
-                            "user_id",
-                            user.id
-                        )
-
-                        .eq(
-                            "completed",
-                            true
-                        );
+            const firstName =
+                fullName
+                    .trim()
+                    .split(/\s+/)[0] ||
+                "Student";
 
 
-                if (progressError) {
-
-                    console.error(
-                        "Progress error:",
-                        progressError
-                    );
-
-                    document.getElementById(
-                        "networkingProgressText"
-                    ).textContent =
-                        "Unable to load progress.";
-
-                    return;
-
-                }
+            const initials =
+                fullName
+                    .trim()
+                    .split(/\s+/)
+                    .map(
+                        part =>
+                            part.charAt(0)
+                    )
+                    .join("")
+                    .slice(0, 2)
+                    .toUpperCase();
 
 
-                /*
-                 * =====================================
-                 * 5. Calculate progress
-                 * =====================================
-                 */
-
-                const totalLessons =
-                    lessons
-                        ? lessons.length
-                        : 0;
+            $("userName").textContent =
+                firstName;
 
 
-                /*
-                 * Only count completed lessons
-                 * that actually belong to Level 1.
-                 */
+            $("profileName").textContent =
+                fullName;
 
-                const lessonIds =
-                    new Set(
-                        lessons.map(
-                            lesson => lesson.id
-                        )
+
+            $("profileEmail").textContent =
+                user.email ||
+                "No email";
+
+
+            $("dashboardAvatar").textContent =
+                initials || "S";
+
+
+            $("profileAvatar").textContent =
+                initials || "S";
+
+        }
+
+
+        /*
+         * =====================================================
+         * Learning Progress
+         * =====================================================
+         */
+
+        async function loadLearningProgress(user) {
+
+            const {
+
+                data: lessons,
+
+                error: lessonsError
+
+            } =
+                await supabaseClient
+
+                    .from("lessons")
+
+                    .select("id")
+
+                    .eq(
+                        "level_id",
+                        LEVEL_ID
                     );
 
 
-                const completedLessons =
-                    progress.filter(
+            if (lessonsError) {
+
+                console.error(
+                    "Lessons error:",
+                    lessonsError
+                );
+
+                $("networkingProgressText").textContent =
+                    "Unable to load progress.";
+
+                return;
+
+            }
+
+
+            const {
+
+                data: progress,
+
+                error: progressError
+
+            } =
+                await supabaseClient
+
+                    .from("lesson_progress")
+
+                    .select(
+                        "lesson_id, completed"
+                    )
+
+                    .eq(
+                        "user_id",
+                        user.id
+                    )
+
+                    .eq(
+                        "completed",
+                        true
+                    );
+
+
+            if (progressError) {
+
+                console.error(
+                    "Progress error:",
+                    progressError
+                );
+
+                $("networkingProgressText").textContent =
+                    "Unable to load progress.";
+
+                return;
+
+            }
+
+
+            const lessonIds =
+                new Set(
+                    (lessons || [])
+                        .map(
+                            lesson =>
+                                lesson.id
+                        )
+                );
+
+
+            const completedLessons =
+                (progress || [])
+                    .filter(
                         item =>
                             lessonIds.has(
                                 item.lesson_id
                             )
-                    ).length;
+                    )
+                    .length;
 
 
-                let percentage = 0;
+            const totalLessons =
+                (lessons || []).length;
 
 
-                if (totalLessons > 0) {
+            const percentage =
+                totalLessons > 0
+                    ? Math.round(
+                        (
+                            completedLessons /
+                            totalLessons
+                        ) * 100
+                    )
+                    : 0;
 
-                    percentage =
-                        Math.round(
-                            (
-                                completedLessons /
-                                totalLessons
-                            ) * 100
+
+            $("completedLessonsStat").textContent =
+                completedLessons;
+
+
+            $("overallProgressStat").textContent =
+                `${percentage}%`;
+
+
+            $("networkingProgress").style.width =
+                `${percentage}%`;
+
+
+            $("networkingPercentage").textContent =
+                `${percentage}%`;
+
+
+            $("networkingProgressText").textContent =
+                `${completedLessons} of ${totalLessons} lessons completed`;
+
+
+            updateMotivation(
+                percentage,
+                completedLessons,
+                totalLessons
+            );
+
+        }
+
+
+        /*
+         * =====================================================
+         * Motivation
+         * =====================================================
+         */
+
+        function updateMotivation(
+            percentage,
+            completed,
+            total
+        ) {
+
+            const message =
+                $("motivationMessage");
+
+
+            if (percentage === 0) {
+
+                message.textContent =
+                    "Your learning journey starts here. Complete your first lesson and build your momentum.";
+
+                return;
+
+            }
+
+
+            if (percentage < 25) {
+
+                message.textContent =
+                    "Great start! Keep going and turn your first steps into a learning habit.";
+
+                return;
+
+            }
+
+
+            if (percentage < 50) {
+
+                message.textContent =
+                    "You are making real progress. Keep the momentum going.";
+
+                return;
+
+            }
+
+
+            if (percentage < 100) {
+
+                message.textContent =
+                    `You are ${percentage}% through this level. You're getting close — keep going!`;
+
+                return;
+
+            }
+
+
+            message.textContent =
+                "Level complete! 🎉 Your next achievement is waiting for you.";
+
+        }
+
+
+        /*
+         * =====================================================
+         * Learning Activity
+         * =====================================================
+         */
+
+        async function loadLearningActivity(user) {
+
+            const {
+
+                data: activities,
+
+                error
+
+            } =
+                await supabaseClient
+
+                    .from("learning_activity")
+
+                    .select("*")
+
+                    .eq(
+                        "user_id",
+                        user.id
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Learning activity error:",
+                    error
+                );
+
+
+                /*
+                 * Keep dashboard usable even if
+                 * activity table is unavailable.
+                 */
+
+                renderEmptyActivity();
+
+                return;
+
+            }
+
+
+            const normalized =
+                normalizeActivities(
+                    activities || []
+                );
+
+
+            renderActivityCalendar(
+                normalized
+            );
+
+
+            renderRecentActivity(
+                normalized
+            );
+
+
+            const stats =
+                calculateStreaks(
+                    normalized
+                );
+
+
+            $("currentStreakStat").textContent =
+                stats.currentStreak;
+
+
+            $("longestStreakStat").textContent =
+                stats.longestStreak;
+
+
+            $("activeDays").textContent =
+                stats.activeDays;
+
+
+            $("lastActivity").textContent =
+                stats.lastActivity
+                    ? formatDate(
+                        stats.lastActivity
+                    )
+                    : "No activity yet";
+
+
+            updateStreakMessage(
+                stats
+            );
+
+        }
+
+
+        /*
+         * =====================================================
+         * Normalize activity records
+         * =====================================================
+         */
+
+        function normalizeActivities(
+            activities
+        ) {
+
+            const result = [];
+
+
+            activities.forEach(
+                activity => {
+
+                    const date =
+                        extractActivityDate(
+                            activity
                         );
 
-                }
+
+                    if (!date) {
+                        return;
+                    }
 
 
-                /*
-                 * =====================================
-                 * 6. Update progress bar
-                 * =====================================
-                 */
-
-                const progressBar =
-                    document.getElementById(
-                        "networkingProgress"
-                    );
+                    const key =
+                        toDateKey(date);
 
 
-                const progressText =
-                    document.getElementById(
-                        "networkingProgressText"
-                    );
+                    result.push({
 
+                        date,
 
-                if (progressBar) {
+                        key,
 
-                    progressBar.style.width =
-                        `${percentage}%`;
+                        activity
+
+                    });
 
                 }
+            );
 
 
-                if (progressText) {
+            return result;
 
-                    progressText.textContent =
-                        `${percentage}% completed`;
+        }
+
+
+        /*
+         * =====================================================
+         * Extract activity date
+         * =====================================================
+         */
+
+        function extractActivityDate(
+            activity
+        ) {
+
+            const possibleFields = [
+
+                "activity_date",
+
+                "activity_at",
+
+                "occurred_at",
+
+                "created_at",
+
+                "date",
+
+                "createdAt"
+
+            ];
+
+
+            for (
+                const field of possibleFields
+            ) {
+
+                if (
+                    activity[field]
+                ) {
+
+                    const parsed =
+                        new Date(
+                            activity[field]
+                        );
+
+
+                    if (
+                        !Number.isNaN(
+                            parsed.getTime()
+                        )
+                    ) {
+
+                        return parsed;
+
+                    }
+
                 }
 
+            }
 
-                /*
-                 * =====================================
-                 * 7. Logout
-                 * =====================================
-                 */
 
-                const logoutButton =
-                    document.getElementById(
-                        "logoutButton"
+            return null;
+
+        }
+
+
+        /*
+         * =====================================================
+         * Date key
+         * ===================================================== */
+
+        function toDateKey(date) {
+
+            const year =
+                date.getFullYear();
+
+
+            const month =
+                String(
+                    date.getMonth() + 1
+                ).padStart(2, "0");
+
+
+            const day =
+                String(
+                    date.getDate()
+                ).padStart(2, "0");
+
+
+            return `${year}-${month}-${day}`;
+
+        }
+
+
+        /*
+         * =====================================================
+         * Activity Calendar
+         * =====================================================
+         */
+
+        function renderActivityCalendar(
+            activities
+        ) {
+
+            const grid =
+                $("activityGrid");
+
+
+            const months =
+                $("activityMonths");
+
+
+            grid.innerHTML = "";
+            months.innerHTML = "";
+
+
+            const activityMap =
+                new Map();
+
+
+            activities.forEach(
+                item => {
+
+                    const current =
+                        activityMap.get(
+                            item.key
+                        ) || 0;
+
+
+                    activityMap.set(
+                        item.key,
+                        current + 1
                     );
 
-
-                logoutButton.addEventListener(
-                    "click",
-                    async () => {
-
-                        logoutButton.disabled =
-                            true;
-
-                        logoutButton.textContent =
-                            "Logging out...";
+                }
+            );
 
 
-                        const {
-                            error
-                        } =
-                            await supabaseClient
-                                .auth
-                                .signOut();
+            /*
+             * Last 365 days
+             */
+
+            const today =
+                new Date();
 
 
-                        if (error) {
+            today.setHours(
+                0,
+                0,
+                0,
+                0
+            );
 
-                            console.error(
-                                error
+
+            const start =
+                new Date(today);
+
+
+            start.setDate(
+                start.getDate() - 364
+            );
+
+
+            /*
+             * Move start to Sunday
+             * so the calendar forms
+             * complete weekly columns.
+             */
+
+            start.setDate(
+                start.getDate() -
+                start.getDay()
+            );
+
+
+            const cursor =
+                new Date(start);
+
+
+            const dates = [];
+
+
+            while (
+                cursor <= today ||
+                dates.length % 7 !== 0
+            ) {
+
+                dates.push(
+                    new Date(cursor)
+                );
+
+
+                cursor.setDate(
+                    cursor.getDate() + 1
+                );
+
+
+                if (
+                    dates.length > 400
+                ) {
+                    break;
+                }
+
+            }
+
+
+            /*
+             * Create cells
+             */
+
+            dates.forEach(
+                date => {
+
+                    const key =
+                        toDateKey(date);
+
+
+                    const count =
+                        activityMap.get(
+                            key
+                        ) || 0;
+
+
+                    const cell =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    cell.className =
+                        "activity-day";
+
+
+                    if (count >= 1) {
+                        cell.classList.add(
+                            "level-1"
+                        );
+                    }
+
+                    if (count >= 2) {
+                        cell.classList.add(
+                            "level-2"
+                        );
+                    }
+
+                    if (count >= 3) {
+                        cell.classList.add(
+                            "level-3"
+                        );
+                    }
+
+                    if (count >= 5) {
+                        cell.classList.add(
+                            "level-4"
+                        );
+                    }
+
+
+                    cell.title =
+                        count === 0
+                            ? `${formatDate(date)} — No activity`
+                            : `${formatDate(date)} — ${count} learning activit${count === 1 ? "y" : "ies"}`;
+
+
+                    grid.appendChild(
+                        cell
+                    );
+
+                }
+            );
+
+
+            /*
+             * Month labels
+             */
+
+            const monthNames = [
+
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+
+            ];
+
+
+            const visibleMonths =
+                [];
+
+
+            dates.forEach(
+                date => {
+
+                    if (
+                        date.getDate() <= 7
+                    ) {
+
+                        const label =
+                            monthNames[
+                                date.getMonth()
+                            ];
+
+
+                        visibleMonths.push(
+                            label
+                        );
+
+                    }
+
+                }
+            );
+
+
+            const uniqueMonths =
+                [...new Set(
+                    visibleMonths
+                )];
+
+
+            uniqueMonths
+                .slice(-12)
+                .forEach(
+                    month => {
+
+                        const span =
+                            document.createElement(
+                                "span"
                             );
 
-                            alert(
-                                "Unable to logout. Please try again."
-                            );
 
-                            logoutButton.disabled =
-                                false;
-
-                            logoutButton.textContent =
-                                "Logout";
-
-                            return;
-
-                        }
+                        span.textContent =
+                            month;
 
 
-                        window.location.href =
-                            "login.html";
+                        months.appendChild(
+                            span
+                        );
 
                     }
                 );
 
+        }
+
+
+        /*
+         * =====================================================
+         * Empty activity
+         * =====================================================
+         */
+
+        function renderEmptyActivity() {
+
+            $("activityGrid").innerHTML = "";
+
+
+            $("activeDays").textContent =
+                "0";
+
+
+            $("lastActivity").textContent =
+                "No activity yet";
+
+
+            $("currentStreakStat").textContent =
+                "0";
+
+
+            $("longestStreakStat").textContent =
+                "0";
+
+
+            $("streakMessage").textContent =
+                "Start learning today to build your first streak.";
+
+        }
+
+
+        /*
+         * =====================================================
+         * Recent Activity
+         * =====================================================
+         */
+
+        function renderRecentActivity(
+            activities
+        ) {
+
+            const container =
+                $("recentActivity");
+
+
+            container.innerHTML = "";
+
+
+            const sorted =
+                [...activities]
+                    .sort(
+                        (a, b) =>
+                            b.date - a.date
+                    )
+                    .slice(
+                        0,
+                        5
+                    );
+
+
+            if (
+                sorted.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <p class="dashboard-loading">
+                        No learning activity yet.
+                    </p>
+
+                `;
+
+                return;
+
             }
-        );
+
+
+            sorted.forEach(
+                item => {
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    row.className =
+                        "recent-item";
+
+
+                    row.innerHTML = `
+
+                        <div class="recent-icon">
+                            📘
+                        </div>
+
+                        <div class="recent-content">
+
+                            <strong>
+                                Learning activity
+                            </strong>
+
+                            <span>
+                                ${formatDate(
+                                    item.date
+                                )}
+                            </span>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+         * =====================================================
+         * Streak Calculation
+         * =====================================================
+         */
+
+        function calculateStreaks(
+            activities
+        ) {
+
+            const uniqueKeys =
+                [
+                    ...new Set(
+                        activities.map(
+                            item =>
+                                item.key
+                        )
+                    )
+                ];
+
+
+            const sortedKeys =
+                uniqueKeys.sort();
+
+
+            const activeDays =
+                sortedKeys.length;
+
+
+            if (
+                activeDays === 0
+            ) {
+
+                return {
+
+                    currentStreak: 0,
+
+                    longestStreak: 0,
+
+                    activeDays: 0,
+
+                    lastActivity: null
+
+                };
+
+            }
+
+
+            /*
+             * Longest streak
+             */
+
+            let longest = 1;
+
+            let running = 1;
+
+
+            for (
+                let i = 1;
+                i < sortedKeys.length;
+                i++
+            ) {
+
+                const previous =
+                    new Date(
+                        `${sortedKeys[i - 1]}T00:00:00`
+                    );
+
+
+                const current =
+                    new Date(
+                        `${sortedKeys[i]}T00:00:00`
+                    );
+
+
+                const difference =
+                    Math.round(
+                        (
+                            current -
+                            previous
+                        ) /
+                        (
+                            1000 *
+                            60 *
+                            60 *
+                            24
+                        )
+                    );
+
+
+                if (
+                    difference === 1
+                ) {
+
+                    running++;
+
+                    longest =
+                        Math.max(
+                            longest,
+                            running
+                        );
+
+                } else {
+
+                    running = 1;
+
+                }
+
+            }
+
+
+            /*
+             * Current streak
+             */
+
+            const todayKey =
+                toDateKey(
+                    new Date()
+                );
+
+
+            const yesterday =
+                new Date();
+
+
+            yesterday.setDate(
+                yesterday.getDate() - 1
+            );
+
+
+            const yesterdayKey =
+                toDateKey(
+                    yesterday
+                );
+
+
+            let currentStreak = 0;
+
+
+            if (
+                sortedKeys.includes(
+                    todayKey
+                )
+            ) {
+
+                currentStreak =
+                    countBackwards(
+                        sortedKeys,
+                        todayKey
+                    );
+
+            } else if (
+                sortedKeys.includes(
+                    yesterdayKey
+                )
+            ) {
+
+                currentStreak =
+                    countBackwards(
+                        sortedKeys,
+                        yesterdayKey
+                    );
+
+            }
+
+
+            const lastActivity =
+                new Date(
+                    `${sortedKeys[
+                        sortedKeys.length - 1
+                    ]}T00:00:00`
+                );
+
+
+            return {
+
+                currentStreak,
+
+                longestStreak: longest,
+
+                activeDays,
+
+                lastActivity
+
+            };
+
+        }
+
+
+        /*
+         * =====================================================
+         * Count backwards
+         * =====================================================
+         */
+
+        function countBackwards(
+            sortedKeys,
+            startKey
+        ) {
+
+            let count = 1;
+
+
+            let current =
+                new Date(
+                    `${startKey}T00:00:00`
+                );
+
+
+            while (true) {
+
+                current.setDate(
+                    current.getDate() - 1
+                );
+
+
+                const key =
+                    toDateKey(
+                        current
+                    );
+
+
+                if (
+                    sortedKeys.includes(
+                        key
+                    )
+                ) {
+
+                    count++;
+
+                } else {
+
+                    break;
+
+                }
+
+            }
+
+
+            return count;
+
+        }
+
+
+        /*
+         * =====================================================
+         * Streak Message
+         * =====================================================
+         */
+
+        function updateStreakMessage(
+            stats
+        ) {
+
+            const element =
+                $("streakMessage");
+
+
+            if (
+                stats.currentStreak === 0
+            ) {
+
+                element.textContent =
+                    "Start learning today to build your first streak.";
+
+                return;
+
+            }
+
+
+            if (
+                stats.currentStreak === 1
+            ) {
+
+                element.textContent =
+                    "Great start! Come back tomorrow and make it a 2-day streak.";
+
+                return;
+
+            }
+
+
+            if (
+                stats.currentStreak < 7
+            ) {
+
+                element.textContent =
+                    `You're on a ${stats.currentStreak}-day streak. Keep it going!`;
+
+                return;
+
+            }
+
+
+            element.textContent =
+                `Amazing! You're on a ${stats.currentStreak}-day learning streak. 🔥`;
+
+        }
+
+
+        /*
+         * =====================================================
+         * Certificates
+         * =====================================================
+         */
+
+        async function loadCertificates(
+            user
+        ) {
+
+            const {
+
+                data,
+
+                error
+
+            } =
+                await supabaseClient
+
+                    .from("certificates")
+
+                    .select("*")
+
+                    .eq(
+                        "user_id",
+                        user.id
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Certificates error:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !data ||
+                data.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            const container =
+                $("certificates");
+
+
+            container.innerHTML = "";
+
+
+            data.forEach(
+                certificate => {
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "course-card";
+
+
+                    card.innerHTML = `
+
+                        <div class="course-title">
+
+                            <div class="course-icon">
+                                🏆
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    ${escapeHtml(
+                                        certificate.title ||
+                                        "Learning Certificate"
+                                    )}
+                                </h3>
+
+                                <span>
+                                    Achievement earned
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+         * =====================================================
+         * Format Date
+         * =====================================================
+         */
+
+        function formatDate(
+            date
+        ) {
+
+            return new Intl.DateTimeFormat(
+                "en-US",
+                {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                }
+            ).format(date);
+
+        }
+
+
+        /*
+         * =====================================================
+         * HTML escaping
+         * =====================================================
+         */
+
+        function escapeHtml(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+
+        }
+
+
+        /*
+         * =====================================================
+         * Logout
+         * =====================================================
+         */
+
+        function setupLogout() {
+
+            const logoutButton =
+                $("logoutButton");
+
+
+            logoutButton.addEventListener(
+                "click",
+                async () => {
+
+                    logoutButton.disabled =
+                        true;
+
+
+                    logoutButton.textContent =
+                        "Logging out...";
+
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .auth
+                            .signOut();
+
+
+                    if (error) {
+
+                        console.error(
+                            error
+                        );
+
+
+                        alert(
+                            "Unable to logout. Please try again."
+                        );
+
+
+                        logoutButton.disabled =
+                            false;
+
+
+                        logoutButton.textContent =
+                            "Logout";
+
+
+                        return;
+
+                    }
+
+
+                    window.location.href =
+                        "login.html";
+
+                }
+            );
+
+        }
 
     </script>
 

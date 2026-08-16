@@ -2,30 +2,472 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Login - IT Learning Hub</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================================
+           Login Page
+           ========================================= */
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-page {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-page::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.08);
+            top: -180px;
+            right: -140px;
+            pointer-events: none;
+        }
+
+        .auth-page::after {
+            content: "";
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: rgba(14, 165, 233, 0.06);
+            bottom: -160px;
+            left: -100px;
+            pointer-events: none;
+        }
+
+        .auth-wrapper {
+            width: 100%;
+            max-width: 1050px;
+            display: grid;
+            grid-template-columns: 1fr 460px;
+            gap: 70px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =========================================
+           Welcome Panel
+           ========================================= */
+
+        .auth-intro {
+            padding: 20px 0;
+        }
+
+        .auth-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .auth-brand-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #0ea5e9
+            );
+            color: white;
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.22);
+        }
+
+        .auth-brand-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .auth-intro .section-label {
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .auth-intro h1 {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: -0.045em;
+            margin: 0 0 22px;
+            max-width: 620px;
+        }
+
+        .auth-intro h1 span {
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #0ea5e9
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .auth-intro > p {
+            max-width: 570px;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            opacity: 0.75;
+            margin-bottom: 30px;
+        }
+
+        .auth-benefits {
+            display: grid;
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .auth-benefit {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            font-size: 0.96rem;
+            font-weight: 600;
+        }
+
+        .auth-benefit-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(37, 99, 235, 0.1);
+            flex-shrink: 0;
+        }
+
+        /* =========================================
+           Login Card
+           ========================================= */
+
+        .auth-card {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 24px;
+            padding: 38px;
+            box-shadow:
+                0 25px 70px rgba(15, 23, 42, 0.12);
+            backdrop-filter: blur(12px);
+        }
+
+        .auth-card-header {
+            margin-bottom: 28px;
+        }
+
+        .auth-card-header h2 {
+            margin: 0 0 8px;
+            font-size: 1.8rem;
+            letter-spacing: -0.03em;
+        }
+
+        .auth-card-header p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .auth-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .auth-field label {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .auth-input-wrapper {
+            position: relative;
+        }
+
+        .auth-input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        .auth-input {
+            width: 100%;
+            min-height: 52px;
+            border: 1px solid #dbe2ea;
+            border-radius: 12px;
+            padding: 0 15px 0 44px;
+            font-size: 0.96rem;
+            background: #f8fafc;
+            color: #0f172a;
+            outline: none;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .auth-input:focus {
+            background: white;
+            border-color: #2563eb;
+            box-shadow:
+                0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .auth-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0.55;
+            padding: 7px;
+        }
+
+        .password-toggle:hover {
+            opacity: 1;
+        }
+
+        .auth-error {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 11px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .auth-error.show {
+            display: block;
+        }
+
+        .auth-button {
+            width: 100%;
+            min-height: 54px;
+            border: 0;
+            border-radius: 13px;
+            margin-top: 4px;
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #0ea5e9
+            );
+            color: white;
+            font-size: 0.98rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.22);
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 14px 30px rgba(37, 99, 235, 0.28);
+        }
+
+        .auth-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+            transform: none;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0;
+            color: #94a3b8;
+            font-size: 0.78rem;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .auth-register {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .auth-register a {
+            color: #2563eb;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .auth-register a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .auth-back:hover {
+            color: #2563eb;
+        }
+
+        /* =========================================
+           Footer
+           ========================================= */
+
+        .auth-footer {
+            text-align: center;
+            padding: 22px 24px;
+            color: #94a3b8;
+            font-size: 0.78rem;
+            border-top: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        /* =========================================
+           Responsive
+           ========================================= */
+
+        @media (max-width: 850px) {
+
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+                gap: 35px;
+            }
+
+            .auth-intro {
+                text-align: center;
+            }
+
+            .auth-brand {
+                justify-content: center;
+            }
+
+            .auth-intro > p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .auth-benefits {
+                max-width: 330px;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: left;
+            }
+
+        }
+
+        @media (max-width: 520px) {
+
+            .auth-page {
+                padding: 40px 16px;
+            }
+
+            .auth-card {
+                padding: 28px 22px;
+                border-radius: 20px;
+            }
+
+            .auth-intro h1 {
+                font-size: 2.35rem;
+            }
+
+            .auth-intro > p {
+                font-size: 0.96rem;
+            }
+
+        }
+
+    </style>
+
 </head>
 
+
 <body>
+
 
     <!-- Navigation -->
 
     <nav class="navbar">
 
         <div class="logo">
+
             <a href="index.html">
                 IT Learning Hub
             </a>
+
         </div>
 
         <div class="nav-links">
 
             <a href="index.html">
                 Home
+            </a>
+
+            <a href="index.html#learning-paths">
+                Learning Paths
             </a>
 
             <a href="register.html">
@@ -39,87 +481,408 @@
 
     <!-- Login -->
 
-    <main>
+    <main class="auth-page">
 
-        <section class="lesson">
-
-            <h1>Welcome Back</h1>
-
-            <p>
-                Login to continue your learning journey.
-            </p>
+        <div class="auth-wrapper">
 
 
-            <form id="loginForm">
+            <!-- Intro -->
 
-                <div class="form-group">
+            <section class="auth-intro">
 
-                    <label for="email">
-                        Email Address
-                    </label>
+                <a
+                    href="index.html"
+                    class="auth-brand">
 
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        autocomplete="email"
-                    >
+                    <span class="auth-brand-icon">
+                        💻
+                    </span>
 
-                </div>
+                    <span class="auth-brand-name">
+                        IT Learning Hub
+                    </span>
 
-
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        required
-                        autocomplete="current-password"
-                    >
-
-                </div>
-
-
-                <button type="submit">
-                    Login
-                </button>
-
-            </form>
-
-
-            <p id="loginMessage"></p>
-
-
-            <p>
-                Don't have an account?
-                <a href="register.html">
-                    Create Account
                 </a>
-            </p>
-
-        </section>
 
 
-        <a class="back-button" href="index.html">
-            ← Back to IT Learning Hub
-        </a>
+                <span class="section-label">
+                    STUDENT LOGIN
+                </span>
+
+
+                <h1>
+                    Continue your
+                    <span>learning journey.</span>
+                </h1>
+
+
+                <p>
+                    Welcome back. Sign in to continue your courses,
+                    track your progress, complete lessons, and work
+                    toward your next achievement.
+                </p>
+
+
+                <div class="auth-benefits">
+
+                    <div class="auth-benefit">
+
+                        <span class="auth-benefit-icon">
+                            📚
+                        </span>
+
+                        <span>
+                            Continue where you left off
+                        </span>
+
+                    </div>
+
+
+                    <div class="auth-benefit">
+
+                        <span class="auth-benefit-icon">
+                            📈
+                        </span>
+
+                        <span>
+                            Track your learning progress
+                        </span>
+
+                    </div>
+
+
+                    <div class="auth-benefit">
+
+                        <span class="auth-benefit-icon">
+                            🏆
+                        </span>
+
+                        <span>
+                            Complete levels and earn certificates
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Login Card -->
+
+            <section class="auth-card">
+
+                <div class="auth-card-header">
+
+                    <h2>
+                        Welcome back 👋
+                    </h2>
+
+                    <p>
+                        Login to access your learning dashboard.
+                    </p>
+
+                </div>
+
+
+                <form
+                    id="loginForm"
+                    class="auth-form">
+
+
+                    <!-- Email -->
+
+                    <div class="auth-field">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="auth-input-wrapper">
+
+                            <span class="auth-input-icon">
+                                ✉
+                            </span>
+
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                class="auth-input"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="auth-field">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="auth-input-wrapper">
+
+                            <span class="auth-input-icon">
+                                🔒
+                            </span>
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                class="auth-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle"
+                                aria-label="Show password">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Error -->
+
+                    <div
+                        id="loginError"
+                        class="auth-error"
+                        role="alert">
+                    </div>
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        id="loginButton"
+                        class="auth-button">
+
+                        Login to My Dashboard →
+
+                    </button>
+
+                </form>
+
+
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+
+
+                <div class="auth-register">
+
+                    Don't have an account?
+
+                    <a href="register.html">
+                        Create Account
+                    </a>
+
+                </div>
+
+
+                <a
+                    href="index.html"
+                    class="auth-back">
+
+                    ← Back to IT Learning Hub
+
+                </a>
+
+            </section>
+
+        </div>
 
     </main>
 
 
+    <footer class="auth-footer">
+
+        <p>
+            © 2026 IT Learning Hub · Learn · Practice · Build
+        </p>
+
+    </footer>
+
+
     <!-- Supabase -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
 
     <script src="supabase.js"></script>
 
-    <script src="auth.js"></script>
+
+    <!-- Login Logic -->
+
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const loginError =
+            document.getElementById("loginError");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+
+        /*
+         * Show / hide password
+         */
+
+        togglePassword.addEventListener(
+            "click",
+            () => {
+
+                const isPassword =
+                    passwordInput.type === "password";
+
+                passwordInput.type =
+                    isPassword
+                        ? "text"
+                        : "password";
+
+                togglePassword.textContent =
+                    isPassword
+                        ? "🙈"
+                        : "👁";
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    isPassword
+                        ? "Hide password"
+                        : "Show password"
+                );
+
+            }
+        );
+
+
+        /*
+         * Login
+         */
+
+        loginForm.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+
+                loginError.classList.remove("show");
+                loginError.textContent = "";
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const password =
+                    passwordInput.value;
+
+
+                if (!email || !password) {
+
+                    loginError.textContent =
+                        "Please enter your email address and password.";
+
+                    loginError.classList.add("show");
+
+                    return;
+
+                }
+
+
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Signing in...";
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth.signInWithPassword({
+
+                        email: email,
+
+                        password: password
+
+                    });
+
+
+                if (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+
+                    loginError.textContent =
+                        "Unable to sign in. Please check your email and password and try again.";
+
+                    loginError.classList.add("show");
+
+
+                    loginButton.disabled = false;
+
+                    loginButton.textContent =
+                        "Login to My Dashboard →";
+
+                    return;
+
+                }
+
+
+                /*
+                 * Successful login
+                 */
+
+                if (data && data.user) {
+
+                    window.location.href =
+                        "account.html";
+
+                    return;
+
+                }
+
+
+                loginButton.disabled = false;
+
+                loginButton.textContent =
+                    "Login to My Dashboard →";
+
+            }
+        );
+
+    </script>
 
 </body>
 

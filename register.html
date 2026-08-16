@@ -2,115 +2,1613 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Create Account - IT Learning Hub</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* =========================================================
+           REGISTER PAGE
+           ========================================================= */
+
+        .auth-page {
+            min-height: calc(100vh - 80px);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 50px 20px 70px;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(37, 99, 235, 0.10),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(6, 182, 212, 0.10),
+                    transparent 30%
+                ),
+                #f8fafc;
+        }
+
+
+        .register-layout {
+            width: 100%;
+            max-width: 1080px;
+
+            display: grid;
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(380px, 0.9fr);
+
+            overflow: hidden;
+
+            border-radius: 30px;
+
+            background: white;
+
+            border: 1px solid #e2e8f0;
+
+            box-shadow:
+                0 30px 80px rgba(
+                    15,
+                    23,
+                    42,
+                    0.12
+                );
+        }
+
+
+        /* =========================================================
+           BRAND PANEL
+           ========================================================= */
+
+        .register-brand {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            padding: 58px;
+
+            color: white;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 85% 15%,
+                    rgba(34, 211, 238, 0.25),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    145deg,
+                    #0f172a,
+                    #172554 65%,
+                    #0c4a6e
+                );
+        }
+
+
+        .register-brand::before {
+            content: "";
+
+            position: absolute;
+
+            width: 320px;
+            height: 320px;
+
+            right: -150px;
+            bottom: -160px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    59,
+                    130,
+                    246,
+                    0.15
+                );
+        }
+
+
+        .brand-content {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .brand-label {
+            display: inline-flex;
+
+            align-items: center;
+
+            width: fit-content;
+
+            padding: 7px 11px;
+
+            margin-bottom: 22px;
+
+            border-radius: 999px;
+
+            color: #bae6fd;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            font-size: 0.72rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.1em;
+        }
+
+
+        .register-brand h1 {
+            margin: 0 0 18px;
+
+            max-width: 540px;
+
+            font-size:
+                clamp(
+                    2.3rem,
+                    5vw,
+                    3.8rem
+                );
+
+            line-height: 1.02;
+
+            letter-spacing: -0.055em;
+        }
+
+
+        .register-brand h1 span {
+            color: #67e8f9;
+        }
+
+
+        .register-brand > .brand-content > p {
+            max-width: 500px;
+
+            margin: 0 0 34px;
+
+            color: #cbd5e1;
+
+            line-height: 1.8;
+
+            font-size: 0.98rem;
+        }
+
+
+        /* =========================================================
+           BENEFITS
+           ========================================================= */
+
+        .learning-benefits {
+            display: grid;
+
+            gap: 14px;
+        }
+
+
+        .benefit {
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            color: #bae6fd;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+        }
+
+
+        .benefit strong {
+            display: block;
+
+            margin-bottom: 2px;
+
+            color: white;
+
+            font-size: 0.84rem;
+        }
+
+
+        .benefit span {
+            color: #94a3b8;
+
+            font-size: 0.75rem;
+        }
+
+
+        /* =========================================================
+           FORM PANEL
+           ========================================================= */
+
+        .register-form-panel {
+            padding: 48px 46px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .form-header {
+            margin-bottom: 28px;
+        }
+
+
+        .form-header h2 {
+            margin: 0 0 8px;
+
+            color: #0f172a;
+
+            font-size: 1.75rem;
+
+            letter-spacing: -0.04em;
+        }
+
+
+        .form-header p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 0.86rem;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           FORM
+           ========================================================= */
+
+        .register-form {
+            display: grid;
+
+            gap: 17px;
+        }
+
+
+        .form-group {
+            display: grid;
+
+            gap: 7px;
+        }
+
+
+        .form-group label {
+            color: #334155;
+
+            font-size: 0.78rem;
+
+            font-weight: 750;
+        }
+
+
+        .input-wrapper {
+            position: relative;
+        }
+
+
+        .form-input {
+            width: 100%;
+
+            box-sizing: border-box;
+
+            min-height: 48px;
+
+            padding:
+                0 15px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            background: #f8fafc;
+
+            color: #0f172a;
+
+            font-family: inherit;
+
+            font-size: 0.88rem;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .form-input:focus {
+            border-color: #3b82f6;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(
+                    59,
+                    130,
+                    246,
+                    0.10
+                );
+        }
+
+
+        .password-input {
+            padding-right: 48px;
+        }
+
+
+        .password-toggle {
+            position: absolute;
+
+            top: 50%;
+            right: 12px;
+
+            transform:
+                translateY(-50%);
+
+            border: 0;
+
+            background: transparent;
+
+            color: #64748b;
+
+            cursor: pointer;
+
+            font-size: 0.78rem;
+
+            font-weight: 700;
+        }
+
+
+        .password-toggle:hover {
+            color: #2563eb;
+        }
+
+
+        /* =========================================================
+           PASSWORD STRENGTH
+           ========================================================= */
+
+        .password-strength {
+            display: grid;
+
+            gap: 6px;
+
+            margin-top: 3px;
+        }
+
+
+        .strength-bars {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 4px;
+        }
+
+
+        .strength-bar {
+            height: 4px;
+
+            border-radius: 999px;
+
+            background: #e2e8f0;
+
+            transition:
+                background 0.2s ease;
+        }
+
+
+        .strength-text {
+            color: #94a3b8;
+
+            font-size: 0.7rem;
+        }
+
+
+        /* =========================================================
+           ERROR / SUCCESS
+           ========================================================= */
+
+        .form-message {
+            display: none;
+
+            padding: 11px 13px;
+
+            border-radius: 11px;
+
+            font-size: 0.78rem;
+
+            line-height: 1.5;
+        }
+
+
+        .form-message.error {
+            display: block;
+
+            color: #991b1b;
+
+            background: #fef2f2;
+
+            border:
+                1px solid #fecaca;
+        }
+
+
+        .form-message.success {
+            display: block;
+
+            color: #166534;
+
+            background: #f0fdf4;
+
+            border:
+                1px solid #bbf7d0;
+        }
+
+
+        /* =========================================================
+           TERMS
+           ========================================================= */
+
+        .terms {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 9px;
+
+            color: #64748b;
+
+            font-size: 0.7rem;
+
+            line-height: 1.5;
+        }
+
+
+        .terms input {
+            margin-top: 2px;
+        }
+
+
+        /* =========================================================
+           SUBMIT
+           ========================================================= */
+
+        .register-button {
+            width: 100%;
+
+            min-height: 50px;
+
+            border: 0;
+
+            border-radius: 12px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #0ea5e9
+                );
+
+            font-family: inherit;
+
+            font-size: 0.86rem;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 24px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.20
+                );
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+
+        .register-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.25
+                );
+        }
+
+
+        .register-button:disabled {
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =========================================================
+           LOGIN LINK
+           ========================================================= */
+
+        .login-link {
+            margin-top: 24px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 0.78rem;
+        }
+
+
+        .login-link a {
+            color: #2563eb;
+
+            font-weight: 800;
+
+            text-decoration: none;
+        }
+
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        .back-link {
+            display: block;
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #94a3b8;
+
+            font-size: 0.72rem;
+
+            text-decoration: none;
+        }
+
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 850px) {
+
+            .register-layout {
+                grid-template-columns: 1fr;
+
+                max-width: 560px;
+            }
+
+
+            .register-brand {
+                padding: 38px 34px;
+            }
+
+
+            .register-brand h1 {
+                font-size: 2.5rem;
+            }
+
+
+            .learning-benefits {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+
+            .benefit {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 8px;
+            }
+
+
+            .register-form-panel {
+                padding: 38px 34px;
+            }
+
+        }
+
+
+        @media (max-width: 560px) {
+
+            .auth-page {
+                padding:
+                    25px 14px 45px;
+            }
+
+
+            .register-layout {
+                border-radius: 22px;
+            }
+
+
+            .register-brand {
+                padding: 32px 25px;
+            }
+
+
+            .register-brand h1 {
+                font-size: 2.15rem;
+            }
+
+
+            .register-brand > .brand-content > p {
+                font-size: 0.86rem;
+            }
+
+
+            .learning-benefits {
+                grid-template-columns: 1fr;
+            }
+
+
+            .benefit {
+                align-items: center;
+
+                flex-direction: row;
+            }
+
+
+            .register-form-panel {
+                padding: 32px 24px;
+            }
+
+
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <header>
-        <h1>🎓 Create Your Account</h1>
-        <p>Join IT Learning Hub and start your learning journey.</p>
-    </header>
+
+    <!-- =========================================================
+         Navigation
+         ========================================================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <a href="index.html">
+                IT Learning Hub
+            </a>
+
+        </div>
 
 
-    <main>
+        <div class="nav-links">
 
-        <section class="lesson">
+            <a href="index.html">
+                Home
+            </a>
 
-            <h2>Register</h2>
+            <a href="index.html#learning-paths">
+                Learning Paths
+            </a>
 
-            <form id="registerForm">
+            <a href="login.html">
+                Login
+            </a>
 
-                <div class="form-group">
+        </div>
 
-                    <label for="fullName">
-                        Full Name
-                    </label>
+    </nav>
 
-                    <input
-                        type="text"
-                        id="fullName"
-                        name="fullName"
-                        required
-                        autocomplete="name"
-                    >
+
+    <!-- =========================================================
+         Registration
+         ========================================================= -->
+
+    <main class="auth-page">
+
+        <div class="register-layout">
+
+
+            <!-- =================================================
+                 Brand / Motivation Panel
+                 ================================================= -->
+
+            <section class="register-brand">
+
+                <div class="brand-content">
+
+                    <span class="brand-label">
+                        IT LEARNING HUB
+                    </span>
+
+
+                    <h1>
+                        Start your
+                        <span>learning journey.</span>
+                    </h1>
+
+
+                    <p>
+                        Create your account and build your IT skills
+                        step by step. Track your progress, maintain
+                        your learning streak, and work toward your
+                        next achievement.
+                    </p>
+
+
+                    <div class="learning-benefits">
+
+
+                        <div class="benefit">
+
+                            <div class="benefit-icon">
+                                ✓
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Track Your Progress
+                                </strong>
+
+                                <span>
+                                    See how far you've come.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="benefit">
+
+                            <div class="benefit-icon">
+                                🔥
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Build Your Streak
+                                </strong>
+
+                                <span>
+                                    Make learning a daily habit.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="benefit">
+
+                            <div class="benefit-icon">
+                                🏆
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Earn Achievements
+                                </strong>
+
+                                <span>
+                                    Complete levels and earn certificates.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 Form
+                 ================================================= -->
+
+            <section class="register-form-panel">
+
+
+                <div class="form-header">
+
+                    <h2>
+                        Create your account
+                    </h2>
+
+                    <p>
+                        Join IT Learning Hub and start learning today.
+                    </p>
 
                 </div>
 
 
-                <div class="form-group">
+                <form
+                    id="registerForm"
+                    class="register-form"
+                    novalidate>
 
-                    <label for="email">
-                        Email Address
+
+                    <!-- Full Name -->
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <input
+                            id="fullName"
+                            name="fullName"
+                            type="text"
+                            class="form-input"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required>
+
+                    </div>
+
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            class="form-input"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                class="form-input password-input"
+                                placeholder="Create a strong password"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required>
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="password">
+
+                                Show
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="password-strength">
+
+                            <div class="strength-bars">
+
+                                <span
+                                    class="strength-bar">
+                                </span>
+
+                                <span
+                                    class="strength-bar">
+                                </span>
+
+                                <span
+                                    class="strength-bar">
+                                </span>
+
+                                <span
+                                    class="strength-bar">
+                                </span>
+
+                            </div>
+
+
+                            <span
+                                id="strengthText"
+                                class="strength-text">
+
+                                Use at least 6 characters.
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Confirm Password -->
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <input
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type="password"
+                                class="form-input password-input"
+                                placeholder="Repeat your password"
+                                autocomplete="new-password"
+                                required>
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="confirmPassword">
+
+                                Show
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Message -->
+
+                    <div
+                        id="formMessage"
+                        class="form-message">
+                    </div>
+
+
+                    <!-- Terms -->
+
+                    <label class="terms">
+
+                        <input
+                            id="terms"
+                            type="checkbox"
+                            required>
+
+                        <span>
+                            I understand that my account will be used
+                            to track my learning progress and activity
+                            on IT Learning Hub.
+                        </span>
+
                     </label>
 
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        autocomplete="email"
-                    >
+
+                    <!-- Submit -->
+
+                    <button
+                        id="registerButton"
+                        type="submit"
+                        class="register-button">
+
+                        Create My Account
+
+                    </button>
+
+
+                </form>
+
+
+                <div class="login-link">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Login
+                    </a>
 
                 </div>
 
 
-                <div class="form-group">
+                <a
+                    href="index.html"
+                    class="back-link">
 
-                    <label for="password">
-                        Password
-                    </label>
+                    ← Back to IT Learning Hub
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        minlength="6"
-                        required
-                        autocomplete="new-password"
-                    >
+                </a>
 
-                </div>
+            </section>
 
-
-                <button type="submit">
-                    Create Account
-                </button>
-
-            </form>
-
-
-            <p id="registerMessage"></p>
-
-
-            <p>
-                Already have an account?
-                <a href="login.html">Login</a>
-            </p>
-
-        </section>
-
-
-        <a class="back-button" href="index.html">
-            ← Back to IT Learning Hub
-        </a>
+        </div>
 
     </main>
 
 
-    <!-- Supabase Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- =========================================================
+         Footer
+         ========================================================= -->
 
-    <!-- Our Supabase configuration -->
+    <footer>
+
+        <p>
+            © 2026 IT Learning Hub
+        </p>
+
+        <p>
+            Learn · Practice · Build
+        </p>
+
+    </footer>
+
+
+    <!-- =========================================================
+         Supabase
+         ========================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
     <script src="supabase.js"></script>
 
-    <!-- Registration logic -->
-    <script src="auth.js"></script>
+
+    <!-- =========================================================
+         Registration Logic
+         ========================================================= -->
+
+    <script>
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        const registerButton =
+            document.getElementById("registerButton");
+
+        const formMessage =
+            document.getElementById("formMessage");
+
+        const password =
+            document.getElementById("password");
+
+        const confirmPassword =
+            document.getElementById("confirmPassword");
+
+        const strengthText =
+            document.getElementById("strengthText");
+
+        const strengthBars =
+            document.querySelectorAll(
+                ".strength-bar"
+            );
+
+
+        /*
+         * =====================================================
+         * Password visibility
+         * =====================================================
+         */
+
+        document
+            .querySelectorAll(".password-toggle")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const target =
+                            document.getElementById(
+                                button.dataset.target
+                            );
+
+
+                        const visible =
+                            target.type === "text";
+
+
+                        target.type =
+                            visible
+                                ? "password"
+                                : "text";
+
+
+                        button.textContent =
+                            visible
+                                ? "Show"
+                                : "Hide";
+
+                    }
+                );
+
+            });
+
+
+        /*
+         * =====================================================
+         * Password strength
+         * =====================================================
+         */
+
+        password.addEventListener(
+            "input",
+            updatePasswordStrength
+        );
+
+
+        function updatePasswordStrength() {
+
+            const value =
+                password.value;
+
+
+            let score = 0;
+
+
+            if (value.length >= 6) {
+                score++;
+            }
+
+
+            if (value.length >= 10) {
+                score++;
+            }
+
+
+            if (/[A-Z]/.test(value)) {
+                score++;
+            }
+
+
+            if (
+                /[0-9]/.test(value) ||
+                /[^A-Za-z0-9]/.test(value)
+            ) {
+                score++;
+            }
+
+
+            strengthBars.forEach(
+                (bar, index) => {
+
+                    bar.style.background =
+                        index < score
+                            ? "#2563eb"
+                            : "#e2e8f0";
+
+                }
+            );
+
+
+            if (!value) {
+
+                strengthText.textContent =
+                    "Use at least 6 characters.";
+
+                return;
+
+            }
+
+
+            if (score <= 1) {
+
+                strengthText.textContent =
+                    "Weak password.";
+
+                return;
+
+            }
+
+
+            if (score === 2) {
+
+                strengthText.textContent =
+                    "Fair password.";
+
+                return;
+
+            }
+
+
+            if (score === 3) {
+
+                strengthText.textContent =
+                    "Good password.";
+
+                return;
+
+            }
+
+
+            strengthText.textContent =
+                "Strong password.";
+
+        }
+
+
+        /*
+         * =====================================================
+         * Message helper
+         * =====================================================
+         */
+
+        function showMessage(
+            message,
+            type = "error"
+        ) {
+
+            formMessage.textContent =
+                message;
+
+            formMessage.className =
+                `form-message ${type}`;
+
+        }
+
+
+        /*
+         * =====================================================
+         * Registration
+         * =====================================================
+         */
+
+        registerForm.addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+
+                const fullName =
+                    document
+                        .getElementById("fullName")
+                        .value
+                        .trim();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const passwordValue =
+                    password.value;
+
+
+                const confirmValue =
+                    confirmPassword.value;
+
+
+                const terms =
+                    document
+                        .getElementById("terms")
+                        .checked;
+
+
+                /*
+                 * Validation
+                 */
+
+                if (!fullName) {
+
+                    showMessage(
+                        "Please enter your full name."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!email) {
+
+                    showMessage(
+                        "Please enter your email address."
+                    );
+
+                    return;
+
+                }
+
+
+                if (passwordValue.length < 6) {
+
+                    showMessage(
+                        "Password must contain at least 6 characters."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    passwordValue !==
+                    confirmValue
+                ) {
+
+                    showMessage(
+                        "Passwords do not match."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!terms) {
+
+                    showMessage(
+                        "Please confirm that you understand how your account will be used."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Loading state
+                 */
+
+                registerButton.disabled =
+                    true;
+
+                registerButton.textContent =
+                    "Creating Account...";
+
+
+                formMessage.className =
+                    "form-message";
+
+
+                try {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient.auth.signUp({
+
+                            email:
+                                email,
+
+                            password:
+                                passwordValue,
+
+                            options: {
+
+                                data: {
+
+                                    full_name:
+                                        fullName
+
+                                }
+
+                            }
+
+                        });
+
+
+                    if (error) {
+
+                        console.error(
+                            "Registration error:",
+                            error
+                        );
+
+                        showMessage(
+                            error.message ||
+                            "Unable to create your account."
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Successful registration
+                     */
+
+                    showMessage(
+                        "Your account has been created successfully. You can now continue to your learning dashboard.",
+                        "success"
+                    );
+
+
+                    registerButton.textContent =
+                        "Account Created ✓";
+
+
+                    /*
+                     * If email confirmation is disabled,
+                     * Supabase may return a session immediately.
+                     */
+
+                    if (data.session) {
+
+                        setTimeout(
+                            () => {
+
+                                window.location.href =
+                                    "account.html";
+
+                            },
+                            1000
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * If email confirmation is enabled,
+                     * send the user to login.
+                     */
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                "login.html";
+
+                        },
+                        1800
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Unexpected registration error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        "Something went wrong. Please try again."
+                    );
+
+
+                } finally {
+
+                    if (
+                        registerButton.textContent !==
+                        "Account Created ✓"
+                    ) {
+
+                        registerButton.disabled =
+                            false;
+
+                        registerButton.textContent =
+                            "Create My Account";
+
+                    }
+
+                }
+
+            }
+        );
+
+    </script>
 
 </body>
 
