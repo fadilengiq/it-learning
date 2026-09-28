@@ -1,0 +1,20 @@
+services:
+  web:
+    image: node:22
+    working_dir: /app
+    volumes:
+      - .:/app
+      - base44_npm_cache:/root/.npm
+    command: sh -c "npx --yes live-server@1.2.2 --host=0.0.0.0 --port=3000 --no-browser"
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r => { if (!r.ok || !(r.headers.get('content-type') || '').includes('text/html')) process.exit(1) }).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+
+volumes:
+  base44_npm_cache:
